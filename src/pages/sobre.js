@@ -1,12 +1,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
+import styled from 'styled-components'
 
+import * as Colors from '../assets/styles/colors'
 import {
   Container, Layout, Seo,
-} from '../../components'
+} from '../components'
 
-import * as S from './styles'
+const S = {
+  List: styled.ul`
+    padding-left: 1rem;
+  `,
+  Text: styled.p`
+    font-size: 1rem;
+    color: ${Colors.ABOUT_TEXT_COLOR};
+    line-height: 1.7rem;
+  `,
+  Title: styled.h1`
+    color: ${Colors.ABOUT_TITLE_COLOR};
+    font-size: 2rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    transition: color 0.1s ease;
+  `,
+}
 
 const About = ({ data }) => {
   const { categoriesGroup, tagsGroup } = data
