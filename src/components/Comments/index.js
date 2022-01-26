@@ -5,13 +5,13 @@ import PropTypes from 'prop-types'
 import * as S from './styles'
 
 const Comments = ({ title, url }) => {
-  const completeUrl = `https://papobiblia.com.br/${url}`
+  const completeUrl = `https://allanramos.com.br/${url}`
 
   return (
     <S.Wrapper>
       <h2>Comentários</h2>
       <ReactDisqusComments
-        shortname="papo-biblia"
+        shortname="allan-ramos-blog"
         identifier={completeUrl}
         title={title}
         url={completeUrl}

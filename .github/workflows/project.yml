@@ -1,4 +1,4 @@
-name: Papo Bíblia Blog
+name: Allan Ramos Blog
 
 on: ["pull_request"]
 

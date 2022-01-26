@@ -1,8 +1,8 @@
 backend:
   name: github
-  repo: allangrds/papo-biblia-blog
+  repo: allangrds/allan-ramos-blog
   branch: master
-  site_domain: https://www.papobiblia.com.br
+  site_domain: https://www.allanramos.com.br
 
 publish_mode: editorial_workflow
 media_folder: "static/assets/uploads"
