@@ -45,3 +45,5 @@ export const VERSE_BOOK = WHITE
 export const VERSE_VERSE = BLACK
 export const VERSE_LINK = BLUE
 
+export const LOGO_TITLE_COLOR = BLACK
+export const LOGO_SUBTITLE_COLOR = GRAY
