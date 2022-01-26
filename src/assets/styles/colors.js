@@ -47,3 +47,6 @@ export const VERSE_LINK = BLUE
 
 export const LOGO_TITLE_COLOR = BLACK
 export const LOGO_SUBTITLE_COLOR = GRAY
+
+export const ABOUT_TITLE_COLOR = BLACK
+export const ABOUT_TEXT_COLOR = BLACK

@@ -17,6 +17,10 @@ const makeLinks = (categoriesGroup, tagsGroup) => {
     label: 'Pesquisar',
     to: '/pesquisar',
   }
+  const others = [{
+    label: 'Sobre',
+    to: '/sobre',
+  }]
   const categories = (
     groupCategories && groupCategories[0].fieldValue.length > 0
   )
@@ -39,6 +43,7 @@ const makeLinks = (categoriesGroup, tagsGroup) => {
     const finalLinks = [
       lastPosts,
       search,
+      ...others,
     ]
 
     return finalLinks
@@ -52,6 +57,7 @@ const makeLinks = (categoriesGroup, tagsGroup) => {
         label: 'Categorias',
       },
       search,
+      ...others,
     ]
 
     return finalLinks
@@ -65,6 +71,7 @@ const makeLinks = (categoriesGroup, tagsGroup) => {
         label: 'Tags',
       },
       search,
+      ...others,
     ]
 
     return finalLinks
@@ -81,6 +88,7 @@ const makeLinks = (categoriesGroup, tagsGroup) => {
       label: 'Tags',
     },
     search,
+    ...others,
   ]
 
   return finalLinks
