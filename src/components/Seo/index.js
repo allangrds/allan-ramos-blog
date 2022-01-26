@@ -38,7 +38,7 @@ function Seo ({
           name: 'description',
         },
         {
-          content: 'Caju Tech',
+          content: 'Allan Ramos',
           property: 'og:site_name',
         },
         {
