@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import LogoIcon from '../../../static/assets/images/logo.svg'
 import WaveBackground from '../../../static/assets/images/wave.svg'
+import Logo from '../Logo'
 import * as Colors from '../../assets/styles/colors'
 import * as S from './styles'
 
@@ -17,6 +17,10 @@ const makeLinks = (categoriesGroup, tagsGroup) => {
     label: 'Pesquisar',
     to: '/pesquisar',
   }
+  const others = [{
+    label: 'Sobre',
+    to: '/sobre',
+  }]
   const categories = (
     groupCategories && groupCategories[0].fieldValue.length > 0
   )
@@ -39,6 +43,7 @@ const makeLinks = (categoriesGroup, tagsGroup) => {
     const finalLinks = [
       lastPosts,
       search,
+      ...others,
     ]
 
     return finalLinks
@@ -52,6 +57,7 @@ const makeLinks = (categoriesGroup, tagsGroup) => {
         label: 'Categorias',
       },
       search,
+      ...others,
     ]
 
     return finalLinks
@@ -65,6 +71,7 @@ const makeLinks = (categoriesGroup, tagsGroup) => {
         label: 'Tags',
       },
       search,
+      ...others,
     ]
 
     return finalLinks
@@ -81,6 +88,7 @@ const makeLinks = (categoriesGroup, tagsGroup) => {
       label: 'Tags',
     },
     search,
+    ...others,
   ]
 
   return finalLinks
@@ -98,7 +106,7 @@ const Header = ({ categoriesGroup, tagsGroup }) => {
     <S.Header>
       <WaveBackground fill={Colors.GRAY_3} width="100%" />
       <S.Container>
-        <LogoIcon width="130" />
+        <Logo />
         <S.Navigation isOpen={isOpen}>
           <S.List>
             {

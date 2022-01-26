@@ -24,6 +24,11 @@ export const HeroImage = styled.div`
 export const PostContent = styled.div`
   margin-top: 30px;
 
+  code {
+    background-color: ${Colors.POST_CODE_COLOR};
+    font-weight: bold;
+  }
+
   h1,
   h2,
   h3,
@@ -35,19 +40,19 @@ export const PostContent = styled.div`
   }
 
   h1 {
-    font-size: 1.5em;
+    font-size: 1.7rem;
   }
 
   h2 {
-    font-size: 1.4em;
+    font-size: 1.6rem;
   }
 
   h3 {
-    font-size: 1.3em;
+    font-size: 1.5rem;
   }
 
   h4 {
-    font-size: 1.2em;
+    font-size: 1.4rem;
   }
 
   p {
@@ -61,6 +66,15 @@ export const PostContent = styled.div`
 
   pre {
     margin-bottom: 1.6rem;
+    overflow-x: scroll;
+
+    @media(max-width: ${Widths.MOBILE_WIDTH}) {
+      max-width: 978px;
+    }
+
+    @media(min-width: ${Widths.DESKTOP_WIDTH}) {
+      max-width: 678px;
+    }
   }
 
   p,
@@ -70,7 +84,7 @@ export const PostContent = styled.div`
   ul,
   li,
   pre > code{
-    font-size: 1em;
+    font-size: 1rem;
     line-height: 2;
   }
 
