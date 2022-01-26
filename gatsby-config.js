@@ -105,9 +105,9 @@ module.exports = {
     },
   ],
   siteMetadata: {
-    author: '@papobiblia',
-    description: 'Vida, universo e tudo mais',
-    siteUrl: 'https://papobiblia.com.br',
-    title: 'Papo Bíblia',
+    author: '@allanramos',
+    description: 'Aprendendo e compartilhando tecnologia',
+    siteUrl: 'https://allanramos.com.br',
+    title: 'Allan Ramos',
   },
 }
