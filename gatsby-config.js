@@ -26,9 +26,14 @@ module.exports = {
     'gatsby-plugin-image',
     {
       options: {
+        // enable ip anonymization
+        anonymize: false,
+        // Puts tracking script in the head instead of the body
+        head: false,
+        // your google analytics tracking id
         trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID,
       },
-      resolve: 'gatsby-plugin-google-analytics',
+      resolve: 'gatsby-plugin-gtag',
     },
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sitemap',
