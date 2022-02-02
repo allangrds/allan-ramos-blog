@@ -99,7 +99,7 @@ const BlogPost = ({ data, location }) => {
 }
 
 export const query = graphql`
-  query Post($id: String) {
+  query Post($slug: String!) {
     tagsGroup: allMdx(limit: 2000) {
       group(field: frontmatter___tags) {
         fieldValue
@@ -110,7 +110,7 @@ export const query = graphql`
         fieldValue
       }
     }
-    mdx(id: {eq: $id}) {
+    mdx(fields: { slug: { eq: $slug } }) {
       fields {
         slug
       }

@@ -54,7 +54,7 @@ exports.createPages = ({ actions, graphql }) => {
       createPage({
         component: path.resolve('./src/templates/BlogPost/index.js'),
         context: {
-          slug: node.id,
+          slug: node.fields.slug,
         },
         path: node.fields.slug,
       })
