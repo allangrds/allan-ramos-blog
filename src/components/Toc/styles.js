@@ -24,7 +24,7 @@ export const InnerScroll = styled.nav`
 `
 
 export const Title = styled.h1`
-  font-size: 1.2em;
+  font-size: 1.2rem;
   font-weight: normal;
   text-transform: uppercase;
   letter-spacing: 0.2em;
@@ -32,7 +32,7 @@ export const Title = styled.h1`
   margin-top: 0;
 `
 
-const margins = {
+const leftMargins = {
   1: '0',
   2: '10px',
   3: '20px',
@@ -40,14 +40,23 @@ const margins = {
   5: '40px',
 }
 
+const bottomMargins = {
+  1: '10px',
+  2: '5px',
+  3: '10px',
+  4: '0',
+  5: '0',
+}
+
 export const Link = styled.a`
   color: ${props => (props.active ? Colors.PRIMARY : Colors.TITLE)};
   text-decoration: none;
   display: block;
-  line-height: 2em;
-  font-size: 0.95em;
+  line-height: 1.7rem;
+  font-size: 0.9rem;
   transition: color 0.1s ease;
-  margin-left: ${props => margins[props.depth]};
+  margin-left: ${props => leftMargins[props.depth]};
+  margin-bottom: ${props => bottomMargins[props.depth]};
 
   &:hover {
     color: ${Colors.TITLE_HOVER};
