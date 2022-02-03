@@ -1,3 +1,4 @@
+/* eslint-disable */
 require('dotenv').config()
 
 const queries = require('./src/utils/algolia_queries')
@@ -107,6 +108,62 @@ module.exports = {
         queries,
       },
       resolve: 'gatsby-plugin-algolia-search',
+    },
+    {
+      options: {
+        feeds: [
+          {
+            output: '/rss.xml',
+            query: `
+            {
+              allMdx {
+                edges {
+                  node {
+                    id
+                    fields {
+                      slug
+                    }
+                    frontmatter {
+                      title
+                      date
+                      description
+                      subtitle
+                    }
+                  }
+                }
+              }
+            }
+            `,
+            serialize ({ query: { site, allMdx } }) {
+              return allMdx.edges.map(edge => {
+                return Object.assign(
+                  {},
+                  edge.node.frontmatter,
+                  {
+                    description: edge.node.frontmatter.description,
+                    date: edge.node.frontmatter.date,
+                    url: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                  }
+                )
+              })
+            },
+            title: 'Allan Ramos RSS feed',
+          },
+        ],
+        query: `
+        {
+          site {
+            siteMetadata {
+              title
+              description
+              siteUrl
+              site_url: siteUrl
+            }
+          }
+        }
+        `,
+      },
+      resolve: 'gatsby-plugin-feed',
     },
   ],
   siteMetadata: {

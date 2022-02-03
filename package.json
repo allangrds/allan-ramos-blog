@@ -31,7 +31,7 @@
     "babel-plugin-styled-components": "1.13.2",
     "gatsby": "3.11.1",
     "gatsby-plugin-algolia-search": "0.5.7",
-    "gatsby-plugin-feed": "3.11.0",
+    "gatsby-plugin-feed": "^3.11.0",
     "gatsby-plugin-gtag": "^1.0.13",
     "gatsby-plugin-image": "1.11.0",
     "gatsby-plugin-manifest": "3.11.0",
