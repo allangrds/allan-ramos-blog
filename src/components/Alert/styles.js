@@ -6,6 +6,12 @@ export const Alert = styled.div`
   background-color: ${props => props.color.background};
   border-left: 6px solid ${props => props.color.border};
   margin-bottom: 14px;
+  font-size: 1rem;
+
+  & p {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 `
 
 export const Message = styled.p`

@@ -44,15 +44,15 @@ export const PostContent = styled.div`
   }
 
   h2 {
-    font-size: 1.6rem;
+    font-size: 1.55rem;
   }
 
   h3 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
   h4 {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
   }
 
   p {
@@ -86,6 +86,10 @@ export const PostContent = styled.div`
   pre > code{
     font-size: 1rem;
     line-height: 2;
+  }
+
+  ul {
+    padding-left: 2rem;
   }
 
   img {
