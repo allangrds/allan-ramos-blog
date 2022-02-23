@@ -44,7 +44,7 @@ export const HeroImage = styled.div`
 
 export const Title = styled.h1`
   color: ${Colors.TITLE};
-  font-size: 2.5em;
+  font-size: 2.5rem;
   font-weight: bold;
   margin-top: 0;
   margin-bottom: 0;
@@ -53,14 +53,14 @@ export const Title = styled.h1`
 
 export const Subtitle = styled.h2`
   color: ${Colors.SUBTITLE};
-  font-size: 1.7em;
+  font-size: 1.7rem;
   margin-top: 5px;
   margin-bottom: 0;
   font-weight: 500;
 `
 
 export const Description = styled.p`
-  font-size: 1.3em;
+  font-size: 1.3rem;
   margin-top: 20px;
   margin-bottom: 0;
   line-height: 2;
@@ -69,7 +69,7 @@ export const Description = styled.p`
 export const ReadMore = styled.span`
   display: block;
   color: ${Colors.BUTTON};
-  font-size: 1.2em;
+  font-size: 1.2rem;
   background-color: ${Colors.BUTTON_BACKGROUND};
   max-width: 120px;
   text-align: center;

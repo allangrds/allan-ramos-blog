@@ -74,7 +74,7 @@ export const PostBox = styled.div`
 `
 
 export const Description = styled.p`
-  font-size: 1em;
+  font-size: 1rem;
   margin-top: 20px;
   margin-bottom: 0;
   line-height: 2;

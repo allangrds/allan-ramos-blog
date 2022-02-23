@@ -107,7 +107,7 @@ export const StyledLink = styled(Link)`
     `}
 
     ${props => props.isOpen && `
-      font-size: 1.5em;
+      font-size: 1.2rem;
     `}
   }
 `
@@ -136,7 +136,7 @@ export const SimpleLink = styled(Link)`
   }
 
   @media(max-width: ${Widths.MOBILE_WIDTH}) {
-    font-size: 1em;
+    font-size: 1rem;
   }
 `
 

@@ -2,6 +2,7 @@ import Alert from './Alert'
 import CodeBlock from './CodeBlock'
 import Comments from './Comments'
 import Container from './Container'
+import EmbedVideo from './EmbedVideo'
 import FeaturedPost from './FeaturedPost'
 import Header from './Header'
 import Layout from './Layout'
@@ -21,6 +22,7 @@ export {
   CodeBlock,
   Comments,
   Container,
+  EmbedVideo,
   FeaturedPost,
   Header,
   Layout,

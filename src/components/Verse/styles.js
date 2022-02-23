@@ -36,7 +36,7 @@ export const VerseHeader = styled.header`
 
 export const Book = styled.span`
   display: block;
-  font-size: 0.9em !important;
+  font-size: 0.9rem !important;
   color: ${Colors.VERSE_BOOK};
   font-weight: normal;
   text-align: center;
@@ -48,7 +48,7 @@ export const VerseBody = styled.div`
 
 export const Verse = styled.p`
   color: ${Colors.VERSE_VERSE};
-  font-size: 0.85em !important;
+  font-size: 0.85rem !important;
   margin-bottom: 10px !important;
   margin-top: 0 !important;
   line-height: 1.6em !important;

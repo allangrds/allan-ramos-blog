@@ -17,6 +17,6 @@ export const Alert = styled.div`
 export const Message = styled.p`
   margin-top: 0 !important;
   margin-bottom: 0 !important;
-  font-size: 1em;
+  font-size: 1rem;
   color: ${props => props.color.text_color};
 `

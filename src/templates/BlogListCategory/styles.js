@@ -6,7 +6,7 @@ import * as Colors from '../../assets/styles/colors'
 export const LastPublications = styled.h1`
   color: ${Colors.LAST_PUBLICATIONS};
   text-transform: uppercase;
-  font-size: 1.38em;
+  font-size: 1.38rem;
   font-weight: normal;
   letter-spacing: 0.2em;
   margin-bottom: 70px;

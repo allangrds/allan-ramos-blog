@@ -5,9 +5,15 @@ import * as S from './styles'
 import useIntersectionObserver from './hooks'
 
 const getHrefValue = heading => (
-  heading.value.replace(/\s+/g, '-').replace(/\?/g, '').toLowerCase()
+  heading
+    .value
+    .replace(/\s+/g, '-')
+    .replace(/\?/g, '')
+    .replace(/\)/g, '')
+    .replace(/\(/g, '')
+    .replace(/\:/g, '')
+    .toLowerCase()
 )
-
 
 const Toc = ({ fixedPosition, headings }) => {
   const [activeId, setActiveId] = useState()

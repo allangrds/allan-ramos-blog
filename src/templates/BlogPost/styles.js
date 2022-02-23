@@ -55,6 +55,7 @@ export const PostContent = styled.div`
     font-size: 1.35rem;
   }
 
+  iframe,
   p {
     margin-top: 20px;
     margin-bottom: 20px;

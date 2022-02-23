@@ -104,7 +104,7 @@ const Header = ({ categoriesGroup, tagsGroup }) => {
 
   return (
     <S.Header>
-      <WaveBackground fill={Colors.GRAY_3} width="100%" />
+      <WaveBackground fill={Colors.GRAY_4} width="100%" />
       <S.Container>
         <Logo />
         <S.Navigation isOpen={isOpen}>
