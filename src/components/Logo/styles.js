@@ -16,7 +16,7 @@ export const Title = styled.h1`
 
 export const Subtitle = styled.h2`
   color: ${Colors.LOGO_SUBTITLE_COLOR};
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: normal;
   margin-bottom: 0;
   margin-top: 0;

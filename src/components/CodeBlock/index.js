@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Highlight, { defaultProps } from 'prism-react-renderer'
-import theme from 'prism-react-renderer/themes/synthwave84'
+import theme from 'prism-react-renderer/themes/dracula'
 
 const CodeBlock = ({ children }) => {
   const classNameToMatch = children.props.className || ''
