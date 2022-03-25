@@ -56,7 +56,7 @@ export const Subtitle = styled.h2`
   font-size: 1.7rem;
   margin-top: 5px;
   margin-bottom: 0;
-  font-weight: 500;
+  font-weight: 400;
 `
 
 export const Description = styled.p`

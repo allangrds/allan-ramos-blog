@@ -165,6 +165,15 @@ module.exports = {
       },
       resolve: 'gatsby-plugin-feed',
     },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `Rubik\:300,400,500,600`,
+        ],
+        display: 'swap'
+      }
+    }
   ],
   siteMetadata: {
     author: '@allanramos',

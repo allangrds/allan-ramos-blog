@@ -26,7 +26,7 @@ export const PostContent = styled.div`
 
   code {
     background-color: ${Colors.POST_CODE_COLOR};
-    font-weight: bold;
+    font-weight: 500;
   }
 
   h1,
