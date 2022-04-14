@@ -1,76 +1,81 @@
-# Allan Ramos Blog
+# Laxus
 
-Blog criado com Gatsby :D.
+Gatsby starter for creating a blog
 
-## 🚀 Instalando e rodando o projeto
+## 🚀 Installing and running the project
 
-1.  **Instale as dependências**
+1.  **Dependencies install**
 
-    ```shell
-    npm install
-    ```
+```shell
+  npm install
+```
 
-2.  **Inicie o servidor de desenvolvimento.**
+2.  **Change `gatsby-config.js` to config header and blog info**
 
-    ```shell
-    npm start
-    ```
+    2.1  Open `gatsby-config.js`
 
-3.  **Acesse sua página.**
+    2.2  Change `siteMetadata` for your blog informations like blog name, author, description and url
 
-    ```
-    http://localhost:8000/
-    ```
+3.  **Start project on development mode**
 
-## 📝 Como criar um post
+```shell
+  npm start
+```
 
-1.  **Crie o arquivo do post**
+4.  **Access your page**
 
-- O arquivo deverá ser colocado na pasta `/posts`
-- O formato do arquivo deve ser `ano-mes-dia-nome-post-separado.md`
+```
+  http://localhost:8000/
+```
 
-2.  **Coloque as informações básicas do post**
+## 📝 Creating a post
 
-- Dentro do arquivo crie uma estrutura com o seguinte conteúdo:
+1.  **How to create a post**
+
+- The post file should be at `/posts`
+- The name format should be `year-month-day-post-name.md`
+
+2.  **Insert the basic post informations**
+
+- Inside the file, create a information structure like this:
 
 ```markdown
 
 ---
-title: <nome_do_post>
-subtitle: <subtitulo_opcional_do_post>
-description: <descricao_do_post>
-date: <ano-mes-ddi hora:minuto:segundo>
-author: <nome_do_author>
-category: <front-end|back-end>
+title: <post_title>
+subtitle: <optional_subtitle>
+description: <post_description>
+date: <year-month-day hour:minute:second>
+author: <author_name>
+category: <front-end|back-end|what_ever>
 category: ['js', 'react', 'gatsby', 'redux']
-series: serie legal
+series: 'cool-series-max-width'
 ---
 ```
 
-3.  **Escreva o post**
+3.  **Write your post**
 
-- Após isso, escreva o conteúdo do seu post.
+- Let's write!
 
-### Inserindo uma imagem no post
+### Inserting images inside the post
 
-1.  **Coloque as imagens na pasta**
+1.  **Where to put the images**
 
-- Insira as imagens na pasta `/static/assets/uploads`;
-- Tente não inserir imagens com mais de 1mb;
-- O nome do arquivo deve seguir `nome_arquivo.extensao`
+- Put the images in the following folder  `/static/assets/uploads`;
+- The file name shoud be `file_name.extension`
 
-2.  **Inserindo a imagem no posto**
+2.  **How to import**
 
-    Exemplo para inserir no post
+```markdown
+  ![Gatsby Logo](/assets/uploads/light.jpeg)
+```
 
-    ```markdown
-    ![Logo Gatsby](/assets/uploads/light.jpeg)
-    ```
+## 📝 Schedule a post
 
-## 📝 Agendar um post
-
-1.  **Na descrição do PR, coloque a data que deverá ser mergeado o post seguindo o exemplo abaixo:**
+1.  **In the description of the PR, put the date that the post should be merged following the example below:**
 
 ```
 /schedule 2020-09-02
 ```
+
+## Layout

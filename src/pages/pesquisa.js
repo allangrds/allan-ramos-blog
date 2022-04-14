@@ -6,12 +6,14 @@ import {
   Container, Layout, Seo, Search,
 } from '../components'
 
-const NotFoundPage = ({ data }) => (
+const SearchPage = ({ data }) => (
   <Layout
     categoriesGroup={data.categoriesGroup}
+    siteMetaData={data.site.siteMetadata}
+    seriesGroup={data.seriesGroup}
     tagsGroup={data.tagsGroup}
   >
-    <Seo title="Pesquisar posts" />
+    <Seo title="Search posts" />
     <Container>
       <Search />
     </Container>
@@ -20,6 +22,12 @@ const NotFoundPage = ({ data }) => (
 
 export const query = graphql`
   query SearchCategoriesList {
+    site {
+      siteMetadata {
+        title
+        description
+      }
+    }
     tagsGroup: allMdx(limit: 2000) {
       group(field: frontmatter___tags) {
         fieldValue
@@ -30,16 +38,27 @@ export const query = graphql`
         fieldValue
       }
     }
+    seriesGroup: allMdx(limit: 2000) {
+      group(field: frontmatter___series) {
+        fieldValue
+      }
+    }
   }
 `
 
-NotFoundPage.propTypes = {
+SearchPage.propTypes = {
   data: PropTypes.shape({
     categoriesGroup: PropTypes.shape({
       group: PropTypes.arrayOf(PropTypes.shape({
         fieldValue: PropTypes.string,
       })),
     }).isRequired,
+    seriesGroup: PropTypes.shape({
+      group: PropTypes.arrayOf(PropTypes.shape({
+        fieldValue: PropTypes.string,
+      })),
+    }).isRequired,
+    site: PropTypes.shape({}).isRequired,
     tagsGroup: PropTypes.shape({
       group: PropTypes.arrayOf(PropTypes.shape({
         fieldValue: PropTypes.string,
@@ -48,4 +67,4 @@ NotFoundPage.propTypes = {
   }).isRequired,
 }
 
-export default NotFoundPage
+export default SearchPage

@@ -1,6 +1,7 @@
 const path = require('path')
 
 const { createFilePath } = require('gatsby-source-filesystem')
+require('./src/utils/helpers/replaceAll')
 
 exports.onCreateNode = ({ actions, getNode, node }) => {
   const { createNodeField } = actions
@@ -52,7 +53,7 @@ exports.createPages = ({ actions, graphql }) => {
 
     posts.forEach(({ node }) => {
       createPage({
-        component: path.resolve('./src/templates/BlogPost/index.js'),
+        component: path.resolve('./src/templates/PostDetails/index.js'),
         context: {
           slug: node.fields.slug,
         },
@@ -65,7 +66,7 @@ exports.createPages = ({ actions, graphql }) => {
 
     Array.from({ length: numPages }).forEach((_, index) => {
       createPage({
-        component: path.resolve('./src/templates/BlogList/index.js'),
+        component: path.resolve('./src/templates/PostsListing/index.js'),
         context: {
           currentPage: index + 1,
           limit: postsPerPage,
@@ -86,7 +87,7 @@ exports.createPages = ({ actions, graphql }) => {
       }
     `)
   }).then((result) => {
-    const categoryTemplate = path.resolve('./src/templates/BlogListCategory/index.js')
+    const categoryTemplate = path.resolve('./src/templates/PostsByCategory/index.js')
     const categories = result.data.categoriesGroup.group
 
     categories.forEach((tag) => {
@@ -95,7 +96,7 @@ exports.createPages = ({ actions, graphql }) => {
         context: {
           category: tag.fieldValue,
         },
-        path: `/categorias/${tag.fieldValue}`,
+        path: `/categorias/${tag.fieldValue.toLowerCase().replaceAll(' ', '-')}`,
       })
     })
 
@@ -109,17 +110,41 @@ exports.createPages = ({ actions, graphql }) => {
       }
     `)
   }).then((result) => {
-    const tagTemplate = path.resolve('./src/templates/BlogListTags/index.js')
+    const tagTemplate = path.resolve('./src/templates/PostsByTag/index.js')
     const tags = result.data.tagsGroup.group
 
-    return tags.forEach((tag) => {
+    tags.forEach((tag) => {
       createPage({
         component: tagTemplate,
         context: {
           tag: tag.fieldValue,
         },
-        path: `/tags/${tag.fieldValue}`,
+        path: `/tags/${tag.fieldValue.toLowerCase().replaceAll(' ', '-')}`,
       })
     })
+
+    return graphql(`
+      {
+        seriesGroup: allMdx(limit: 2000) {
+          group(field: frontmatter___series) {
+            fieldValue
+          }
+        }
+      }
+    `)
   })
+    .then((result) => {
+      const seriesTemplate = path.resolve('./src/templates/PostsBySerie/index.js')
+      const series = result.data.seriesGroup.group
+
+      series.forEach((serie) => {
+        createPage({
+          component: seriesTemplate,
+          context: {
+            serie: serie.fieldValue,
+          },
+          path: `/series/${serie.fieldValue.toLowerCase().replaceAll(' ', '-')}`,
+        })
+      })
+    })
 }

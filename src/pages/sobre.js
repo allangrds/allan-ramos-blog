@@ -27,14 +27,21 @@ const S = {
 }
 
 const About = ({ data }) => {
-  const { categoriesGroup, tagsGroup } = data
+  const {
+    categoriesGroup, seriesGroup, site, tagsGroup,
+  } = data
 
   return (
-    <Layout categoriesGroup={categoriesGroup} tagsGroup={tagsGroup}>
-      <Seo title="Sobre" />
+    <Layout
+      categoriesGroup={categoriesGroup}
+      tagsGroup={tagsGroup}
+      seriesGroup={seriesGroup}
+      siteMetaData={site.siteMetadata}
+    >
+      <Seo title="About" />
       <Container>
         <S.Title>
-          Sobre
+          About
         </S.Title>
         <S.Text>
           Oi, tudo bem?
@@ -78,6 +85,12 @@ const About = ({ data }) => {
 
 export const query = graphql`
   query AboutList {
+    site {
+      siteMetadata {
+        title
+        description
+      }
+    }
     tagsGroup: allMdx(limit: 2000) {
       group(field: frontmatter___tags) {
         fieldValue
@@ -85,6 +98,11 @@ export const query = graphql`
     }
     categoriesGroup: allMdx(limit: 2000) {
       group(field: frontmatter___category) {
+        fieldValue
+      }
+    }
+    seriesGroup: allMdx(limit: 2000) {
+      group(field: frontmatter___series) {
         fieldValue
       }
     }

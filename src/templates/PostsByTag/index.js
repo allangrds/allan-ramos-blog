@@ -3,47 +3,34 @@ import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
 
 import {
-  Container, FeaturedPost, Layout, Pagination, Post, Seo,
+  Container, Layout, Post, Seo,
 } from '../../components'
 import * as S from './styles'
 
-const BlogList = ({ data, pageContext }) => {
-  const { allMdx, categoriesGroup, tagsGroup } = data
-  const posts = allMdx.edges
-
+const PostByTag = ({ data, pageContext }) => {
   const {
-    currentPage,
-    numPages,
-  } = pageContext
-  const isFirst = currentPage === 1
-  const isLast = currentPage === numPages
-  const prevPage = currentPage - 1 === 1
-    ? '/'
-    : `/page/${currentPage - 1}`
-  const nextPage = `/page/${currentPage + 1}`
-  const featuredPost = posts.slice(0, 1)
-  const normalPosts = posts.slice(1, posts.length)
+    allMdx, categoriesGroup, seriesGroup, site, tagsGroup,
+  } = data
+  const posts = allMdx.edges
+  const { tag } = pageContext
 
   return (
-    <Layout categoriesGroup={categoriesGroup} tagsGroup={tagsGroup}>
-      <Seo title="Home" />
+    <Layout
+      categoriesGroup={categoriesGroup}
+      tagsGroup={tagsGroup}
+      seriesGroup={seriesGroup}
+      siteMetaData={site.siteMetadata}
+    >
+      <Seo title={tag} />
       <Container>
-        <FeaturedPost
-          key={featuredPost[0].node.fields.slug}
-          title={featuredPost[0].node.frontmatter.title}
-          subtitle={featuredPost[0].node.frontmatter.subtitle}
-          heroImage={featuredPost[0].node.frontmatter.hero_image}
-          description={featuredPost[0].node.frontmatter.description}
-          slug={featuredPost[0].node.fields.slug}
-        />
         {
-          normalPosts.length > 0 && (
+          posts.length > 0 && (
             <>
               <S.LastPublications>
-                Últimas publicações
+                Posts about {tag}
               </S.LastPublications>
               {
-                normalPosts.map(
+                posts.map(
                   ({
                     node: {
                       fields: {
@@ -74,14 +61,6 @@ const BlogList = ({ data, pageContext }) => {
                   ),
                 )
               }
-              <Pagination
-                isFirst={isFirst}
-                isLast={isLast}
-                currentPage={currentPage}
-                numPages={numPages}
-                prevPage={prevPage}
-                nextPage={nextPage}
-              />
             </>
           )
         }
@@ -91,7 +70,13 @@ const BlogList = ({ data, pageContext }) => {
 }
 
 export const query = graphql`
-  query PostList($skip: Int!, $limit: Int!) {
+  query PostListTags($tag: String) {
+    site {
+      siteMetadata {
+        title
+        description
+      }
+    }
     tagsGroup: allMdx(limit: 2000) {
       group(field: frontmatter___tags) {
         fieldValue
@@ -102,10 +87,15 @@ export const query = graphql`
         fieldValue
       }
     }
+    seriesGroup: allMdx(limit: 2000) {
+      group(field: frontmatter___series) {
+        fieldValue
+      }
+    }
     allMdx(
+      limit: 2000
       sort: { fields: frontmatter___date, order: DESC }
-      limit: $limit
-      skip: $skip
+      filter: { frontmatter: { tags: { eq: $tag } } }
     ) {
       edges {
         node {
@@ -132,12 +122,13 @@ export const query = graphql`
   }
 `
 
-BlogList.propTypes = {
+PostByTag.propTypes = {
   data: PropTypes.shape().isRequired,
   pageContext: PropTypes.shape({
     currentPage: PropTypes.string.isRequired,
     numPages: PropTypes.string.isRequired,
+    tag: PropTypes.string.isRequired,
   }).isRequired,
 }
 
-export default BlogList
+export default PostByTag

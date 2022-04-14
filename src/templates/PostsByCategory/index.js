@@ -7,20 +7,27 @@ import {
 } from '../../components'
 import * as S from './styles'
 
-const BlogListCategory = ({ data, pageContext }) => {
-  const { allMdx, categoriesGroup, tagsGroup } = data
+const PostsByCategory = ({ data, pageContext }) => {
+  const {
+    allMdx, categoriesGroup, seriesGroup, site, tagsGroup,
+  } = data
   const posts = allMdx.edges
-  const { tag } = pageContext
+  const { category } = pageContext
 
   return (
-    <Layout categoriesGroup={categoriesGroup} tagsGroup={tagsGroup}>
-      <Seo title="Home" />
+    <Layout
+      categoriesGroup={categoriesGroup}
+      siteMetaData={site.siteMetadata}
+      tagsGroup={tagsGroup}
+      seriesGroup={seriesGroup}
+    >
+      <Seo title={category} />
       <Container>
         {
           posts.length > 0 && (
             <>
               <S.LastPublications>
-                Postagens sobre {tag}
+                Posts about {category}
               </S.LastPublications>
               {
                 posts.map(
@@ -63,7 +70,13 @@ const BlogListCategory = ({ data, pageContext }) => {
 }
 
 export const query = graphql`
-  query PostListTags($tag: String) {
+  query PostListCategory($category: String) {
+    site {
+      siteMetadata {
+        title
+        description
+      }
+    }
     tagsGroup: allMdx(limit: 2000) {
       group(field: frontmatter___tags) {
         fieldValue
@@ -74,10 +87,15 @@ export const query = graphql`
         fieldValue
       }
     }
+    seriesGroup: allMdx(limit: 2000) {
+      group(field: frontmatter___series) {
+        fieldValue
+      }
+    }
     allMdx(
       limit: 2000
       sort: { fields: frontmatter___date, order: DESC }
-      filter: { frontmatter: { tags: { eq: $tag } } }
+      filter: { frontmatter: { category: { eq: $category } } }
     ) {
       edges {
         node {
@@ -104,13 +122,13 @@ export const query = graphql`
   }
 `
 
-BlogListCategory.propTypes = {
+PostsByCategory.propTypes = {
   data: PropTypes.shape().isRequired,
   pageContext: PropTypes.shape({
+    category: PropTypes.string.isRequired,
     currentPage: PropTypes.string.isRequired,
     numPages: PropTypes.string.isRequired,
-    tag: PropTypes.string.isRequired,
   }).isRequired,
 }
 
-export default BlogListCategory
+export default PostsByCategory

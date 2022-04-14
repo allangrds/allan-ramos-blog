@@ -1,21 +1,24 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
+import '../../utils/helpers/replaceAll'
 import WaveBackground from '../../../static/assets/images/wave.svg'
 import Logo from '../Logo'
 import * as Colors from '../../assets/styles/colors'
 import * as S from './styles'
 
-const makeLinks = (categoriesGroup, tagsGroup) => {
+const makeLinks = (categoriesGroup, tagsGroup, seriesGroup) => {
   const { group: groupCategories } = categoriesGroup
   const { group: groupTags } = tagsGroup
-  const lastPosts = {
-    label: 'Últimas publicações',
+  const { group: groupSeries } = seriesGroup
+
+  const latestPosts = {
+    label: 'Últimos posts',
     to: '/',
   }
   const search = {
-    label: 'Pesquisar',
-    to: '/pesquisar',
+    label: 'Pesquisa',
+    to: '/pesquisa',
   }
   const others = [{
     label: 'Sobre',
@@ -26,67 +29,88 @@ const makeLinks = (categoriesGroup, tagsGroup) => {
   )
     ? groupCategories.map(postType => ({
       label: postType.fieldValue,
-      to: `/categorias/${postType.fieldValue}`,
+      to: `/categorias/${postType.fieldValue.toLowerCase().replaceAll(' ', '-')}`,
     }))
     : []
   const tags = (groupTags && groupTags[0].fieldValue.length > 0)
     ? groupTags.map(tag => ({
       label: tag.fieldValue,
-      to: `/tags/${tag.fieldValue}`,
+      to: `/tags/${tag.fieldValue.toLowerCase().replaceAll(' ', '-')}`,
+    }))
+    : []
+
+  const series = (groupSeries && groupSeries[0].fieldValue.length > 0)
+    ? groupSeries.map(serie => ({
+      label: serie.fieldValue.replaceAll('-', ' '),
+      to: `/series/${serie.fieldValue.toLowerCase().replaceAll(' ', '-')}`,
     }))
     : []
 
   const hasCategories = categories && categories.length > 0
   const hasTags = tags && tags.length > 0
+  const hasSeries = series && series.length > 0
 
-  if (!hasCategories && !hasTags) {
-    const finalLinks = [
-      lastPosts,
-      search,
-      ...others,
-    ]
+  let finalLinks = [latestPosts]
 
-    return finalLinks
-  }
+  if (hasCategories) {
+    const othersCategories = {
+      label: 'Outros',
+      to: '/categorias',
+    }
+    const categoriesSize = categories ? categories.length : 0
+    const formatedCatories = categoriesSize > 3
+      ? [...categories.slice(0, 3), othersCategories]
+      : categories
 
-  if (!hasTags) {
-    const finalLinks = [
-      lastPosts,
+    finalLinks = [
+      ...finalLinks,
       {
-        children: categories,
+        children: formatedCatories,
         label: 'Categorias',
       },
-      search,
-      ...others,
     ]
-
-    return finalLinks
   }
 
-  if (!hasCategories) {
-    const finalLinks = [
-      lastPosts,
+  if (hasSeries) {
+    const othersSeries = {
+      label: 'Outros',
+      to: '/series',
+    }
+    const seriesSize = series ? series.length : 0
+    const formatedSeries = seriesSize > 3
+      ? [...series.slice(0, 3), othersSeries]
+      : series
+
+    finalLinks = [
+      ...finalLinks,
       {
-        children: tags,
+        children: formatedSeries,
+        label: 'Series',
+      },
+    ]
+  }
+
+  if (hasTags) {
+    const othersTags = {
+      label: 'Outros',
+      to: '/tags',
+    }
+    const tagsSize = tags ? tags.length : 0
+    const formatedTags = tagsSize > 3
+      ? [...tags.slice(0, 3), othersTags]
+      : tags
+
+    finalLinks = [
+      ...finalLinks,
+      {
+        children: formatedTags,
         label: 'Tags',
       },
-      search,
-      ...others,
     ]
-
-    return finalLinks
   }
 
-  const finalLinks = [
-    lastPosts,
-    {
-      children: categories,
-      label: 'Categorias',
-    },
-    {
-      children: tags,
-      label: 'Tags',
-    },
+  finalLinks = [
+    ...finalLinks,
     search,
     ...others,
   ]
@@ -94,9 +118,11 @@ const makeLinks = (categoriesGroup, tagsGroup) => {
   return finalLinks
 }
 
-const Header = ({ categoriesGroup, tagsGroup }) => {
+const Header = ({
+  categoriesGroup, seriesGroup, siteMetaData, tagsGroup,
+}) => {
   const [isOpen, setIsOpen] = useState(false)
-  const links = makeLinks(categoriesGroup, tagsGroup)
+  const links = makeLinks(categoriesGroup, tagsGroup, seriesGroup)
 
   function handleToggle () {
     setIsOpen(!isOpen)
@@ -106,7 +132,10 @@ const Header = ({ categoriesGroup, tagsGroup }) => {
     <S.Header>
       <WaveBackground fill={Colors.GRAY_4} width="100%" />
       <S.Container>
-        <Logo />
+        <Logo
+          title={siteMetaData.title}
+          description={siteMetaData.description}
+        />
         <S.Navigation isOpen={isOpen}>
           <S.List>
             {
@@ -122,7 +151,7 @@ const Header = ({ categoriesGroup, tagsGroup }) => {
                     {
                       children && (
                         <S.CardWrapper>
-                          <S.Card>
+                          <S.Card isSingle={children.length <= 1}>
                             {
                               children.map(child => (
                                 <S.SimpleLink
@@ -159,6 +188,8 @@ Header.propTypes = {
       fieldValue: PropTypes.string,
     })),
   }).isRequired,
+  seriesGroup: PropTypes.shape({}).isRequired,
+  siteMetaData: PropTypes.shape({}).isRequired,
   tagsGroup: PropTypes.shape({
     group: PropTypes.arrayOf(PropTypes.shape({
       fieldValue: PropTypes.string,

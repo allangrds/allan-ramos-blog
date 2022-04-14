@@ -85,7 +85,7 @@ export const PostContent = styled.div`
   ul,
   li,
   pre > code{
-    font-size: 1rem;
+    font-size: 1.1rem;
     line-height: 2;
   }
 
@@ -122,5 +122,11 @@ export const PostContent = styled.div`
     background-image: url("/assets/images/left_quote.svg");
     background-repeat: no-repeat;
     background-size: contain;
+  }
+
+  i,
+  em {
+    background-color: ${Colors.ITALIC_COLOR};
+    padding: 5px 8px;
   }
 `

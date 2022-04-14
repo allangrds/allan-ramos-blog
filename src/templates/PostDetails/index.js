@@ -23,8 +23,10 @@ const components = {
   pre: CodeBlock,
 }
 
-const BlogPost = ({ data, location }) => {
-  const { categoriesGroup, mdx, tagsGroup } = data
+const PostDetails = ({ data, location }) => {
+  const {
+    categoriesGroup, mdx, seriesGroup, site, tagsGroup,
+  } = data
   const post = mdx
   const [fixedToc, setFixedToc] = useState(false)
 
@@ -54,6 +56,8 @@ const BlogPost = ({ data, location }) => {
     <Layout
       categoriesGroup={categoriesGroup}
       tagsGroup={tagsGroup}
+      seriesGroup={seriesGroup}
+      siteMetaData={site.siteMetadata}
     >
       <Seo
         title={seoTitle}
@@ -100,6 +104,12 @@ const BlogPost = ({ data, location }) => {
 
 export const query = graphql`
   query Post($slug: String!) {
+    site {
+      siteMetadata {
+        title
+        description
+      }
+    }
     tagsGroup: allMdx(limit: 2000) {
       group(field: frontmatter___tags) {
         fieldValue
@@ -107,6 +117,11 @@ export const query = graphql`
     }
     categoriesGroup: allMdx(limit: 2000) {
       group(field: frontmatter___category) {
+        fieldValue
+      }
+    }
+    seriesGroup: allMdx(limit: 2000) {
+      group(field: frontmatter___series) {
         fieldValue
       }
     }
@@ -137,11 +152,11 @@ export const query = graphql`
   }
 `
 
-BlogPost.propTypes = {
+PostDetails.propTypes = {
   data: PropTypes.shape().isRequired,
   location: PropTypes.shape({
     href: PropTypes.string.isRequired,
   }).isRequired,
 }
 
-export default BlogPost
+export default PostDetails

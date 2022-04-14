@@ -23,7 +23,7 @@ export const Header = styled.header`
 export const Container = styled.div`
   display: flex;
   width: 100%;
-  max-width: ${Widths.MAX_WIDTH};
+  max-width: ${Widths.CONTAINER_MAX_WIDTH};
   align-items: center;
 `
 
@@ -60,7 +60,7 @@ export const Card = styled.div`
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: ${({ isSingle }) => (isSingle ? '1fr' : '1fr 1fr')};
     gap: 14px;
     width: 100%;
   }
@@ -165,10 +165,10 @@ export const Navigation = styled.nav`
       position: absolute;
       top: 0;
       left: 0;
-      height: 100vh;
       padding-top: 18px;
-      background-color: rgba(255, 255, 255, 0.95);
+      background-color: rgba(255, 255, 255, 1);
       z-index: 10;
+      overflow: scroll;
     `}
   }
 `
