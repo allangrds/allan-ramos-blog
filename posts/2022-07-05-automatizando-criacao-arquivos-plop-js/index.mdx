@@ -1,0 +1,284 @@
+---
+title: Automatizando a criação de arquivos com Plop.js
+subtitle: Criando pastas e arquivos com conteúdos iguais
+description:
+hero_image: "/assets/uploads/cover/useeffect_vs_uselayouteffect.png"
+date: 2022-07-05 12:00:00
+author: Allan Ramos
+category: 'Ferramentas'
+series: ''
+tags: ['node']
+---
+
+# Repetição que poderia não existir
+
+Não é que eu me esforce muito para tal, mas criar sempre aquela mesma estruturinha e conteúdo base de arquivos é aquele tipo de tarefa que poderia não existir.
+
+Segue abaixo um exemplo do que eu crio quando insiro um novo componente em meu projeto com React:
+
+```ts
+//index.ts
+export { MyComponent } from './MyComponent'
+export type { MyComponentProps } from './MyComponent'
+```
+
+```tsx
+//MyComponent.tsx
+import * as React from 'react'
+
+export type MyComponentProps = {
+  name: string
+}
+
+export const MyComponent = ({ name }: MyComponentProps) => (
+  <p>
+    { name }
+  </p>
+)
+```
+
+```tsx
+//MyComponent.stories.tsx
+import * as React from 'react'
+import { ComponentStory, ComponentMeta } from '@storybook/react'
+
+import { MyComponent } from '.'
+import type { MyComponentProps } from '.'
+
+export default {
+  title: 'Components/MyComponent',
+  component: MyComponent,
+} as ComponentMeta<typeof MyComponent>
+
+const Template: ComponentStory<typeof MyComponent> = (args: MyComponentProps) => (
+  <MyComponent {...args} />
+)
+
+export const Default = Template.bind({})
+Default.args = {
+  name: 'João Banana',
+}
+```
+
+```tsx
+//MyComponent.test.tsx
+import * as React from 'react'
+import { render, screen } from '@testing-library/react'
+
+import { MyComponent } from '.'
+import type { MyComponentProps } from '.'
+
+const defaultProps = {
+  name: 'João Banana',
+}
+
+const selectors = {
+  name: (name = defaultProps.name) => screen.getByText(name),
+}
+
+const renderComponent = (props: MyComponentProps = defaultProps) =>
+  render(<MyComponent {...props} />)
+
+test('should render the component correctly', async () => {
+  renderComponent()
+
+  expect(selectors.name()).toBeInTheDocument()
+})
+```
+
+No final das contas o que eu tenho é um componente, arquivo do storybook e arquivo do teste. Por mais que cada componente seja diferente e os testes e suas propriedades mudem, existe uma base de código presente em todos.
+
+# Conhecendo o Plop.js
+
+O [Plop.js](https://plopjs.com) permite criarmos comandos para gerar arquivos com a estrutura que desejarmos.
+
+Basta rodar um `npm run plop` para ver algo como a imagem abaixo, escrever algumas informações e ter toda aquela estrutura que mostrei anteriormente em uma pasta nova de meu projeto.
+
+![plop cli](/assets/uploads/posts/plop/plop.png)
+
+# Instalando
+
+```bash
+npm install --save-dev plop
+```
+
+Insira o comando abaixo em seu `package.json`:
+
+```json
+"plop": "plop"
+```
+
+# Criando nosso gerador de componentes
+
+Na raíz de seu projeto, crie o arquivo `plopfile.js` com o seguinte conteúdo:
+
+```js
+const componentGenerator = require('./plop/component/index')
+
+module.exports = function (plop) {
+  componentGenerator(plop)
+}
+```
+
+Estamos criando uma função que o Plop.js executará passando o objeto `plop` como parâmetro. Com esse objeto executaremos funções para criar nosso gerador.
+
+# Criando um arquivo gerador base para componentes
+
+O que eu desejo com o Plop.js é que apenas com o nome de meu componente ele seja criada uma pasta com toda a estrutura de código e arquivos. Para isso, vamos criar um arquivo no caminho `plop/component/index.hbs` com o seguinte conteúdo:
+
+```js
+module.exports = function (plop) {
+  plop.setGenerator('component', {
+    description: 'this is a skeleton plopfile',
+    prompts: [], // array com perguntas que serão mostradas no terminal
+    actions: []  // array de ações para serem executadas após respoder as perguntas
+  });
+};
+```
+
+Esse é o conteúdo base de um gerador. Você usa a função `setGenerator` com 2 parâmetros. O primeiro, o nome do gerador, e o segundo, um objeto com 3 opções:
+  - `description`: descrição do gerador;
+  - `prompts`: array com perguntas que serão mostradas no terminal;
+  - `actions`: array de ações para serem executadas após respoder as perguntas.
+
+Sabendo disso, vamos começar a primeira e única pergunta de nosso gerador, que é saber qual o nome do componente:
+
+```js
+module.exports = function (plop) {
+  plop.setGenerator('component', {
+    description: 'React component generator',
+    prompts: [
+      {
+        type: 'input',
+        name: 'component_name',
+        message: 'Enter the component name: '
+      }
+    ],
+  })
+};
+```
+
+![plop cli](/assets/uploads/posts/plop/plop.png)
+
+Com esse código estamos configurando justamente isso que você está vendo. Um input com o texto "Enter the component name:" e com o nome "component_name", que usaremos nas actions.
+
+Para finalizarmos essa parte, agora precisamos definir as ações. O que eu desejo é que sejam criados 4 arquivos diferentes, cada um com sua configuração e código diferente. Para isso, vamos deixar o código assim:
+
+```js
+module.exports = function (plop) {
+  plop.setGenerator('component', {
+    description: 'React component generator',
+    prompts: [
+      {
+        type: 'input',
+        name: 'component_name',
+        message: 'Enter the component name: '
+      }
+    ],
+    actions: [
+      {
+        type: 'add',
+        path: './src/components/{{pascalCase component_name}}/index.ts',
+        templateFile: 'plop/component/index-template.hbs'
+      },
+      {
+        type: 'add',
+        path: './src/components/{{pascalCase component_name}}/{{pascalCase component_name}}.tsx',
+        templateFile: 'plop/component/component-template.hbs'
+      },
+      {
+        type: 'add',
+        path: './src/components/{{pascalCase component_name}}/{{pascalCase component_name}}.stories.tsx',
+        templateFile: 'plop/component/stories-template.hbs'
+      },
+      {
+        type: 'add',
+        path: './src/components/{{pascalCase component_name}}/{{pascalCase component_name}}.test.tsx',
+        templateFile: 'plop/component/test-template.hbs'
+      }
+    ]
+  })
+};
+```
+
+Vamos entender cada um das chaves presentes nesse objeto:
+
+- `type: 'add'`: estou dizendo que desejo adicionar um único arquivo em determinado caminho de meu projeto;
+- `path: './src/components/{{pascalCase component_name}}/index.ts'`: aqui eu informo o caminho de meu arquivo, e perceba uma coisa, como desejo criar o arquivo `index.ts` dentro de uma nova pasta, eu preciso pegar o nome do componente que foi colocado na CLI, e para isso coloco seu nome(`component_name`) entre colchetes duplos. Como desejo que a pasta siga o padrão `PascalCase`, coloco essa informação com espaço antes do valor que desejo formatar.
+- `templateFile: 'plop/component/index-template.hbs'`: o caminho do arquivo de template que será usado para criar esse arquivo.
+
+# Criando nossos templates de arquivos
+
+Para usar o código abaixo crie o arquivo `index-template.hbs` na raíz de `plop/component/`.
+
+```hbs
+//index-template.hbs
+export { {{pascalCase component_name}} } from './{{pascalCase component_name}}'
+```
+
+Os valores obtidos no preenchimento pela CLI também estão disponíveis aqui, e também com funções de formatação.
+
+```hbs
+//component-template.hbs
+import * as React from 'react'
+
+export type {{pascalCase component_name}}Props = {
+  name: string;
+}
+
+export const {{pascalCase component_name}} = ({ name }: {{pascalCase component_name}}Props) => (
+  <p>
+    { name }
+  </p>
+)
+```
+
+```hbs
+//stories-template.hbs
+import * as React from 'react'
+import { ComponentStory, ComponentMeta } from '@storybook/react'
+
+import { {{pascalCase component_name}} } from './{{pascalCase component_name}}'
+import type { {{pascalCase component_name}}Props } from './{{pascalCase component_name}}'
+
+export default {
+  title: 'Components/{{pascalCase component_name}}',
+  component: {{pascalCase component_name}},
+} as ComponentMeta<typeof {{pascalCase component_name}}>
+
+const Template: ComponentStory<typeof {{pascalCase component_name}}> = (args: {{pascalCase component_name}}Props) => (
+  <{{pascalCase component_name}} {...args} />
+)
+
+export const Default = Template.bind({})
+Default.args = {
+  name: 'João Banana',
+}
+```
+
+```hbs
+//test-template.hbs
+
+import * as React from 'react'
+import { render, screen } from '@testing-library/react'
+
+import { {{pascalCase component_name}} } from '.'
+import type { {{pascalCase component_name}}Props } from '.'
+
+const defaultProps = {
+  name: 'João Banana',
+}
+
+const selectors = {
+  name: (name = defaultProps.name) => screen.getByText(name),
+}
+
+const renderComponent = (props: MyComponentProps = defaultProps) =>
+  render(<MyComponent {...props} />)
+
+test('should render the component correctly', async () => {
+  renderComponent()
+
+  expect(selectors.name()).toBeInTheDocument()
+})
+```
