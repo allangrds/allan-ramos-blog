@@ -79,11 +79,11 @@ const selectors = {
 const renderComponent = (props: MyComponentProps = defaultProps) =>
   render(<MyComponent {...props} />)
 
-test('should render the component correctly', async () => {
-  renderComponent()
+  test('should render the component correctly', async () => {
+    renderComponent()
 
-  expect(selectors.name()).toBeInTheDocument()
-})
+    expect(selectors.name()).toBeInTheDocument()
+  })
 ```
 
 No final das contas o que eu tenho é um componente, arquivo do storybook e arquivo do teste. Por mais que cada componente seja diferente e os testes e suas propriedades mudem, existe uma base de código presente em todos.
