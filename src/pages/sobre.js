@@ -41,7 +41,7 @@ const About = ({ data }) => {
       <Seo title="About" />
       <Container>
         <S.Title>
-          About
+          Sobre
         </S.Title>
         <S.Text>
           Oi, tudo bem?
