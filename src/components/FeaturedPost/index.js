@@ -28,7 +28,7 @@ const Post = ({
           </S.Description>
           )}
           <S.ReadMore>
-            Read more
+            Leia mais
           </S.ReadMore>
         </div>
         <S.HeroImage image={`/assets/uploads/${heroImage.relativePath}`} />
