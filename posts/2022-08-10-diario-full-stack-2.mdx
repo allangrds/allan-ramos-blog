@@ -1,0 +1,586 @@
+---
+title: Diário Fullstack 2
+subtitle: Bootstrap do projeto
+description:
+hero_image: "/assets/uploads/cover/fullstack.png"
+date: 2022-08-10 10:30:00
+author: Allan Ramos
+category: 'Back-end'
+series: 'Virando fullstack'
+tags: ['Typescript', 'Node']
+---
+
+Pra começar esses estudos, acredito que nada melhor do que começar com uma projetinho prático. Os detalhes do teste em questão você encontra [aqui](https://github.com/allangrds/pagarme-multi-credit-card/blob/main/CHALLANGE.md).
+
+Como vim do JS, permanecerei nessa minha zona de conforto, fazendo meu projeto com Express e Typescript.
+
+Partiu?
+
+Bom…a real é que escrevi esse post depois de ter criado essa base do projeto, então alguns comandos pra gerar alguns arquivos ficarão de fora.
+
+# Iniciando o projeto
+
+## Instalando as dependências
+
+Vamos começar criando o `package.json`, e para isso, execute em seu terminal `npm init` para criar um arquivo bem básico com algumas informações de seu projeto.
+
+Feito isso, rode os comandos abaixo para instalar algumas dependências para criarmos nosso hello world.
+
+```shell
+npm install cors dotenv express
+npm install --save-dev @types/cors @types/express @types/node concurrently nodemon typescript ts-node
+```
+
+Com os comandos acima nós instalamos dependências para termos nosso servidor Node com Ts rodando.
+
+## Configurando o Typescript
+
+1. Crie o arquivo `tsconfig.json` executando o comando `npx tsc --init`
+1. Abra o arquivo criado e coloque `"$schema": "[https://json.schemastore.org/tsconfig](https://json.schemastore.org/tsconfig)",` logo acima da chave compilerOptions.
+1. Procure por `outDir` e o mude para `"outDir": "./dist",`.
+
+## Criando comandos para rodar o projeto
+
+1. Acesse seu `package.json`
+2. Altere o campo `main` para `"main": "./src/start/server.ts",`
+3. Insira os comandos abaixo na parte de `scripts`:
+
+```json
+"build": "npx tsc",
+"start": "node dist/index.js",
+"dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/start/server.js\"",
+```
+
+Com isso nós temos um comando para buildar o projeto typescript, rodar o projeto buildado, e por último, rodar o projeto em modo de desenvolvimento.
+
+## Criando os arquivos do projeto
+
+1. Crie um arquivo `.env` na raíz do projeto com `PORT=8000`
+2. Crie um pasta `src` na raíz
+3. Dentro dessa pasta, crie outra chamada `start`
+4. Dentro da pasta `start`, crie um arquivo `server.ts` com o seguinte conteúdo:
+
+```ts
+import dotenv from 'dotenv'
+
+import { app } from './app'
+
+dotenv.config()
+const port = process.env.PORT
+
+app.listen(port, () => {
+  console.log(`Server is running at http://localhost:${port}`)
+})
+```
+
+Através desse código eu estou fazendo algumas coisas:
+
+1. Importando a biblioteca `dotenv` para fazer uso do valor `PORT` que coloquei dentro de meu arquivo `.env`. Esse valor será usado para iniciar o servidor Node nessa porta
+2. Importando o arquivo app, que tem configurações do express, iniciando o que ele tem lá dentro(ao importá-lo), e iniciando um listener que será acionado quando o servidor estiver rodando na porta 8000
+
+Continuando…
+
+5. Dentro da pasta `start`, crie um arquivo com o nome `app.ts` e coloque o seguinte conteúdo nele:
+
+```ts
+import express, {
+  Errback, Express, Request, Response,
+} from 'express'
+import cors from 'cors'
+
+import { router } from '../routes'
+
+const app: Express = express()
+
+app.use(cors())
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+app.use(router)
+
+app.use((req: Request, res: Response) => {
+  res.status(404).json({ message: 'Page Not Found' })
+})
+
+app.use((err: Errback, req: Request, res: Response) => res.status(500).json({ message: 'Internal Error' }))
+
+export { app }
+```
+
+Através desse código eu estou fazendo algumas coisas:
+
+1. Importando meu arquivo de rotas
+2. Configurando o express, como o cors, parser de JSON, e mensagem de 404 e 500
+
+6. Dentro da pasta `src`, crie o arquivo `routes.ts` com o seguinte conteúdo:
+
+```ts
+import { Router } from 'express'
+
+const router = Router()
+
+router.get('/', (req, res) => {
+  res.json({ message: 'Hello world!' })
+})
+
+export { router }
+```
+
+Através desse código eu estou fazendo algumas coisas:
+
+1. Crio uma rota `GET /` que retorna um json
+
+Feito isso, nosso projeto já está pronto para funcionar. Agora é só rodar `npm run dev` pra ver funcionando :).
+
+# Instalando ESlint + Prettier
+
+Calma que não acabou.
+
+Precisamos ter um ferramental pra ajudar na consistência do código que escreveremos. Para isso, instalaremos o Estlint e Prettier para ajudar nessa validação e formatação.
+
+```shell
+npm install --save-dev @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint eslint-config-airbnb-base eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint-plugin-sort-destructure-keys
+```
+
+Com isso instalaremos todas as dependências que precisamos. Agora nós precisamos fazer 3 coisas:
+
+1. Criar um arquivo `.eslintrc.js` com o seguinte conteúdo:
+
+```js
+module.exports = {
+  env: {
+    es2021: true,
+    node: true,
+    jest: true,
+  },
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
+    'airbnb-base',
+  ],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+  },
+  plugins: [
+    '@typescript-eslint',
+    'jest',
+    'sort-destructure-keys',
+  ],
+  rules: {
+    semi: ['error', 'never'],
+    'no-console': 1,
+    'sort-destructure-keys/sort-destructure-keys': 2,
+    'import/prefer-default-export': 0,
+    'max-len': ['error', {
+      code: 80,
+      ignoreComments: true,
+      ignoreTrailingComments: true,
+      ignoreUrls: true,
+      ignoreStrings: true,
+      ignoreTemplateLiterals: true,
+    }],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
+  },
+  settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+      },
+    },
+  },
+}
+```
+
+2. Criar um arquivo `.eslintignore` com o seguinte conteúdo:
+
+```js
+dist
+scripts
+node_modules
+```
+
+3. Criar um arquivo `.prettierrc.json` com o seguinte conteúdo:
+
+```json
+{
+  "$schema": "http://json.schemastore.org/prettierrc",
+  "printWidth": 80,
+  "endOfLine": "lf",
+  "useTabs": false,
+  "arrowParens": "always",
+  "quoteProps": "as-needed",
+  "bracketSpacing": true,
+  "singleQuote": true,
+  "semi": false,
+  "trailingComma": "es5"
+}
+```
+
+4. Criar um arquivo `.editorconfig` com o seguinte conteúdo:
+
+```
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+indent_size = 2
+charset = utf-8
+trim_trailing_whitespace = true
+```
+
+5. Inserir no `package.json` comandos para executar essas ferramentas:
+
+```json
+"lint": "eslint . --ext .ts,.js",
+"format": "prettier --write \"**/*.{js,ts,tsx,md}\"",
+"typecheck": "tsc --noEmit --incremental false",
+```
+
+# Instalando Jest + Supertest
+
+Para terminarmos a configuração de ferramentas do projeto, agora instalaremos **Jest** e **Supertest** para termos o que é necessário para testarmos a aplicação:
+
+```bash
+npm install --save-dev supertest ts-jest @types/jest eslint-plugin-jest jest
+```
+
+No `package.json,` insira o script abaixo:
+
+```json
+"test": "jest",
+```
+
+Crie o arquivo `jest.config.ts` ********com o conteúdo abaixo:
+
+```tsx
+/*
+ * For a detailed explanation regarding each configuration property and type check, visit:
+ * https://jestjs.io/docs/configuration
+ */
+
+export default {
+  // All imported modules in your tests should be mocked automatically
+  // automock: false,
+
+  // Stop running tests after `n` failures
+  // bail: 0,
+
+  // The directory where Jest should store its cached dependency information
+  // cacheDirectory: "/private/var/folders/j8/cstcq15n69dfvn6cb5xztqtm0000gp/T/jest_dy",
+
+  // Automatically clear mock calls, instances, contexts and results before every test
+  clearMocks: true,
+
+  // Indicates whether the coverage information should be collected while executing the test
+  collectCoverage: true,
+
+  // An array of glob patterns indicating a set of files for which coverage information should be collected
+  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+  // collectCoverageFrom: undefined,
+
+  // The directory where Jest should output its coverage files
+  coverageDirectory: 'coverage',
+
+  // An array of regexp pattern strings used to skip coverage collection
+  // coveragePathIgnorePatterns: [
+  //   "/node_modules/"
+  // ],
+
+  // Indicates which provider should be used to instrument code for coverage
+  coverageProvider: 'v8',
+
+  // A list of reporter names that Jest uses when writing coverage reports
+  coverageReporters: [
+    'text-summary',
+    'lcov',
+  ],
+  // coverageReporters: [
+  //   "json",
+  //   "text",
+  //   "lcov",
+  //   "clover"
+  // ],
+
+  // An object that configures minimum threshold enforcement for coverage results
+  // coverageThreshold: undefined,
+
+  // A path to a custom dependency extractor
+  // dependencyExtractor: undefined,
+
+  // Make calling deprecated APIs throw helpful error messages
+  // errorOnDeprecated: false,
+
+  // The default configuration for fake timers
+  // fakeTimers: {
+  //   "enableGlobally": false
+  // },
+
+  // Force coverage collection from ignored files using an array of glob patterns
+  // forceCoverageMatch: [],
+
+  // A path to a module which exports an async function that is triggered once before all test suites
+  // globalSetup: undefined,
+
+  // A path to a module which exports an async function that is triggered once after all test suites
+  // globalTeardown: undefined,
+
+  // A set of global variables that need to be available in all test environments
+  // globals: {},
+
+  // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
+  // maxWorkers: "50%",
+
+  // An array of directory names to be searched recursively up from the requiring module's location
+  // moduleDirectories: [
+  //   "node_modules"
+  // ],
+
+  // An array of file extensions your modules use
+  // moduleFileExtensions: [
+  //   "js",
+  //   "mjs",
+  //   "cjs",
+  //   "jsx",
+  //   "ts",
+  //   "tsx",
+  //   "json",
+  //   "node"
+  // ],
+
+  // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
+  // moduleNameMapper: {},
+
+  // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
+  // modulePathIgnorePatterns: [],
+
+  // Activates notifications for test results
+  // notify: false,
+
+  // An enum that specifies notification mode. Requires { notify: true }
+  // notifyMode: "failure-change",
+
+  // A preset that is used as a base for Jest's configuration
+  preset: 'ts-jest', // estava comentado
+
+  // Run tests from one or more projects
+  // projects: undefined,
+
+  // Use this configuration option to add custom reporters to Jest
+  // reporters: undefined,
+
+  // Automatically reset mock state before every test
+  // resetMocks: false,
+
+  // Reset the module registry before running each individual test
+  // resetModules: false,
+
+  // A path to a custom resolver
+  // resolver: undefined,
+
+  // Automatically restore mock state and implementation before every test
+  // restoreMocks: false,
+
+  // The root directory that Jest should scan for tests and modules within
+  // rootDir: undefined,
+
+  // A list of paths to directories that Jest should use to search for files in
+  // roots: [
+  //   "<rootDir>"
+  // ],
+
+  // Allows you to use a custom runner instead of Jest's default test runner
+  // runner: "jest-runner",
+
+  // The paths to modules that run some code to configure or set up the testing environment before each test
+  // setupFiles: [],
+
+  // A list of paths to modules that run some code to configure or set up the testing framework before each test
+  // setupFilesAfterEnv: [],
+
+  // The number of seconds after which a test is considered as slow and reported as such in the results.
+  // slowTestThreshold: 5,
+
+  // A list of paths to snapshot serializer modules Jest should use for snapshot testing
+  // snapshotSerializers: [],
+
+  // The test environment that will be used for testing
+  // testEnvironment: "jest-environment-node",
+
+  // Options that will be passed to the testEnvironment
+  // testEnvironmentOptions: {},
+
+  // Adds a location field to test results
+  // testLocationInResults: false,
+
+  // The glob patterns Jest uses to detect test files
+  testMatch: ['**/__tests__/**/*.ts'],
+  // testMatch: [
+  //   "**/__tests__/**/*.[jt]s?(x)",
+  //   "**/?(*.)+(spec|test).[tj]s?(x)"
+  // ],
+
+  // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
+  // testPathIgnorePatterns: [
+  //   "/node_modules/"
+  // ],
+
+  // The regexp pattern or array of patterns that Jest uses to detect test files
+  // testRegex: [],
+
+  // This option allows the use of a custom results processor
+  // testResultsProcessor: undefined,
+
+  // This option allows use of a custom test runner
+  // testRunner: "jest-circus/runner",
+
+  // A map from regular expressions to paths to transformers
+  // transform: undefined,
+
+  // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
+  // transformIgnorePatterns: [
+  //   "/node_modules/",
+  //   "\\.pnp\\.[^\\/]+$"
+  // ],
+
+  // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
+  // unmockedModulePathPatterns: undefined,
+
+  // Indicates whether each individual test should be reported during the run
+  // verbose: undefined,
+
+  // An array of regexp patterns that are matched against all source file paths before re-running tests in watch mode
+  // watchPathIgnorePatterns: [],
+
+  // Whether to use watchman for file crawling
+  // watchman: true,
+}
+```
+
+Agora vamos criar alguns arquivos de teste pra ver isso tudo funcionando.
+
+1. Crie o arquivo `__tests__/sum.test.ts`:
+
+```tsx
+describe('Only one test', () => {
+  it('Sum 1 + 1 = 2', () => {
+    expect(1 + 1).toBe(2)
+  })
+})
+```
+
+2. Crie o arquivo `__tests__/start/app.test.ts`:
+
+```tsx
+import request from 'supertest'
+
+import { app } from '../../src/start/app'
+
+describe('Route testing', () => {
+  it('Should return an http 200 and a "message" property (route: GET /)', async () => {
+    const res = await request(app).get('/')
+
+    expect(res.status).toEqual(200)
+    expect(res.body).toHaveProperty('message')
+  })
+})
+```
+
+Agora é rodar npm run test e ver os testes sendo executados e bem sucedidos.
+
+# Configurando o CI dessa bagaça
+
+Para finalizar esse bootstrap, agora configuraremos o CI do Github. Através dele, em todos os PRs criados algumas validações serão feitas:
+
+- Lint
+- Testes
+- Build
+- Commit lint
+
+Crie o arquivo `.github/workflows/main.yml` com o seguinte conteúdo:
+
+```yml
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ '16' ]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install modules
+      run: npm install
+    - name: Build project
+      run: npm run build
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ '16' ]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install modules
+      run: npm install
+    - name: Run ESLint and Stylelint
+      run: npm run lint
+  commitlint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ '16' ]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v4
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ '16' ]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm install
+      - run: npm run test
+```
+
+Pronto!
+Com isso nós temos:
+
+1. Express + Typescript
+2. Jest + Supertest
+3. CI para executar validações a cada PR
+
+É isso, gente. Tá muito no começo esse projeto, mas é um começo.
+
+Até a próxima!

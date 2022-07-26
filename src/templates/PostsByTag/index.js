@@ -27,7 +27,7 @@ const PostByTag = ({ data, pageContext }) => {
           posts.length > 0 && (
             <>
               <S.LastPublications>
-                Posts about {tag}
+                Posts sobre {tag}
               </S.LastPublications>
               {
                 posts.map(
