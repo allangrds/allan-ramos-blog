@@ -47,7 +47,7 @@ const PostsListing = ({ data, pageContext }) => {
           normalPosts.length > 0 && (
             <>
               <S.LastPublications>
-                Latest
+                Últimas publicações
               </S.LastPublications>
               {
                 normalPosts.map(

@@ -27,7 +27,7 @@ const PostsByCategory = ({ data, pageContext }) => {
           posts.length > 0 && (
             <>
               <S.LastPublications>
-                Posts about {category}
+                Posts sobre {category}
               </S.LastPublications>
               {
                 posts.map(

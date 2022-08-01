@@ -13,6 +13,7 @@ const getHrefValue = heading => (
     .replace(/\(/g, '')
     .replace(/\:/g, '')
     .replace(/\./g, '')
+    .replace(/\+/g, '')
     .replace(/\//g, '')
     .toLowerCase()
 )
