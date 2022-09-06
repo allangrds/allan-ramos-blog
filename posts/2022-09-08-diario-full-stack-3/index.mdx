@@ -36,6 +36,17 @@ Uma transação é um conjunto de operações(queries) tratadas como apenas uma.
 ![Fluxo de uma transação](/assets/uploads/posts/diario-full-stack-3/transacao.png)
 Imagem adaptada do artigo da [Fauna](https://fauna.com/blog/database-transaction)
 
+# Atomicidade
+
+**Atomicidade**, o primeiro dos conceitos, significa que uma transação ou será totalmente executada, ou não será executada.
+
+Ex: recentemente eu fui no concerto do Senhor dos Anéis aqui no Ibirapuera - foi top, inclusive. Eu precisei reservar meu assento e depois efetuar seu pagamento. Da mesma forma, podemos pensar que essas duas ações fazem parte de uma mesma operação(transação):
+
+1. Reservar meu assento
+2. Pagar pelo assento
+
+A transação garantirá que ambas as operações, reserva e pagamento, mesmo que independentes, ocorrerão em um mesmo bloco de execução. Se qualquer uma das duas falhar, a transação toda será revertida, e minha reserva será liberada para outra transação.
+
 # Referências
 
 ## Cursos
