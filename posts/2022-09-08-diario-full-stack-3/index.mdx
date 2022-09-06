@@ -47,6 +47,18 @@ Ex: recentemente eu fui no concerto do Senhor dos Anéis aqui no Ibirapuera - fo
 
 A transação garantirá que ambas as operações, reserva e pagamento, mesmo que independentes, ocorrerão em um mesmo bloco de execução. Se qualquer uma das duas falhar, a transação toda será revertida, e minha reserva será liberada para outra transação.
 
+## Isolamento
+
+Uma transação em andamento deve permanecer isolada de outra transação, ou seja, uma transação não deve interferir em outra transação concorrente.
+
+Pensando nisso, surge outro conceito em banco de dados que se chama *"níveis de isolamento"*(isolation levels), que é justamente isso: transações afetando, ou não, ou até que ponto, outras transação que são executadas simultaneamente. Quando existe essa interferência, chamaremos isso de *"fenômeno de leitura"*(read phenomenon).
+
+### Fenômeno de leitura
+
+
+
+### Níveis de isolamento
+
 # Referências
 
 ## Cursos
