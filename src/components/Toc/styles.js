@@ -40,7 +40,7 @@ const bottomMargins = {
   1: '10px',
   2: '5px',
   3: '10px',
-  4: '0',
+  4: '5px',
   5: '0',
 }
 
