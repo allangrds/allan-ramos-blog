@@ -47,8 +47,6 @@ Ex: recentemente eu fui no concerto do Senhor dos Anéis aqui no Ibirapuera - fo
 
 A transação garantirá que ambas as operações, reserva e pagamento, mesmo que independentes, ocorrerão em um mesmo bloco de execução. Se qualquer uma das duas falhar, a transação toda será revertida, e minha reserva será liberada para outra transação.
 
-![Atomicidade](/assets/uploads/posts/diario-full-stack-3/atomicidade.png)
-
 ## Isolamento
 
 Uma transação em andamento deve permanecer isolada de outra transação, ou seja, uma transação não deve interferir em outra transação concorrente.
@@ -57,35 +55,106 @@ Pensando nisso, surge outro conceito em banco de dados que se chama **"níveis d
 
 ### Fenômeno de leitura
 
+#### Leitura suja(Dirty read)
 
+Este fenômeno acontece quando uma transação lê dados que ainda não foram comitados. Sendo assim, os dados podem variar muito, pois não sabemos se a outra transação terá suas operações comitadas ou revertidas.
+
+![Leitura suja](/assets/uploads/posts/diario-full-stack-3/dirty-read.png)
+
+#### Leitura não repetível(Non-repeatable read)
+
+Este fênomeno acontece quando em uma transação as mesmas informações são lidas 2 vezes, mas com valores diferentes, pois a linha foi alterada e comitada por outra transação.
+
+![Leitura não repetível](/assets/uploads/posts/diario-full-stack-3/non-repeatable-read.png)
+
+#### Leitura fantasma(Phatom read)
+
+Este fênomeno é parecido com o anterior, mas afeta apenas queries quee procurem por múltiplas linhas ao invés de uma - nesse nosso caso eu somei o valor de todos as linhas da tabela. Neste caso, o valor foi diferente do que deveria ser, pois foi recentemente comitado por outra transação, que nesse caso está fazendo um insert, mas poderia estar atualizando ou removendo outras linhas.
+
+![Leitura fantasma](/assets/uploads/posts/diario-full-stack-3/phantom-read.png)
+
+#### Anomalia na serialização(Serialization anomaly)
+
+Este fênomeno acontece quando um grupo de transações concorrentes e comitadas simultaneamente tem seus resultados sobrepostos uma a outra.
+
+![Serialização anômala](/assets/uploads/posts/diario-full-stack-3/serialization-anomaly.png)
 
 ### Níveis de isolamento
 
+Os níveis de isolamento da transação são a medida da qual o isolamento da transação é executado com sucesso. Cada nível de isolamento é definido pela presença de nenhum, um ou mais fenômenos, sendo eles:
+
+#### Leitura não comitada
+
+Sem isolamento. Qualquer mudança, comitada ou não, poderá ser vista na transação.
+
+#### Leitura comitada
+
+As queries de uma transação só enxergam o que foi commitado por outras transações.
+
+#### Leitura repetida
+
+A transação garantirá que enquanto uma query estiver lendo uma linha, ela permanecerá igual enquanto estiver sendo executada.
+
+#### Serializável
+
+Esse o nível mais bruto. As transações serão executadas uma após a outra, ao invés de concorrentes.
+
+<table>
+  <thead>
+    <th>Nível de isolamento</th>
+    <th>Leitura suja</th>
+    <th>Leitura não repetível</th>
+    <th>Leitura fantasma</th>
+    <th>Anomalia na serialização</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Leitura não comitada</td>
+      <td>Pode ocorrer</td>
+      <td>Pode ocorrer</td>
+      <td>Pode ocorrer</td>
+      <td>Pode ocorrer</td>
+    </tr>
+    <tr>
+      <td>Leitura comitada</td>
+      <td>-</td>
+      <td>Pode ocorrer</td>
+      <td>Pode ocorrer</td>
+      <td>Pode ocorrer</td>
+    </tr>
+    <tr>
+      <td>Leitura repetida</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>Pode ocorrer</td>
+    </tr>
+    <tr>
+      <td>Serializável</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table>
+
 # Referências
 
-## Cursos
-
-- https://www.udemy.com/course/database-engines-crash-course
-
-## Transação
-
-- https://www.youtube.com/watch?v=P80Js_qClUE
-- https://fauna.com/blog/database-transaction
-
-## ACID
-
-- https://blog.betrybe.com/tecnologia/acid-porque-usar/
-- https://www.geeksforgeeks.org/acid-properties-in-dbms/
-- https://www.youtube.com/watch?v=pomxJOFVcQs
-
-### Atomicidade
-
-- http://www.bosontreinamentos.com.br/bancos-de-dados/conceitos-de-bancos-de-dados-o-que-significa-acid/
-- https://fabiojaniolima.gitbooks.io/banco-de-dados-modelagem-de-dados/content/capitulo-1/1.6-ACID-atomicidade-consistencia-isolamento-e-durabilidade.html
-- https://medium.com/opensanca/o-que-é-acid-59b11a81e2c6
-
-### Isolamento
-
-- https://dev.to/techschoolguru/understand-isolation-levels-read-phenomena-in-mysql-postgres-c2e
-- https://www.youtube.com/watch?v=4EajrPgJAk0
-- https://www.youtube.com/watch?v=EA1sjQb_qpQ
+- Cursos
+  - https://www.udemy.com/course/database-engines-crash-course
+- Transação
+  - https://www.youtube.com/watch?v=P80Js_qClUE
+  - https://fauna.com/blog/database-transaction
+- ACID
+  - https://blog.betrybe.com/tecnologia/acid-porque-usar/
+  - https://www.geeksforgeeks.org/acid-properties-in-dbms/
+  - https://www.youtube.com/watch?v=pomxJOFVcQs
+- Atomicidade
+  - http://www.bosontreinamentos.com.br/bancos-de-dados/conceitos-de-bancos-de-dados-o-que-significa-acid/
+  - https://fabiojaniolima.gitbooks.io/banco-de-dados-modelagem-de-dados/content/capitulo-1/1.6-ACID-atomicidade-consistencia-isolamento-e-durabilidade.html
+  - https://medium.com/opensanca/o-que-é-acid-59b11a81e2c6
+- Isolamento
+  - https://dev.to/techschoolguru/understand-isolation-levels-read-phenomena-in-mysql-postgres-c2e
+  - https://www.youtube.com/watch?v=4EajrPgJAk0
+  - https://www.youtube.com/watch?v=EA1sjQb_qpQ

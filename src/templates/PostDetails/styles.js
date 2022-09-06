@@ -52,7 +52,7 @@ export const PostContent = styled.div`
   }
 
   h4 {
-    font-size: 1.35rem;
+    font-size: 1.30rem;
   }
 
   iframe,
@@ -128,5 +128,27 @@ export const PostContent = styled.div`
   em {
     background-color: ${Colors.ITALIC_COLOR};
     padding: 5px 8px;
+  }
+
+  table {
+    padding: 10px;
+    border-collapse: separate;
+    border-spacing: 0 5px;
+    border-radius: 4px;
+    border: 1px solid ${Colors.GRAY_2};
+    overflow-x:auto;
+  }
+
+  th{
+    border-bottom: 1px solid ${Colors.GRAY};
+    border-collapse: separate;
+    border-spacing: 5px 5px;
+    padding-bottom: 10px;
+  }
+
+  tr:not(:last-child) td {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid ${Colors.GRAY_2};
   }
 `
