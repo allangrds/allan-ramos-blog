@@ -36,7 +36,7 @@ Uma transação é um conjunto de operações(queries) tratadas como apenas uma.
 ![Fluxo de uma transação](/assets/uploads/posts/diario-full-stack-3/transacao.png)
 Imagem adaptada do artigo da [Fauna](https://fauna.com/blog/database-transaction)
 
-# Atomicidade
+## Atomicidade
 
 **Atomicidade**, o primeiro dos conceitos, significa que uma transação ou será totalmente executada, ou não será executada.
 
@@ -51,7 +51,7 @@ A transação garantirá que ambas as operações, reserva e pagamento, mesmo qu
 
 Uma transação em andamento deve permanecer isolada de outra transação, ou seja, uma transação não deve interferir em outra transação concorrente.
 
-Pensando nisso, surge outro conceito em banco de dados que se chama *"níveis de isolamento"*(isolation levels), que é justamente isso: transações afetando, ou não, ou até que ponto, outras transação que são executadas simultaneamente. Quando existe essa interferência, chamaremos isso de *"fenômeno de leitura"*(read phenomenon).
+Pensando nisso, surge outro conceito em banco de dados que se chama **"níveis de isolamento"**(isolation levels), que é justamente isso: transações afetando, ou não, ou até que ponto, outras transação que são executadas simultaneamente. Quando existe essa interferência, chamaremos isso de **"fenômeno de leitura"**(read phenomenon).
 
 ### Fenômeno de leitura
 
