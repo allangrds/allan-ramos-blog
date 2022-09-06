@@ -14,7 +14,7 @@ No diário anterior você percebeu que eu fiz apenas um `Hello world` para senti
 
 O primeiro ponto que preciso entender é: **que tipo de banco de dados usarei?** relacional ou não relacional(noSQL)? Se for noSQL, ainda posso escolher entre bancos **colunares**, **baseado em grafos**, **documentos** e **chave-valor.**
 
-Para começar nessa jornada, meu caro amigo Rafael Tardivo me recomendo um curso de um indiano porreta do Youtube, [**Hussein Nasser, Database Engines Crash Course**](https://www.udemy.com/course/database-engines-crash-course/), que consegui numa promoção, pagando menos de R$ 29,90.
+Para começar nessa jornada, meu caro amigo Rafael Tardivo me recomendo um curso de um indiano porreta do Youtube, [**Hussein Nasser, Database Engines Crash Course**](https://www.udemy.com/course/database-engines-crash-course/), que consegui numa promoção, pagando R$ 29,90.
 
 # ACID
 
@@ -73,7 +73,7 @@ Este fênomeno acontece quando em uma transação as mesmas informações são l
 
 ![Leitura não repetível](/assets/uploads/posts/diario-full-stack-3/non-repeatable-read.png)
 
-#### Leitura fantasma(Phatom read)
+#### Leitura fantasma(Phantom read)
 
 Este fênomeno é parecido com o anterior, mas afeta apenas queries quee procurem por múltiplas linhas ao invés de uma - nesse nosso caso eu somei o valor de todos as linhas da tabela. Neste caso, o valor foi diferente do que deveria ser, pois foi recentemente comitado por outra transação, que nesse caso está fazendo um insert, mas poderia estar atualizando ou removendo outras linhas.
 
