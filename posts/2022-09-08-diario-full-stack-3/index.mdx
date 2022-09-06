@@ -47,6 +47,12 @@ Ex: recentemente eu fui no concerto do Senhor dos Anéis aqui no Ibirapuera - fo
 
 A transação garantirá que ambas as operações, reserva e pagamento, mesmo que independentes, ocorrerão em um mesmo bloco de execução. Se qualquer uma das duas falhar, a transação toda será revertida, e minha reserva será liberada para outra transação.
 
+## Consistência
+
+A execução de uma transação levará o banco de dados de um estado consistente para outro estado consistente, para isso, passando por todas as restrições previstas(triggers, integridade referencial e etc).
+
+Ex: imagine o caso onde exista uma tabela "usuários" e "compras", onde entre elas exista uma integridade referencial, pois o `id` do usuário está presente em uma linha da tabela "compras". Se você tentar remover o usuário, aoperação será impedida, pois essa dependência ocorre da forma como foi modelada.
+
 ## Isolamento
 
 Uma transação em andamento deve permanecer isolada de outra transação, ou seja, uma transação não deve interferir em outra transação concorrente.
@@ -89,7 +95,7 @@ Sem isolamento. Qualquer mudança, comitada ou não, poderá ser vista na transa
 
 #### Leitura comitada
 
-As queries de uma transação só enxergam o que foi commitado por outras transações.
+As queries de uma transação só enxergam o que foi comitado por outras transações.
 
 #### Leitura repetida
 
@@ -138,6 +144,10 @@ Esse o nível mais bruto. As transações serão executadas uma após a outra, a
     </tr>
   </tbody>
 </table>
+
+## Durabilidade
+
+**Durabilidade** significa que os efeitos de uma transação comitada são permanentes, de forma que mesmo que exista uma falha, ou o sistema seja reiniciado, as informações permanacerão lá, tal como estavam anteriormente.
 
 # Referências
 
