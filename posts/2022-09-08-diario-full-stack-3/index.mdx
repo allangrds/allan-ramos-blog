@@ -1,0 +1,37 @@
+---
+title: Diário Fullstack 3
+subtitle: Iniciando meus estudos em banco de dados e entendendo ACID
+description:
+hero_image: "/assets/uploads/cover/fullstack.png"
+date: 2022-09-08 10:00:00
+author: Allan Ramos
+category: 'Back-end'
+series: 'Virando fullstack'
+tags: ['Banco de Dados']
+---
+
+No diário anterior você percebeu que eu fiz apenas um `Hello world` para sentir que comecei alguma coisa, e agora é a hora de parar, respirar e estudar.
+
+O primeiro ponto que preciso entender é: **que tipo de banco de dados usarei?** relacional ou não relacional(noSQL)? Se for noSQL, ainda posso escolher entre bancos **colunares**, **baseado em grafos**, **documentos** e **chave-valor.**
+
+Para começar nessa jornada, meu caro amigo Rafael Tardivo me recomendo um curso de um indiano porreta do Youtube, [**Hussein Nasser, Database Engines Crash Course**](https://www.udemy.com/course/database-engines-crash-course/), que consegui numa promoção, pagando menos de R$ 29,90.
+
+# ACID
+
+Como primeiro tópico do curso, Nasser inicia falando de algo que já tinha visto na faculdade - partiu rever material - que é "A.C.I.D".
+
+**ACID** é uma sigla que representa os 4 pilares necessários para a realização de uma transação em um banco de dados. Essa sigla representa:
+
+1. Atomicidade;
+2. Consistência;
+3. Isolamento;
+4. Durabilidade.
+
+Transação? O que é isso?
+
+## O que é uma transação
+
+Uma transação é um conjunto de operações(queries) tratadas como apenas uma. Ex: você precisa fazer um INSERT em uma conta bancária e depois um UPDATE. Essas 2 operações só ficarão permanentes no banco de dados se ambos forem executadas com sucesso. Se houver falha em alguma delas, é possível cancelar a transação, fazendo que com essas operações sejam descartadas, inclusive as que foram bem sucedidas.
+
+![Fluxo de uma transação](/assets/uploads/posts/diario-full-stack-3/transacao.png)
+Imagem adaptada do artigo da [Fauna](https://fauna.com/blog/database-transaction)
