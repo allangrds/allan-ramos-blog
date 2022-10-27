@@ -1,0 +1,75 @@
+---
+title: Expondo seu webserver local com Ngrok
+subtitle: Facilitando testes e validações com clientes
+description: ''
+hero_image: "/assets/uploads/cover/man_spark.png"
+date: 2018-05-06 10:09:54
+author: Allan Ramos
+category: 'Ferramentas'
+series: ''
+tags: ['']
+---
+
+# Qual o problema?
+
+Ser ágil. Posso mostrar para um cliente o site que estou fazendo através de prints, compartilhamento de tela, ou até passar os arquivos para um serviço de hospedagem. Mas eu não quero ter que configurar mais serviços, e ter que me preocupar se todo mundo poderá visualizar a url. Eu só quero testar e validar o que fiz!
+
+# O que é Ngrok?
+
+Ngrok é uma CLI que permite deixar exposta portas de serviços locais para o resto do mundo, ou seja, você pode gerar uma url para seu desenvolvimento local.
+
+# Como uso?
+
+```bash
+./ngrok http <numero_da_porta>
+```
+
+# Pondo em prática
+
+Vamos deixar seu uso mais concreto. Vou criar um simples “hello world” em PHP e expô-lo.
+
+## Criando o projeto
+
+```bash
+mkdir hello_world
+cd hello_world
+cat <<EOF >> index.php
+<?php
+echo "Hello World!";
+EOF
+```
+
+Feito isso, agora vamos usar o próprio PHP para rodar nossa aplicação:
+
+`php -S localhost:8080`
+
+## Expondo o projeto
+
+`./ngrok http 8080`
+
+![Terminal](/assets/uploads/posts/expondo-web-server-com-ngrok/terminal.png)
+![Projeto funcionando](/assets/uploads/posts/expondo-web-server-com-ngrok/funcionando.png)
+
+## Dando mais segurança
+
+Usá-lo já é uma mão na roda sinistra, mas quem disse que eu desejo expor o que estou fazendo para qualquer com a url? Vamos botar uma autenticação nisso.
+
+Mas antes de fazê-lo, você precisará criar uma conta na Ngrok. Após isso, é só rodar o comando abaixo com o token fornecido por eles:
+
+`./ngrok authtoken token_hash`
+
+Agora sim vamos autenticar nossa url:
+
+`ngrok http -auth="username:password" 8080`
+
+![Solicitando senha](/assets/uploads/posts/expondo-web-server-com-ngrok/senha.png)
+
+## Uma pequena melhoria
+
+Nós só podemos executá-lo na pasta em que o arquivo estiver, e isso é um saco. Para que isso não aconteça mais, use o comando abaixo para poder executá-lo de qualquer lugar:
+
+`cp ngrok /usr/local/bin`
+
+# Referências
+
+[1] https://ngrok.com/docs
