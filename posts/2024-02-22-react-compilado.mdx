@@ -1,0 +1,271 @@
+---
+title: React será compilado
+subtitle: De certa forma, sempre foi. Mas agora você pode esquecer a memoização.
+hero_image: "/assets/uploads/cover/programacao_aha.png"
+date: 2024-02-22 17:12:00
+author: Allan Ramos
+category: 'Front-end'
+series: ''
+tags: ['react']
+---
+
+Este artigo é uma tradução do artigo [React Will Be Compiled](https://reacttraining.com/blog/react-19-will-be-compiled?ref=dailydev) de Brad Westfall.
+
+Ontem, a equipe do React fez uma postagem no blog anunciando no que têm trabalhado para o React. Andrew Clark, da equipe do React, nos fornece uma boa análise das mudanças:
+
+Link: https://twitter.com/acdlite/status/1758229889595977824?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1758229889595977824%7Ctwgr%5E8d46b65b4b5ef67205a54b3279d74477e4c0c004%7Ctwcon%5Es1_c10&ref_url=https%3A%2F%2Freacttraining.com%2Fblog%2Freact-19-will-be-compiled%3Fref%3Ddailydev
+
+Correção: Anteriormente, afirmei que seria a versão 19 que seria compilada. O anúncio da equipe do React mencionou o React compilado e eu assumi (assim como outros) que isso se referia à versão 19. Parece que a versão 19 terá muitos recursos mencionados em sua postagem, mas a compilação provavelmente será na próxima versão (como indica Andrew, provavelmente até o final deste ano, 2024).
+
+Link: https://twitter.com/en_JS/status/1760433969118769654?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1760433969118769654%7Ctwgr%5E8d46b65b4b5ef67205a54b3279d74477e4c0c004%7Ctwcon%5Es1_c10&ref_url=https%3A%2F%2Freacttraining.com%2Fblog%2Freact-19-will-be-compiled%3Fref%3Ddailydev
+
+Seja qual for a versão, espero que esta postagem ajude qualquer pessoa que se sinta confusa sobre o que significa o React se tornar "compilado". Tentarei mostrar exemplos e contexto histórico sobre como chegamos a este ponto, pois tem sido um tópico muito discutido e às vezes é difícil acompanhar, especialmente se você não viu toda a história do React se desenrolar.
+
+# O React compilado resolverá os principais problemas dos hooks
+
+Conforme continuamos, mantenha em mente estes princípios do React que não mudarão quando compilarmos o React:
+
+- O estado do React é imutável.
+- A interface do usuário é uma função do estado.
+- Rerrenderizar quando o estado muda para produzir uma nova interface do usuário.
+
+Além dos números de versão, penso no React como tendo três eras distintas.
+
+- **A era dos componentes de classe** (sem primitivo para abstração)
+- **A era dos Hooks** (precisamos memoizar)
+- **A era compilada** (auto-memoização)
+
+
+Estamos prestes a entrar na era compilada, mas como chegamos até aqui?
+
+Para aqueles de nós que criaram projetos com class components, lembramos dos problemas que as classes nos causavam quando queríamos abstrair e reutilizar nosso código. O React estava carente de um "primitivo" para reutilização de código, então a comunidade inventou padrões como HOCs (Higher-Order Components) e Render Props, que [eram menos do que ideais](https://gist.github.com/bradwestfall/4fa683c8f4fcd781a38a8d623bec20e7). Acontece que o problema em criar um primitivo era que as próprias classes não nos forneciam o nível de composição de que precisávamos. Então, a equipe do React começou a buscar alternativas às classes e a se concentrar na composição funcional.
+
+Naquela época, componentes funcionais já existiam, mas o chamávamos de Stateless Functional Components porque não podiam ter estado ou outros aspectos de ciclo de vida que as classes tinham. A equipe do React viu os componentes funcionais como uma forma de nos dar o primitivo que precisávamos. Se ao menos eles pudessem descobrir uma maneira de permitir que os componentes funcionais "se conectassem" aos ciclos de vida do React 😉
+
+Sim, daí vem o termo "hooks".
+
+Quando os hooks foram anunciados em 2018, eu estava na conferência. Lembro-me de quando Ryan Florence subiu ao palco para falar logo após o anúncio e fez uma refatoração de ["render props para hooks" na frente de todos](https://www.youtube.com/watch?v=wXLf18DsV-I). Ficamos impressionados. Hooks, e especificamente hooks personalizados, seriam o primitivo que estávamos perdendo.
+
+O que não percebemos na época foi que misturar todo o nosso código em uma única função poderia nos fornecer composição, mas viria como uma compensação porque agora teríamos que memoizar. Não percebemos que as classes naturalmente nos protegiam da memoização, dada a natureza do rerenderização.
+
+Nos class components, o método de renderização isola seu código dos outros [métodos do ciclo de vida](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/), o que por sua vez significa que uma rerenderização não afetará adversamente o código que não faz parte da fase de renderização. Isso provavelmente foi menos uma decisão de design e mais uma característica de como as classes funcionam. 🧐 Isso parece quase bobo de mencionar, mas desempenha um papel nas evoluções que viriam a seguir.
+
+# React com Memoização
+
+Para ser honesto, os class components eram terríveis. Lembro-me de quando mudamos nosso currículo de workshop de dois dias para hooks e metade de nossos tópicos simplesmente evaporaram porque os class components introduziam tanta complexidade nas aplicações que não precisávamos mais ensinar.
+
+Se criássemos um class component com um método para lidar com o envio de formulário, o método nunca precisaria ser "memoizado". Vamos ver o que acontece quando fazemos algo semelhante com componentes funcionais:
+
+```jsx
+function App() {
+  const [state, setState] = useState()
+  function onSubmit() {
+    // lógica do evento
+  }
+  return <form onSubmit={onSubmit}></form>
+}
+```
+
+Talvez você não tenha percebido imediatamente, mas esta função será recriada toda vez que houver uma rerenderização, o que significa que será uma nova função na memória. Normalmente, não é um problema que as funções se recriem e, neste exemplo, não está causando nenhum problema para nós. Vale ressaltar, no entanto, que isso não aconteceria em classes porque seria um método separado da fase de renderização.
+
+Também vale ressaltar que a ideia geral de coisas precisarem se recriar em JavaScript não é específica do React. Posso mostrar-lhe meu código jQuery de 2008 que também recriaria funções e objetos. Estou apenas brincando, não faço ideia de onde está meu código de 2008.
+
+Agora vamos refatorar o código um pouco:
+
+```jsx
+function App() {
+  const [state, setState] = useState()
+  function onSubmit() {
+    // lógica do evento
+  }
+  return <Form onSubmit={onSubmit} />
+}
+
+const Form = ({ onSubmit }) {
+  // ...
+}
+```
+
+Ainda não é um problema que `onSubmit será uma nova função em cada renderização.
+
+A rerrenderização de `App` causará uma rerrenderização de `Form` neste caso. Alguns dirão que um componente receberá uma rerrenderização apenas se suas props mudarem. Isso não é verdade. O `Form` receberá uma rerenderização quando o `App` receber uma rerenderização, independentemente das props. Por enquanto, simplesmente não importa se a propriedade `onSubmit` está mudando.
+
+Agora, digamos que tenhamos alguma razão para evitar que `Form` seja rerenderizado quando `App` é rerenderizado. Este exemplo é demasiadamente simplista, mas digamos que memoizamos `Form`:
+
+```jsx
+
+// Agora, Form só será rerenderizado se suas props específicas mudarem. Não a cada
+// vez que App for rerenderizado
+const Form = React.memo(({ onSubmit }) => {
+  // ...
+})
+```
+
+Agora temos um problema.
+
+
+O React depende fortemente de [verificações de igualdade estrita](https://reacttraining.com/blog/state-in-react-is-immutable) para saber se uma variável mudou, o que é uma maneira sofisticada de dizer que eles usam `===` e `Object.is()` para comparar o antigo com o novo. Quando você compara primitivos do JavaScript (como strings) entre si com `===`, o JavaScript os compara pelos valores (você já sabia disso). Mas quando o JavaScript compara arrays, objetos ou funções entre si, o uso de === está comparando suas identidades, em outras palavras, sua alocação de memória. É por isso que `{} === {}` é `false` no JavaScript porque esses são dois identidades de objeto diferentes na memória.
+
+Fazer `Form = React.memo(fn)` é como dizer:
+
+> Ei React, só queremos rerenderizar Form se suas props realmente mudarem de acordo com uma verificação de identidade.
+
+Isso cria um problema porque `onSubmit` muda toda vez que `App` é rerenderizado. Isso levará a que `Form` seja sempre rerenderizado, o que significa que a memoização não nos ajuda em nada. É um sobrecarga sem sentido para o React neste ponto.
+
+Agora, precisamos voltar e garantir que `onSubmit` não mude sua identidade quando App` é rerenderizado:
+
+```jsx
+function App() {
+  const [state, setState] = useState()
+
+  const onSubmit = useCallback(() => {
+    // lógica do evento
+  }, [])
+
+  return <Form onSubmit={onSubmit} />
+}
+```
+
+
+Nós usamos o `useCallback` para estabilizar a função para que sua identidade não mude. De certa forma, é um tipo de memoização. Em termos excessivamente simplificados, memoização significa "lembrar" ou "armazenar em cache" a resposta de uma função.
+
+É como se estivéssemos dizendo:
+
+> Ei React, lembre-se da identidade desta função que estou passando para useCallback. Quando tivermos rerenders, estou te dando uma nova função toda vez, mas esqueça isso, me dê a identidade da função original da primeira vez que te chamei.
+
+Memoizar a função `onSubmit` não é normalmente necessário, mas se tornou necessário quando `Form` foi memoizado e recebeu `onSubmit como uma propriedade. Na React Training, chamamos isso de "sangramento de implementação"(implementation bleed).
+
+O problema não para por aí. Vamos adicionar mais código:
+
+```jsx
+function App() {
+  const [state, setState] = useState()
+
+  const settings = {}
+  const onSubmit = useCallback(() => {
+    const x = settings.x
+    // ...
+  }, [])
+
+  // ...
+}
+```
+
+O objeto `settings`(configurações) se recria em cada renderização de `App`. Isso não é um problema por si só, mas se você conhece bem o React, sabe que o linter pedirá para você colocar `settings` no array de dependências do useCallback` neste caso:
+
+```jsx
+const settings = {}
+const onSubmit = useCallback(() => {
+  const x = settings.x
+  // ...
+}, [settings])
+```
+
+Se fizermos isso, é como se estivéssemos dizendo:
+
+> Queremos que onSubmit seja estável e não mude a cada renderização. Mas queremos que useCallback recrie onSubmit se qualquer uma das coisas neste array de dependências mudar.
+
+Você pode se perguntar: "por que eu gostaria que `onSubmit` mudasse?"
+
+Eu concordo com você, provavelmente não precisa mudar, mas há muitas situações no React em que coisas como `useCallback` e `useMemo` precisam re-memoizar e criar uma nova identidade para seu valor de retorno quando seu array de dependências muda. O linter simplesmente não sabe que nunca queremos que `onSubmit` seja diferente neste caso.
+
+Lembre-se de que o linter está quase sempre certo, mas escolhi este exemplo para mostrar como podemos não querer o que o linter quer.
+
+Se ouvirmos o linter e colocarmos `settings` no array de dependências, aqui está o que acontecerá:
+
+
+- Quando `App` é rerenderizado...
+- `settings` se torna um novo objeto que não é `===` ao que estava na renderização anterior.
+- O array de dependências vê `settings` como diferente de acordo com `===` mesmo que seus valores não tenham mudado.
+- A mudança no array de dependências significa que `useCallback` retorna uma nova identidade para onSubmit.
+- O `Form` é rerenderizado porque `onSubmit` muda.
+
+Em resumo, a memoização de `Form` é inútil. Ele sempre será rerenderizado quando `App` for rerenderizado. Então agora temos mais "sangramento de implementação"(implementation bleed) porque precisamos memoizar `settings` com `useMemo` apenas para que possamos manter a memoização de `onSubmit` intacta.
+
+Vamos dar um passo atrás para aquela pergunta:
+
+> Por que eu gostaria que onSubmit mudasse? Não poderíamos simplesmente desativar o linter nesse caso?
+
+Claro, neste caso, acho que podemos deixar `settings` fora do array de dependências ou podemos simplesmente memoizá-lo, que é o que eu provavelmente faria. Ou até mesmo poderíamos argumentar que não precisávamos do formulário memoizado em primeiro lugar, o que teria evitado essa bagunça. Isso não é o ponto, é apenas um exemplo. O ponto é que a memoização no React frequentemente leva a um cascata de "sangramento de implementação"(implementation bleed).
+
+O tópico dos arrays de dependência e por que o linter quer que você coloque coisas neles vai muito além do escopo deste post. Eu provavelmente poderia falar sobre esse tópico por horas porque é vasto, com muitos detalhes. A verdade é que o linter geralmente está certo e tem boas intenções. O problema é que MUITOS desenvolvedores do React não entendem seu raciocínio e acham que o linter é apenas uma pequena sugestão. Na minha experiência, quando você ignora o linter, provavelmente encontrará bugs.
+
+Aqui está um exemplo perfeito: Alguns anos atrás, estava conversando com alguém no Twitter que disse que nunca colocava funções no array de dependências de seu `useEffect` porque às vezes criava um loop infinito. Eu disse algo como "por que você não usa `useCallback` nessas funções, isso evitará o loop. O problema é que a função está mudando com muita frequência".
+
+Eles disseram "O que é useCallback?"
+
+É comum as pessoas não entenderem memoização ou React o suficiente e depois ficarem frustradas com o linter.
+
+# Dependente de memoização
+
+Se você trabalhou o suficiente com React, sabe que pode ser um incômodo lidar com os arrays de dependências. O linter pode lhe dizer para colocar coisas no array e você não gosta do resultado (como um loop). É fácil ficar irritado com o linter, mas o linter estava certo. Não porque o React "quer" um loop infinito, é claro, mas porque você precisava também memoizar algo agora.
+
+Os arrays de dependência são uma forma de lidar com o fato de que todo o nosso código está co-localizado em um componente funcional que rerenderiza, e queremos monitorar as mudanças nas variáveis ao longo do tempo. Às vezes, acabamos colocando objetos, arrays e funções no array de dependências, então certifique-se de estabilizá-los com memoização. A maneira como explico o que o React significa por "estável" é "uma variável que não muda a menos que você queira".
+
+Vamos demonstrar isso com código:
+
+```jsx
+function App() {
+  const [misc, setMisc] = useState()
+  const [darkMode, setDarkMode] = useState(false)
+  const options = { darkMode }
+
+  return <User options={options} />
+}
+
+function User({ options }) {
+  useEffect(() => {
+    // get user
+  }, [options])
+
+  // ...
+}
+```
+
+Podemos ver que quando o estado misc em `App` muda, a consequência em cascata é que `options` mudará e, portanto, o `useEffect` será executado novamente, mesmo que o efeito não tenha nada a ver com o estado `misc`. Portanto, é melhor envolver a variável `options` em um `useMemo`. Quando você fizer isso, o linter pedirá corretamente para você colocar `darkMode no array de dependências:
+
+```jsx
+const [darkMode, setDarkMode] = useState(false)
+const options = useMemo(() => {
+  return { darkMode }
+}, [darkMode])
+```
+
+Ao fazer isso, estamos dizendo:
+
+> Queremos que options seja estável, até que o modo escuro mude. Em seguida, reestabilize-o em uma nova identidade. Mas não faça nada quando o estado misc mudar, porque não está em nosso array (não dependemos dele).
+
+Sim, entendi o ponto. No React, a memoização é fundamental e é responsabilidade do desenvolvedor implementá-la corretamente. Caso contrário, podem ocorrer bugs e problemas de desempenho. É importante entender como e quando aplicar a memoização para garantir um código eficiente e livre de erros.
+
+
+# Sempre compilamos o React
+
+Dependendo da sua definição do termo, você poderia argumentar que o React sempre teve uma etapa de compilação (JSX). Para mim, parece ser um termo solto no JavaScript que basicamente significa que o código que você escreve é diferente do código que é executado no navegador.
+
+Minha primeira experiência com o React foi em 2015. Babel e React ainda eram relativamente novos para a maioria dos desenvolvedores. De certa forma, sua popularidade cresceu em conjunto. O React é famosamente conhecido por compilar JSX em chamadas de função. Então, eu acho que o React é tecnicamente compilado, mas sempre senti que era um pequeno syntax sugar e que a semântica de um elemento JSX se tornando uma função muito previsível significa para mim que é uma quantidade de compilação relativamente "leve".
+
+Hoje em dia, também compilamos TypeScript para JavaScript, o que para mim é engraçado, porque neste caso significa apenas que todo o TypeScript que escrevemos evapora quando salvamos e o código que resta é o JavaScript. Mas eu acho que ainda se encaixa na minha definição de "o que você escreve é o que você obtém".
+
+# Compilar é um espectro
+
+Para mim, parece que "frameworks compilados" se situam em um espectro onde alguns são compilados um pouco e outros são compilados bastante:
+
+![Espectro da compilação e versões do react](/assets/uploads/posts/react-compilado/react-versoes.png)
+
+O React parece estar mais no lado "não muito" em comparação com alguns outros frameworks JavaScript modernos. Para mim, a regra do "o que você vê é o que você obtém" determinará onde você está neste espectro. O JSX significa que o React é um pouco compilado, mas o outro código que escrevo não é compilado pelo React.
+
+Por outro lado, o Svelte é tão fortemente compilado que seu criador o [descreveu como nem mesmo sendo JavaScript](https://gist.github.com/Rich-Harris/0f910048478c2a6505d1c32185b61934). O Svelte é realmente mais uma linguagem de programação porque a semântica do que você escreve está tão longe da semântica do que você obtém quando ele se transforma em JavaScript.
+
+Não estou tentando tornar este um post de comparação, ou dizer que um caminho é melhor que o outro, ou que compilar é bom ou ruim. Estou simplesmente dizendo que parece ser um espectro onde diferentes frameworks JavaScript compilam menos, ou compilam mais, ou compilam até o ponto em que nem mesmo são realmente JS mais.
+
+O anúncio da equipe do React é que o React vai ser mais compilado do que era antes. Será mais do que alguns dos outros? Não tenho certeza. Não importa muito onde ele acaba neste espectro para mim. O que importa mais é por que ele está sendo compilado. A resposta é por razões diferentes das dos outros.
+
+# Compilando para Auto-Memoização
+
+O React não está abandonando a imutabilidade e indo em rumo para a observabilidade. Ainda terá verificações de identidade e arrays de dependência. Então, o fato de estar compilado agora não faz o React parecer semelhante aos outros. Ele será compilado para que possamos ter auto-memoização. O React é o mesmo de sempre, mas sem as desvantagens da memoização manual, que era um dos principais problemas com hooks e componentes funcionais.
+
+Pessoalmente, estou acostumado com minha lógica acima do JSX ser deixada intocada. Essa mudança será principalmente desaprender a pensar em termos de memoização manual. Terei que confiar no compilador para tomar boas decisões para mim e ainda estou incerto sobre quanto disso terei que orientar o compilador vs "It Just Works™". Estou otimista e interessado em experimentar.
+
+Em resumo, vale ressaltar que essa ideia não surgiu do nada. Estamos discutindo isso como uma possibilidade no React há três anos, desde que [Xuan Huang introduziu a ideia na React Conf 2021](https://www.youtube.com/watch?v=lGEMwh32soc). Também houve momentos em que foi o tópico quente no Twitter nos círculos do React há alguns anos.
+
+Minha esperança é que, se você não estava ciente dessas conversas, este post forneça exemplos e contexto justos sobre como chegamos a este ponto. Obrigado por ler!
