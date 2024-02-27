@@ -54,7 +54,7 @@ const makeLinks = (categoriesGroup, tagsGroup, seriesGroup) => {
 
   if (hasCategories) {
     const othersCategories = {
-      label: 'Outros',
+      label: 'Mais',
       to: '/categorias',
     }
     const categoriesSize = categories ? categories.length : 0
@@ -73,7 +73,7 @@ const makeLinks = (categoriesGroup, tagsGroup, seriesGroup) => {
 
   if (hasSeries) {
     const othersSeries = {
-      label: 'Outros',
+      label: 'Mais',
       to: '/series',
     }
     const seriesSize = series ? series.length : 0
@@ -92,7 +92,7 @@ const makeLinks = (categoriesGroup, tagsGroup, seriesGroup) => {
 
   if (hasTags) {
     const othersTags = {
-      label: 'Outros',
+      label: 'Mais',
       to: '/tags',
     }
     const tagsSize = tags ? tags.length : 0
