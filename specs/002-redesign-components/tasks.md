@@ -705,7 +705,7 @@ inativo, nas duas larguras.
 **Todos são Server Components, exceto os nomeados** (`contracts/components.md`): `Header` passa a
 **S** com a ilha `SearchTrigger` (**C**), e `ReadingProgress` é **C** por API de browser.
 
-- [ ] T014 [US4] `Header` (TopBar + MobileHeader) e a ilha cliente `Header/SearchTrigger` — `src/components/Header/Header.tsx`, `Header/SearchTrigger.tsx`, `Header.stories.tsx`, `SearchTrigger.stories.tsx`, `Header.test.tsx`, `SearchTrigger.test.tsx`
+- [X] T014 [US4] `Header` (TopBar + MobileHeader) e a ilha cliente `Header/SearchTrigger` — `src/components/Header/Header.tsx`, `Header/SearchTrigger.tsx`, `Header.stories.tsx`, `SearchTrigger.stories.tsx`, `Header.test.tsx`, `SearchTrigger.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `02 · NAVEGAÇÃO`, card **`TopBar`** (faixa de 68px, com
     o `<kbd>⌘K</kbd>`) · `ComponentesMobile.dc.html` → `NAVEGAÇÃO`, card **`MobileHeader`**
     (64px) · contexto em `Mobile.dc.html` e nas demais páginas de celular.
@@ -742,6 +742,41 @@ inativo, nas duas larguras.
   - **Teste** (`SearchTrigger`, interação): o botão abre/fecha o estado `open`; nome acessível
     presente; alvo ≥44px. **Teste** (`Header`): chamável sem argumento; `index` ausente vira `[]`.
   - ⚠️ **Contraste**: faixa `sun` no desktop → texto e ícones em **`ink`** (FR-008).
+  - ✅ **Executada em 2026-09-28. Cinco portões verdes, rodados separadamente.**
+    **A fronteira mudou de verdade**: `grep -l '"use client"' src/components/Header/*.tsx` devolve
+    **só `SearchTrigger.tsx`**. O `Header` era Client Component inteiro, com `useState` para o menu
+    de 390px; o estado desceu para a ilha e a diretiva saiu. Mesmo padrão de `CodeBlock` (S) →
+    `CopyButton` (C).
+    **Os destinos sobrevivem sem JavaScript** (FR-013a): as duas apresentações renderizam os cinco
+    links no HTML servido, e o teste assere **dez** links — cinco por ponto de corte. O botão
+    "Abrir menu" não existe mais, e há teste que reprova se ele voltar.
+    **Altura medida em navegador real**: **68px** em 1280px e **64px** em 390px, o que prova
+    FR-038a pela dimensão e não pela classe. O primeiro seletor media o `Container` (168px em
+    390px, faixa + linha de destinos) e foi corrigido para a faixa.
+    **CHK031 aplicado**: as duas landmarks `nav` coexistem no DOM com nomes **distintos**
+    ("Navegação do site" e "Navegação do site em telas pequenas"), e há teste que assere a
+    unicidade. Sem isso a regra `landmark-unique` do axe reprovaria no Portão 4 quando as duas
+    aparecem.
+    **`activeHref` entrou opcional** para o estado ativo que o bullet de Estados pede. O ativo ganha
+    **superfície própria** (`paper` + borda de 2px) e não só cor: cor sozinha seria o único portador
+    da informação.
+  - 📐 **Divergência D-O — a marca não tem escala.** O artboard desenha "allanramos" em **14px**
+    (celular) e **18px** (desktop). As escalas de Archivo Black são **52, 30, 11 e 9** (FR-003c,
+    mapeamento exaustivo), então nenhuma das duas existe. A entrega usa `text-display-md` (30px), a
+    mais próxima **acima**; descer para `micro-cap` (11px) deixaria a marca **menor que o corpo do
+    texto**. Fica registrado como **lacuna do sistema**, não como escolha confortável: se o autor
+    quiser fidelidade, o caminho é uma escala nova por emenda, não um `px` avulso no componente.
+  - 📐 **Divergência D-P — gatilho de busca.** O `MobileHeader` desenha o gatilho em **40px** e o
+    `TopBar` como pílula com rótulo. A entrega é **um único controle** de 44px (FR-037): redondo e
+    só com ícone abaixo de 1024px, com rótulo e `Kbd` a partir dele. Dois elementos, um por ponto
+    de corte, dariam **duas paradas de tabulação para o mesmo controle** — e há teste que assere
+    que existe apenas um botão.
+  - ⚠️ **Dívida deliberada, com prazo nomeado**: o `index` chega à `SearchTrigger` mas ainda não é
+    consumido — quem o consome é a `CommandPalette`, na T044. O prop entra já aqui porque FR-016a o
+    declara o único caminho legal do índice até ela, e tê-lo agora deixa a fiação `Header` →
+    `SearchTrigger` **provável por teste**. O `eslint-disable` de uma linha é o registro visível
+    disso e **MUST sair na T044**, junto do primeiro uso real. Sem ele o aviso entraria na linha de
+    base do Portão 1, que é de exatamente um aviso.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
 - [ ] T015 [P] [US4] `SideRail` — `src/components/SideRail/SideRail.tsx`, `.stories.tsx`, `.test.tsx`
