@@ -1046,7 +1046,7 @@ dado (SC-015). Formas de dado em [data-model.md](./data-model.md) §2.
     real, não texto estilizado.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T030 [P] [US5] `PostContent` (re-estilização) — `src/components/PostContent/PostContent.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T030 [P] [US5] `PostContent` (re-estilização) — `src/components/PostContent/PostContent.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: **nenhum card**. Corpo do post em `Post.dc.html` (desktop) e
     `MobilePost.dc.html` (390px).
   - **Estados**: corpo curto; corpo longo com todos os blocos do pipeline MDX (título,
@@ -1064,7 +1064,7 @@ dado (SC-015). Formas de dado em [data-model.md](./data-model.md) §2.
   - **Teste**: a medida resolve para o token; EC-13 a 200%.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T031 [US5] `PostsListing` (re-estilização) — `src/components/PostsListing/PostsListing.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T031 [US5] `PostsListing` (re-estilização) — `src/components/PostsListing/PostsListing.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: **nenhum card**. Listagem em `Main.dc.html` e `Mobile.dc.html`.
   - **Estados**: primeira página, página do meio, última página; lista vazia.
   - 🔒 **Contrato congelado**: `{ page: number }`.
@@ -1074,13 +1074,24 @@ dado (SC-015). Formas de dado em [data-model.md](./data-model.md) §2.
     quebra; lista vazia não renderiza paginação órfã.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T032 [US5] Portão 6 da Camada 4 — execução limpa nas onze rotas, em `dev` e em produção
+- [X] T032 [US5] Portão 6 da Camada 4 — execução limpa nas onze rotas, em `dev` e em produção
   - Procedimento: `GATES.md` §6. **Camada de risco alto pela densidade de rotas**: `PostCard`,
     `PostsListing`, `Hero` e `PostContent` são compostos por `/`, `/page/2`,
     `/categories/<categoria>` e `/posts/<slug>`. `PostListRow`, `CategoryCard`, `SeriesShelf`,
     `YearArchive`, `TilList` e `Shelf` **não são alcançados por rota nenhuma** nesta feature.
   - Registrar evidência no corpo do commit.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
+  - ✅ **Executado em 2026-09-28, os dois canais, nos dois modos. ZERO regressão.**
+    A camada com mais componentes **alcançados por rota** de toda a feature: `PostCard`,
+    `FeaturedPostCard`, `Hero`, `PostContent` e `PostsListing` são compostos por `/`, `/page/2`,
+    `/categories/*`, `/tags/*`, `/series/*` e `/posts/<slug>`.
+    **Resultado**: `dev` e produção **idênticos entre si e idênticos à base** — nove rotas limpas e
+    os mesmos dois achados de linha de base. Zero achado novo, zero hydration mismatch. Terminal
+    igual à base nos dois modos.
+    **O que isto prova, e é o ponto**: duas divisões casca/View foram feitas nesta camada
+    (`PostContent` → `PostContentView` e `PostsListing` → `PostsListingView`), as duas mexendo em
+    componentes que TODAS as listagens compõem. A saída servida não mudou.
+
 
 **Checkpoint**: o miolo do blog está no catálogo.
 
