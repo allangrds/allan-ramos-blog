@@ -1110,7 +1110,7 @@ dado (SC-015). Formas de dado em [data-model.md](./data-model.md) §2.
 
 **Camada com a maior densidade de Client Components**: 3 dos 6 da feature.
 
-- [ ] T033 [P] [US6] `CodeBlock` + `CodeBlock/CopyButton` — `src/components/CodeBlock/CodeBlock.tsx`, `CopyButton.tsx`, `CodeBlock.stories.tsx`, `CopyButton.stories.tsx`, `CodeBlock.test.tsx`, `CopyButton.test.tsx`
+- [X] T033 [P] [US6] `CodeBlock` + `CodeBlock/CopyButton` — `src/components/CodeBlock/CodeBlock.tsx`, `CopyButton.tsx`, `CodeBlock.stories.tsx`, `CopyButton.stories.tsx`, `CodeBlock.test.tsx`, `CopyButton.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `04 · DENTRO DO POST`, card **`CodeBlock`** ·
     `ComponentesMobile.dc.html` → `DENTRO DO POST`, card **`CodeBlock`**.
   - **Os dois na mesma tarefa**: `CopyButton` é sub-componente de `CodeBlock` e a fronteira entre
@@ -1154,7 +1154,7 @@ dado (SC-015). Formas de dado em [data-model.md](./data-model.md) §2.
     rolagem**; `items: []` → nada renderizado.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T035 [P] [US6] `CopyLinkButton` — `src/components/CopyLinkButton/CopyLinkButton.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T035 [P] [US6] `CopyLinkButton` — `src/components/CopyLinkButton/CopyLinkButton.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: sem card próprio; é a terceira ação do card **`ShareButtons`**
     (`Componentes.dc.html` → `04 · DENTRO DO POST`).
   - 🔒 **Contrato congelado**: `{ url }`.
