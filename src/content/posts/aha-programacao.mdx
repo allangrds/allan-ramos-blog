@@ -1,0 +1,68 @@
+---
+title: Programação AHA
+date: 2022-03-09
+summary: Uma reflexão sobre DRY, WET e o princípio AHA (Avoid Hasty Abstractions) — evite abstrações precipitadas e prefira duplicação a uma abstração errada.
+category: Programação
+coverImage: /assets/uploads/cover/programacao_aha.png
+---
+
+Esse artigo é uma tradução do artigo original [AHA Programming](https://kentcdodds.com/blog/aha-programming) criado por [Kent C. Dodds](https://kentcdodds.com/).
+
+# Veja a talk original: Programação AHA
+
+Assista à talk que inspirou este artigo em [youtube.com/watch?v=wuVy7rwkCfc](https://www.youtube.com/watch?v=wuVy7rwkCfc).
+
+# DRY
+
+[DRY (um acrônimo para "Don't Repeat Yourself", traduzindo "Não se repita")](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself), é um antigo princípio de software que a Wikipedia resume assim:
+
+> Cada porção de conhecimento em um sistema deve possuir uma representação única, de autoridade e livre de ambiguidades em todo o sistema.
+
+Essa geralmente é uma boa prática que eu adoto(embora de forma menos dogmática do que a definição encoraja). O maior problema que tive com [duplicação de código](https://en.wikipedia.org/wiki/Duplicate_code)(aka copia/cola, basicamente a antítese do *`DRY`*) é perceber que tinha um bug, o corrigi, e depois encontrei esse bug de novo em outro lugar, e precisei consertá-lo novamente.
+
+Teve uma vez que peguei um código que pegava pesado com essa duplicação de código, e precisei corrigir um bug em oito lugares diferentes! Pensa em alguém irritasdo! Abstrair esse código em uma função para ser chgamada de qualquer lugar, teria ajudado MUITO.
+
+# WET
+
+Aqui outro conceito que a galera chamou de WET(Write Everything Twice, traduzindo "Escreva tudo duas vezes"). Ele é igualmente dogmático e normativo. [Conlin Durbin](https://twitter.com/CallMeWuz) [a definiu como](https://dev.to/wuz/stop-trying-to-be-so-dry-instead-write-everything-twice-wet-5g33):
+
+> Você pode se perguntar "Eu não escrevi isso antes?" duas vezes, mas nunca três.
+
+Nessa mesma codebase, existiam abstrações que chegavam ao extremo, mais atrapalhando do que ajudando. Era um código em AngularJS com muitos controllers, e era passado o `this` para uma função que poderia corrigir métodos e propriedades para *`this`* de uma forma aprimorando a instância do controller com certas habilidades. Uma espécie de pseudo-herança, eu acho. Foi SUPER confuso, difícil de entender, e eu fiquei com medo de fazer qualquer alteração nessa área da codebase.
+
+O código foi reutilizado em muito mais que três lugares, mas a abstração era ruim e desejei que o código tivesse sido duplicado.
+
+# AHA
+
+*`AHA`* (se pronuncia "Aha!" mesmo) é um acrônico que [eu consegui de](https://twitter.com/cherthedev/status/1112819136147742720) [Cher Scarlett](https://twitter.com/cherthedev) que significa
+
+> Avoid Hasty Abstractions(Evite abstrações precipitadas)
+
+A maneira como penso nesse princípio foi lindamente descrita por [Sandi Metz](https://twitter.com/sandimetz), que [escreveu](https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction):
+
+> prefira duplicação a uma abstração errada
+
+Essa é uma regra de ouro muito boa, e quero que você a leia novamente, então leia o post de Sandi sobre o assunto: [A Abstração Errada](https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction). É fantástico.
+
+Aqui está outro importante princípio relacionado que desejo te mostrar:
+
+> Optimize for change first
+> Otimize para mudar primeiro
+
+Acho que o ponto chave é que não sabemos pra onde irá nosso código. Podemos investir semanas otimizando e deixando o código mais performático, ou criando a melhor API para nossa nova abstraçnao, apenas apra descobrir que no dia seguinte nós assumimos suposições erradas, e a API precisará ser completamente refeita, ou a funcionalidade para o qual o código foi escrito não é mais necessária. Não sabemos com certeza. Tudo o que podemos realmente ter certeza é que as coisas provavelmente mudarão, e se nunca mudarem, não tocaremos no código de qualquer maneira, então quem se importa com sua aparência?
+
+Agora, não me entenda errado, não estou sugerindo anarquia. Estou sugerindo que devemos ficar atentos ao fato de que não sabemos quais requisitos serão colocados em nosso código no futuro.
+
+Então, estou tranquilo com duplicação de código até que você esteja bem confiante dos casos de uso desse código duplicado. Quais partes do código são diferentes que dariam bons argumentos para sua função? assim que você tiver alguns lugares onde esse código está, as semelhanças gritarão com você por abstração e você estará no estado de espírito para fornecer essa abstração.
+
+Se você abstrair cedo, porém, achará que a função ou componente é perfeito para seu caso de uso e, portanto, apenas dobrará o código para se adequar ao seu novo caso de uso. Isso continuará várias vezes até que a abstração seja basicamente toda a sua aplicação em instruções de *`if`* e loops 😂😭
+
+Há alguns anos, fui contratado para revisar a codebase de uma empresa e usei uma ferramenta chamada [jsinspect](https://github.com/danielstjules/jsinspect) para identificar pedaços de código copiado/colado, e mostrar a eles oportunidades de abstração. Eles tinham um monte de código duplicado e, da minha perspectiva, era óbvio como as abstrações deveriam ser.
+
+**Acho que a grande lição** sobre programação "AHA" é que você não deve ser dogmático sobre quando começar a escrever abstrações, mas sim escrever a abstração quando parecer certo, e não ter medo de duplicar o código até chegar lá.
+
+# Conclusão
+
+Sinto que uma abordagem comedida e pragmática aos princípios de software é importante. Por isso eu prefiro *`AHA`* ao invés de *`DRY`* ou *`WET`*. Elá é focada em te ajudar a ficar ligado em suas abstrações, sem fornecer regras rígidas para quando é ou não certo abstrair algum código em uma função ou módulo.
+
+Espero que tenha te ajudado. Se você está com abstrações ruins até o talo, fique de boas. A Sandi tem algumas dicas pra você de como sair disso! [Basta ler a postagem de seu blog](https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction). Boa sorte!

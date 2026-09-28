@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+:root {
+  --color-primary: #4a154b;
+  --color-primary-deep: #481a54;
+  --color-primary-press: #611f69;
+  --color-primary-tint: #592466;
+  --color-on-primary: #ffffff;
+  --color-ink: #1d1d1d;
+  --color-ink-mute: #696969;
+  --color-link-blue: #1264a3;
+  --color-link-hover: #3860be;
+  --color-canvas: #ffffff;
+  --color-canvas-cream: #f4ede4;
+  --color-canvas-lavender: #f9f0ff;
+  --color-surface-elev: #ffffff;
+  --color-surface-aubergine: #4a154b;
+  --color-hairline: #e6e6e6;
+  --color-hairline-strong: #000000;
+  --color-semantic-error: #cc4117;
+  --color-semantic-success: #007a5a;
+  --color-on-aubergine-mute: #d9bdde;
+}
+
+@theme inline {
+  --color-primary: var(--color-primary);
+  --color-primary-deep: var(--color-primary-deep);
+  --color-primary-press: var(--color-primary-press);
+  --color-primary-tint: var(--color-primary-tint);
+  --color-on-primary: var(--color-on-primary);
+  --color-ink: var(--color-ink);
+  --color-ink-mute: var(--color-ink-mute);
+  --color-link-blue: var(--color-link-blue);
+  --color-link-hover: var(--color-link-hover);
+  --color-canvas: var(--color-canvas);
+  --color-canvas-cream: var(--color-canvas-cream);
+  --color-canvas-lavender: var(--color-canvas-lavender);
+  --color-surface-elev: var(--color-surface-elev);
+  --color-surface-aubergine: var(--color-surface-aubergine);
+  --color-hairline: var(--color-hairline);
+  --color-hairline-strong: var(--color-hairline-strong);
+  --color-semantic-error: var(--color-semantic-error);
+  --color-semantic-success: var(--color-semantic-success);
+  --color-on-aubergine-mute: var(--color-on-aubergine-mute);
+
+  --font-sans: var(--font-jakarta);
+
+  --text-display-xxl: 64px;
+  --text-display-xxl--line-height: 1.12;
+  --text-display-xxl--letter-spacing: -0.768px;
+  --text-display-xxl--font-weight: 700;
+  --text-display-xl: 58px;
+  --text-display-xl--line-height: 1.25;
+  --text-display-xl--letter-spacing: -0.464px;
+  --text-display-xl--font-weight: 600;
+  --text-display-lg: 50px;
+  --text-display-lg--line-height: 1.12;
+  --text-display-lg--letter-spacing: -0.6px;
+  --text-display-lg--font-weight: 700;
+  --text-display-md: 32px;
+  --text-display-md--line-height: 1.25;
+  --text-display-md--letter-spacing: -0.256px;
+  --text-display-md--font-weight: 700;
+  --text-heading-lg: 24px;
+  --text-heading-lg--line-height: 1.33;
+  --text-heading-lg--letter-spacing: -0.096px;
+  --text-heading-lg--font-weight: 700;
+  --text-heading-md: 22px;
+  --text-heading-md--line-height: 1.4;
+  --text-heading-md--font-weight: 600;
+  --text-heading-sm: 18px;
+  --text-heading-sm--line-height: 1.56;
+  --text-heading-sm--letter-spacing: -0.0216px;
+  --text-heading-sm--font-weight: 600;
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 1.55;
+  --text-body-lg--letter-spacing: -0.0216px;
+  --text-body-md: 16px;
+  --text-body-md--line-height: 1.55;
+  --text-body-strong: 16px;
+  --text-body-strong--line-height: 1.5;
+  --text-body-strong--letter-spacing: 0.16px;
+  --text-body-strong--font-weight: 700;
+  --text-button-lg: 18px;
+  --text-button-lg--line-height: 1;
+  --text-button-lg--font-weight: 700;
+  --text-button-md: 16px;
+  --text-button-md--line-height: 1.38;
+  --text-button-md--letter-spacing: 0.2px;
+  --text-button-md--font-weight: 700;
+  --text-button-cap: 14.4px;
+  --text-button-cap--line-height: 1;
+  --text-button-cap--letter-spacing: 0.144px;
+  --text-button-cap--font-weight: 700;
+  --text-caption: 14px;
+  --text-caption--line-height: 1.43;
+  --text-caption--letter-spacing: 0.1px;
+  --text-micro-cap: 12px;
+  --text-micro-cap--line-height: 1;
+  --text-micro-cap--letter-spacing: 0.96px;
+  --text-micro-cap--font-weight: 700;
+
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-xxl: 48px;
+  --radius-pill: 90px;
+
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+  --spacing-xxl: 24px;
+  --spacing-huge: 28px;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+}

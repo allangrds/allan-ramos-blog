@@ -1,0 +1,402 @@
+---
+title: Diário Fullstack 2
+date: 2022-08-01
+summary: Começando um projeto para auxiliar no estudo de back-end, montando um bootstrap com Express e Typescript.
+category: Back-end
+series: Virando fullstack
+seriesOrder: 2
+tags: ['Typescript', 'Node']
+coverImage: /assets/uploads/cover/fullstack.png
+---
+
+Querido diário...
+
+Brincadeiras à parte, nessa minha jornada de transformação de **front** para **fullstack**, usarei um projeto de base, pelo menos de forma inicial, para ajudar na condução de meus estudos. Assim como o Filipe Deschamps, tenho muito carinho pela Pagar.me, então usarei um teste que já foi proposta para me auxiliar neste estudo. Para ver a proposta do teste, [clique aqui](https://github.com/allangrds/pagarme-multi-credit-card/blob/main/CHALLANGE.md).
+
+Vim do JS, permanecerei nesse ambiente, continuando em minha zona de conforto. É importante dizer que não sou totalmente cru nessa parte de back-end, então vou criar um boostrap desse projeto com **Express** e **Typescript**.
+
+Tenho uma confissão pra te fazer...escrevi esse post depois de ter criado essa base do projeto, então alguns comandos pra gerar alguns arquivos ficarão de fora, e colocarei alguns códigos extensos, pois não sei o que foi adição, alteração ou remoção.
+
+# Iniciando o projeto
+
+## Instalando as dependências
+
+Vamos começar criando o `package.json`, e para isso, execute em seu terminal `npm init` para criar um arquivo bem básico com algumas informações de seu projeto.
+
+Feito isso, rode os comandos abaixo para instalar algumas dependências para criarmos nosso hello world.
+
+```shell
+npm install cors dotenv express
+npm install --save-dev @types/cors @types/express @types/node concurrently nodemon typescript ts-node
+```
+
+Com os comandos acima nós instalamos dependências para termos nosso servidor Node com Ts rodando.
+
+## Configurando o Typescript
+
+1. Crie o arquivo `tsconfig.json` executando o comando `npx tsc --init`
+1. Abra o arquivo criado e coloque `"$schema": "https://json.schemastore.org/tsconfig",` logo acima da chave compilerOptions.
+1. Procure por `outDir` e o mude para `"outDir": "./dist",`.
+
+## Criando comandos para rodar o projeto
+
+1. Acesse seu `package.json`
+2. Altere o campo `main` para `"main": "./src/start/server.ts",`
+3. Insira os comandos abaixo na parte de `scripts`:
+
+```json
+"build": "npx tsc",
+"start": "node dist/index.js",
+"dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/start/server.js\"",
+```
+
+Com isso nós temos um comando para buildar o projeto typescript, rodar o projeto buildado, e por último, rodar o projeto em modo de desenvolvimento.
+
+## Criando os arquivos do projeto
+
+1. Crie um arquivo `.env` na raíz do projeto com `PORT=8000`
+2. Crie um pasta `src` na raíz
+3. Dentro dessa pasta, crie outra chamada `start`
+4. Dentro da pasta `start`, crie um arquivo `server.ts` com o seguinte conteúdo:
+
+```ts
+import dotenv from 'dotenv'
+
+import { app } from './app'
+
+dotenv.config()
+const port = process.env.PORT
+
+app.listen(port, () => {
+  console.log(`Server is running at http://localhost:${port}`)
+})
+```
+
+Através desse código eu estou fazendo algumas coisas:
+
+1. Importando a biblioteca `dotenv` para fazer uso do valor `PORT` que coloquei dentro de meu arquivo `.env`. Esse valor será usado para iniciar o servidor Node nessa porta
+2. Importando o arquivo app, que tem configurações do express, iniciando o que ele tem lá dentro(ao importá-lo), e iniciando um listener que será acionado quando o servidor estiver rodando na porta 8000
+
+Continuando…
+
+5. Dentro da pasta `start`, crie um arquivo com o nome `app.ts` e coloque o seguinte conteúdo nele:
+
+```ts
+import express, {
+  Errback, Express, Request, Response,
+} from 'express'
+import cors from 'cors'
+
+import { router } from '../routes'
+
+const app: Express = express()
+
+app.use(cors())
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+app.use(router)
+
+app.use((req: Request, res: Response) => {
+  res.status(404).json({ message: 'Page Not Found' })
+})
+
+app.use((err: Errback, req: Request, res: Response) => res.status(500).json({ message: 'Internal Error' }))
+
+export { app }
+```
+
+Através desse código eu estou fazendo algumas coisas:
+
+1. Importando meu arquivo de rotas
+2. Configurando o express, como o cors, parser de JSON, e mensagem de 404 e 500
+
+6. Dentro da pasta `src`, crie o arquivo `routes.ts` com o seguinte conteúdo:
+
+```ts
+import { Router } from 'express'
+
+const router = Router()
+
+router.get('/', (req, res) => {
+  res.json({ message: 'Hello world!' })
+})
+
+export { router }
+```
+
+Através desse código eu estou fazendo algumas coisas:
+
+1. Crio uma rota `GET /` que retorna um json
+
+Feito isso, nosso projeto já está pronto para funcionar. Agora é só rodar `npm run dev` pra ver funcionando :).
+
+# Instalando ESlint + Prettier
+
+Calma que não acabou.
+
+Precisamos ter um ferramental pra ajudar na consistência do código que escreveremos. Para isso, instalaremos o Estlint e Prettier para ajudar nessa validação e formatação.
+
+```shell
+npm install --save-dev @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint eslint-config-airbnb-base eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint-plugin-sort-destructure-keys
+```
+
+Com isso instalaremos todas as dependências que precisamos. Agora nós precisamos fazer 3 coisas:
+
+1. Criar um arquivo `.eslintrc.js` com o seguinte conteúdo:
+
+```js
+module.exports = {
+  env: {
+    es2021: true,
+    node: true,
+    jest: true,
+  },
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
+    'airbnb-base',
+  ],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+  },
+  plugins: [
+    '@typescript-eslint',
+    'jest',
+    'sort-destructure-keys',
+  ],
+  rules: {
+    semi: ['error', 'never'],
+    'no-console': 1,
+    'sort-destructure-keys/sort-destructure-keys': 2,
+    'import/prefer-default-export': 0,
+    'max-len': ['error', {
+      code: 80,
+      ignoreComments: true,
+      ignoreTrailingComments: true,
+      ignoreUrls: true,
+      ignoreStrings: true,
+      ignoreTemplateLiterals: true,
+    }],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
+  },
+  settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+      },
+    },
+  },
+}
+```
+
+2. Criar um arquivo `.eslintignore` com o seguinte conteúdo:
+
+```js
+dist
+scripts
+node_modules
+```
+
+3. Criar um arquivo `.prettierrc.json` com o seguinte conteúdo:
+
+```json
+{
+  "$schema": "http://json.schemastore.org/prettierrc",
+  "printWidth": 80,
+  "endOfLine": "lf",
+  "useTabs": false,
+  "arrowParens": "always",
+  "quoteProps": "as-needed",
+  "bracketSpacing": true,
+  "singleQuote": true,
+  "semi": false,
+  "trailingComma": "es5"
+}
+```
+
+4. Criar um arquivo `.editorconfig` com o seguinte conteúdo:
+
+```
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+indent_size = 2
+charset = utf-8
+trim_trailing_whitespace = true
+```
+
+5. Inserir no `package.json` comandos para executar essas ferramentas:
+
+```json
+"lint": "eslint . --ext .ts,.js",
+"format": "prettier --write \"**/*.{js,ts,tsx,md}\"",
+"typecheck": "tsc --noEmit --incremental false",
+```
+
+# Instalando Jest + Supertest
+
+Para terminarmos a configuração de ferramentas do projeto, agora instalaremos **Jest** e **Supertest** para termos o que é necessário para testarmos a aplicação:
+
+```bash
+npm install --save-dev supertest ts-jest @types/jest eslint-plugin-jest jest
+```
+
+No `package.json,` insira o script abaixo:
+
+```json
+"test": "jest",
+```
+
+Crie o arquivo `jest.config.ts` com o conteúdo abaixo:
+
+```tsx
+/*
+ * For a detailed explanation regarding each configuration property and type check, visit:
+ * https://jestjs.io/docs/configuration
+ */
+
+export default {
+  clearMocks: true,
+  collectCoverage: true,
+  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+  coverageDirectory: 'coverage',
+  coverageProvider: 'v8',
+  coverageReporters: [
+    'text-summary',
+    'lcov',
+  ],
+  preset: 'ts-jest',
+  testMatch: ['**/__tests__/**/*.ts'],
+}
+```
+
+Agora vamos criar alguns arquivos de teste pra ver isso tudo funcionando.
+
+1. Crie o arquivo `__tests__/sum.test.ts`:
+
+```tsx
+describe('Only one test', () => {
+  it('Sum 1 + 1 = 2', () => {
+    expect(1 + 1).toBe(2)
+  })
+})
+```
+
+2. Crie o arquivo `__tests__/start/app.test.ts`:
+
+```tsx
+import request from 'supertest'
+
+import { app } from '../../src/start/app'
+
+describe('Route testing', () => {
+  it('Should return an http 200 and a "message" property (route: GET /)', async () => {
+    const res = await request(app).get('/')
+
+    expect(res.status).toEqual(200)
+    expect(res.body).toHaveProperty('message')
+  })
+})
+```
+
+Agora é rodar npm run test e ver os testes sendo executados e bem sucedidos.
+
+# Configurando o CI dessa bagaça
+
+Para finalizar esse bootstrap, agora configuraremos o CI do Github. Através dele, em todos os PRs criados algumas validações serão feitas:
+
+- Lint
+- Testes
+- Build
+- Commit lint
+
+Crie o arquivo `.github/workflows/main.yml` com o seguinte conteúdo:
+
+```yml
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ '16' ]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install modules
+      run: npm install
+    - name: Build project
+      run: npm run build
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ '16' ]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install modules
+      run: npm install
+    - name: Run ESLint and Stylelint
+      run: npm run lint
+  commitlint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ '16' ]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v4
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ '16' ]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm install
+      - run: npm run test
+```
+
+Pronto!
+Com isso nós temos:
+
+1. Express + Typescript
+2. Jest + Supertest
+3. CI para executar validações a cada PR
+
+É isso, gente. Tá muito no começo esse projeto, mas é um começo.
+
+Até a próxima!
