@@ -890,7 +890,7 @@ dois casos o código estava certo e o **texto** reprovava. As réguas desta feat
 comentário que cita o proibido reprova igual — vale para hex, para a consulta de movimento e para a
 diretiva.
 
-- [ ] T020 [US4] Portão 6 da Camada 3 — execução limpa nas onze rotas, em `dev` e em produção
+- [X] T020 [US4] Portão 6 da Camada 3 — execução limpa nas onze rotas, em `dev` e em produção
   - Procedimento: `GATES.md` §6. **Camada de risco alto**: o `Header` muda de Client Component
     para Server Component e é composto por **todas** as rotas — é onde hydration mismatch é mais
     provável, e ele **só aparece em produção**, não no `dev`.
@@ -902,6 +902,27 @@ diretiva.
     `Header` passa de Client a Server Component nesta tarefa, e nenhum portão automático
     enxergaria a perda de navegação — a página renderiza igual.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
+  - ✅ **Executado em 2026-09-28, os dois canais, nos dois modos. ZERO regressão.**
+    **Esta era a camada de maior risco desde a troca de tokens**, por dois motivos: o `Header` é
+    composto por `layout.tsx` em **todas** as onze rotas, e ele atravessou a fronteira
+    cliente→servidor. Hydration mismatch só aparece em produção, e é exatamente o que este portão
+    existe para pegar.
+    **Resultado**: `dev` e produção **idênticos entre si e idênticos à base** — nove rotas limpas e
+    os mesmos dois achados de linha de base (CORS de terceiro do Disqus; 404 esperado da rota 11).
+    **Zero hydration mismatch**, zero achado novo, badge de devtools em `data-error="false"` nas
+    onze. Terminal igual à base nos dois modos.
+    **O que isto prova**: tirar `"use client"` do `Header` e descer o estado para a ilha não quebrou
+    nenhuma rota, e os cinco destinos continuam no HTML servido. `Pagination` passar a renderizar
+    com uma única página também não alterou rota nenhuma — verificado antes, `getPaginatedPosts`
+    piso `totalPages` em 1 e as rotas que o compõem têm duas páginas.
+    **O que isto NÃO prova**: `SideRail`, `MobileTabBar`, `Breadcrumb` e `ReadingProgress` não são
+    alcançados por rota nenhuma enquanto `src/app/**` está congelado. Para eles a verificação de
+    execução é o Portão 4.
+  - 📌 **Anotação para a T046**: `DESIGN.md` §5 atribui `--radius-lg` (18px) a "Card" e diz que
+    `--radius-md` (16px) está **sem consumidor inicial**. Medido agora no card `PostCard`, o raio
+    desenhado é **16px** — então quem tem consumidor é o `md`, e a atribuição de §5 era suposição
+    da T002, não medição. A T046 MUST reconciliar a tabela com o que a camada 4 entregar.
+
 
 **Checkpoint**: esqueleto navegável completo no catálogo.
 
