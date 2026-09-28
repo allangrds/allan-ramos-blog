@@ -960,7 +960,7 @@ dado (SC-015). Formas de dado em [data-model.md](./data-model.md) §2.
     `hairline` quando não há categoria; EC-02 → título truncado sem `scrollWidth` extra.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T022 [P] [US5] `PostListRow` — `src/components/PostListRow/PostListRow.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T022 [P] [US5] `PostListRow` — `src/components/PostListRow/PostListRow.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `03 · CONTEÚDO`, card **`PostListRow`**. Sem card no
     `ComponentesMobile`; 390px sai de `Mobile.dc.html`, seção **`ÚLTIMOS POSTS`**.
   - **Estados**: **com** e **sem** numeração de série (FR-024, US5/AS-1); faixa colorida
@@ -973,7 +973,7 @@ dado (SC-015). Formas de dado em [data-model.md](./data-model.md) §2.
     categoria e para `hairline` na ausência dela.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T023 [P] [US5] `FeaturedPostCard` — `src/components/FeaturedPostCard/FeaturedPostCard.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T023 [P] [US5] `FeaturedPostCard` — `src/components/FeaturedPostCard/FeaturedPostCard.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `03 · CONTEÚDO`, card **`FeaturedPostCard`** ·
     `ComponentesMobile.dc.html` → `CONTEÚDO`, card **`FeaturedPostCard`**.
   - **Estados**: último post com o título em **display sobre a cor de acento** (FR-025);
@@ -986,7 +986,7 @@ dado (SC-015). Formas de dado em [data-model.md](./data-model.md) §2.
   - **Teste**: o título resolve para `ink` em **todas** as cores de acento possíveis.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T024 [P] [US5] `CategoryCard` — `src/components/CategoryCard/CategoryCard.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T024 [P] [US5] `CategoryCard` — `src/components/CategoryCard/CategoryCard.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `03 · CONTEÚDO`, card **`CategoryCard`** ·
     `ComponentesMobile.dc.html` → `CONTEÚDO`, card **`CategoryCard`** · contexto em
     `MobileExplorar.dc.html`, seção `CATEGORIAS`.
@@ -997,7 +997,7 @@ dado (SC-015). Formas de dado em [data-model.md](./data-model.md) §2.
   - **Teste**: a contagem exibida é a recebida; link real para a categoria.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T025 [P] [US5] `SeriesShelf` — `src/components/SeriesShelf/SeriesShelf.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T025 [P] [US5] `SeriesShelf` — `src/components/SeriesShelf/SeriesShelf.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `03 · CONTEÚDO`, card **`SeriesShelf`** ·
     `ComponentesMobile.dc.html` → `CONTEÚDO`, card **`SeriesShelf`** · contexto em
     `Mobile.dc.html` (`SÉRIE · VIRANDO FULLSTACK`) e `MobileSerie.dc.html` (`NA ORDEM DE LEITURA`).
@@ -1007,7 +1007,7 @@ dado (SC-015). Formas de dado em [data-model.md](./data-model.md) §2.
   - **Teste**: item `read` é distinguível no DOM; com um único item não quebra; links reais.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T026 [P] [US5] `YearArchive` — `src/components/YearArchive/YearArchive.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T026 [P] [US5] `YearArchive` — `src/components/YearArchive/YearArchive.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `03 · CONTEÚDO`, card **`YearArchive`**. Sem card no
     `ComponentesMobile`; 390px sai de `MobileExplorar.dc.html`, seção **`ARQUIVO POR ANO`**.
   - **Estados**: anos com post; **anos sem post continuam visíveis como hiato** (US5/AS-4) —
@@ -1017,7 +1017,7 @@ dado (SC-015). Formas de dado em [data-model.md](./data-model.md) §2.
     fabricado.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T027 [P] [US5] `TilList` — `src/components/TilList/TilList.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T027 [P] [US5] `TilList` — `src/components/TilList/TilList.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `03 · CONTEÚDO`, card **`TilList`**. Sem card no
     `ComponentesMobile`; 390px sai de `Mobile.dc.html`, seção **`ANOTAÇÕES CURTAS`**.
   - **Estados**: lista com várias anotações; lista com uma; lista vazia.
@@ -1026,7 +1026,7 @@ dado (SC-015). Formas de dado em [data-model.md](./data-model.md) §2.
   - **Teste**: renderiza exatamente os itens recebidos; nenhum acesso a rede ou arquivo (SC-015).
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T028 [P] [US5] `Shelf` — `src/components/Shelf/Shelf.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T028 [P] [US5] `Shelf` — `src/components/Shelf/Shelf.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `03 · CONTEÚDO`, card **`Shelf`** ·
     `ComponentesMobile.dc.html` → `CONTEÚDO`, card **`Shelf`** · contexto em
     `MobileSobre.dc.html`, seção **`NA ESTANTE`**.
@@ -1035,7 +1035,7 @@ dado (SC-015). Formas de dado em [data-model.md](./data-model.md) §2.
   - **Teste**: `title: null` produz marcador de vazio e **nenhum título inventado aparece no DOM**.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T029 [P] [US5] `Hero` (re-estilização) — `src/components/Hero/Hero.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T029 [P] [US5] `Hero` (re-estilização) — `src/components/Hero/Hero.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: **nenhum card de componente**. O nome aparece em `Sistema.dc.html`; a
     apresentação vem do topo de `Main.dc.html` (desktop) e `Mobile.dc.html` (390px).
   - **Estados**: título em display, subtítulo e chamada; as duas larguras.
