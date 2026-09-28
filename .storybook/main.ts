@@ -10,7 +10,9 @@ const config: StorybookConfig = {
     "@storybook/addon-vitest",
     "@storybook/addon-a11y",
     "@storybook/addon-docs",
-    "@storybook/addon-mcp"
+    "@storybook/addon-mcp",
+    // Forca o pseudo-estado exigido pela entrada de hover de FR-018a. Peer: storybook ^10.6.0.
+    "storybook-addon-pseudo-states"
   ],
   "framework": "@storybook/nextjs-vite",
   "staticDirs": [

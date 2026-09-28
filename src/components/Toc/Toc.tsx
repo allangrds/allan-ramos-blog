@@ -63,9 +63,10 @@ export default function Toc({ items }: TocProps) {
             <a
               href={`#${item.id}`}
               className={
-                item.id === activeId
+                "flex items-center min-h-11 " +
+                (item.id === activeId
                   ? "text-primary font-bold"
-                  : "text-link-blue hover:text-link-hover"
+                  : "text-link-blue hover:text-link-hover")
               }
             >
               {item.text}

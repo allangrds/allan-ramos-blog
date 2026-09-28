@@ -2,14 +2,21 @@
   "name": "allan-ramos-blog",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=22.14.0",
+    "npm": ">=10.9.2"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test": "vitest run --project unit"
+    "test": "vitest run --project unit --project components",
+    "test:all": "vitest run --reporter=verbose",
+    "gate6:console": "node scripts/gate6-console.mjs"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -24,26 +31,30 @@
     "shiki": "^4.4.3"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "latest",
-    "@storybook/addon-a11y": "^10.5.10",
-    "@storybook/addon-docs": "^10.5.10",
-    "@storybook/addon-mcp": "latest",
-    "@storybook/addon-vitest": "^10.5.10",
-    "@storybook/nextjs-vite": "^10.5.10",
+    "@chromatic-com/storybook": "^5.3.0",
+    "@storybook/addon-a11y": "^10.6.0",
+    "@storybook/addon-docs": "^10.6.0",
+    "@storybook/addon-mcp": "^0.7.0",
+    "@storybook/addon-vitest": "^10.6.0",
+    "@storybook/nextjs-vite": "^10.6.0",
     "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6",
+    "@testing-library/react": "^16",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@vitest/browser-playwright": "latest",
-    "@vitest/coverage-v8": "latest",
+    "@vitest/browser-playwright": "^4.1.11",
+    "@vitest/coverage-v8": "^4.1.11",
     "eslint": "^9",
     "eslint-config-next": "16.3.3",
-    "eslint-plugin-storybook": "^10.5.10",
-    "playwright": "latest",
-    "storybook": "^10.5.10",
+    "eslint-plugin-storybook": "^10.6.0",
+    "jsdom": "^27",
+    "playwright": "^1.62.1",
+    "storybook": "^10.6.0",
+    "storybook-addon-pseudo-states": "^10.6.0",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vite": "latest",
-    "vitest": "latest"
+    "vite": "^8.2.2",
+    "vitest": "^4.1.11"
   }
 }
