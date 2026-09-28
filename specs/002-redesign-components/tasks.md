@@ -943,7 +943,7 @@ diretiva.
 **Todos são Server Components.** Dado de exemplo vive **nas stories**; nenhum componente busca
 dado (SC-015). Formas de dado em [data-model.md](./data-model.md) §2.
 
-- [ ] T021 [P] [US5] `PostCard` — `src/components/PostCard/PostCard.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T021 [P] [US5] `PostCard` — `src/components/PostCard/PostCard.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `03 · CONTEÚDO`, card **`PostCard`** ·
     `ComponentesMobile.dc.html` → `CONTEÚDO`, card **`PostCard`**.
   - **Estados**: variante de superfície **clara** (sobre `paper`/`canvas`) e **escura** (sobre
