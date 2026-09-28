@@ -1,14 +1,25 @@
-import { codeToHtml } from "shiki";
 import { transformerNotationHighlight } from "@shikijs/transformers";
+import { codeToHtml } from "shiki";
 
-import CopyButton from "./CopyButton";
+import CodeBlockView from "./CodeBlockView";
 
 export type CodeBlockProps = {
   code: string;
   language: string;
+  filename?: string;
 };
 
-export default async function CodeBlock({ code, language }: CodeBlockProps) {
+/**
+ * Casca `async`: só destaca e delega. Server Component.
+ *
+ * A assinatura `{ code, language }` é preservada porque `src/lib/mdx.tsx` a consome e está
+ * congelado por SC-011. `filename` entra opcional.
+ */
+export default async function CodeBlock({
+  code,
+  language,
+  filename,
+}: CodeBlockProps) {
   const html = await codeToHtml(code, {
     lang: language || "text",
     theme: "dracula",
@@ -16,12 +27,11 @@ export default async function CodeBlock({ code, language }: CodeBlockProps) {
   });
 
   return (
-    <div className="relative">
-      <CopyButton code={code} />
-      <div
-        className="overflow-x-auto rounded-md shadow-md [&_pre]:p-4 [&_pre]:bg-ink!"
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
-    </div>
+    <CodeBlockView
+      html={html}
+      code={code}
+      language={language}
+      filename={filename}
+    />
   );
 }
