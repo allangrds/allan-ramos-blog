@@ -779,7 +779,7 @@ inativo, nas duas larguras.
     base do Portão 1, que é de exatamente um aviso.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T015 [P] [US4] `SideRail` — `src/components/SideRail/SideRail.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T015 [P] [US4] `SideRail` — `src/components/SideRail/SideRail.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `02 · NAVEGAÇÃO`, card **`SideRail`**. **Não existe no
     celular** — abaixo de 1024px quem aparece é a `MobileTabBar` (FR-038a).
   - **Estados**: os **cinco** destinos (Feed, Categorias, Tags, Séries, Sobre), com o item **ativo
@@ -790,7 +790,7 @@ inativo, nas duas larguras.
   - ⚠️ **Contraste**: marca do item ativo sobre acento → `ink`.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T016 [P] [US4] `MobileTabBar` — `src/components/MobileTabBar/MobileTabBar.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T016 [P] [US4] `MobileTabBar` — `src/components/MobileTabBar/MobileTabBar.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `ComponentesMobile.dc.html` → `NAVEGAÇÃO`, card **`MobileTabBar`** (rótulo
     `74PX`) · `Componentes.dc.html` → `02 · NAVEGAÇÃO`, card **`MobileTabBar`** (descrição "cinco
     abas, alvo de 62px") · em contexto em todas as páginas `Mobile*.dc.html`.
@@ -811,7 +811,7 @@ inativo, nas duas larguras.
     menor dimensão.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T017 [P] [US4] `Breadcrumb` — `src/components/Breadcrumb/Breadcrumb.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T017 [P] [US4] `Breadcrumb` — `src/components/Breadcrumb/Breadcrumb.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: **não tem card próprio**. Medido: é o grupo de estado **`BREADCRUMB`** dentro do
     card **`Pagination`**, em `Componentes.dc.html` → `02 · NAVEGAÇÃO`. Sem presença no
     `ComponentesMobile`; 390px vale pelo ponto de corte único de 1024px (FR-038a).
@@ -820,7 +820,7 @@ inativo, nas duas larguras.
   - **Teste**: o último item **não** é link; os demais são `<a href>`; alvo ≥44px.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T018 [P] [US4] `Pagination` — `src/components/Pagination/Pagination.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T018 [P] [US4] `Pagination` — `src/components/Pagination/Pagination.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `02 · NAVEGAÇÃO`, card **`Pagination`** ·
     `ComponentesMobile.dc.html` → `NAVEGAÇÃO`, card **`Pagination`**.
   - **Estados**: primeira página, página do meio, última página (FR-030) — **e EC-05**: página
@@ -832,7 +832,7 @@ inativo, nas duas larguras.
     (EC-05); na primeira página só o anterior está desabilitado; na última, só o próximo.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T019 [P] [US4] `ReadingProgress` — `src/components/ReadingProgress/ReadingProgress.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T019 [P] [US4] `ReadingProgress` — `src/components/ReadingProgress/ReadingProgress.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: **não tem card próprio**. Medido: é o grupo de estado **`PROGRESSO DE LEITURA`**
     dentro do card **`Pagination`**, em `Componentes.dc.html` → `02 · NAVEGAÇÃO` (barra de 8px,
     fundo `sand`, borda 2px). Em contexto no topo de `MobilePost.dc.html`.
@@ -846,6 +846,49 @@ inativo, nas duas larguras.
   - **Animação**: se animar, **não** declarar `prefers-reduced-motion` próprio — a regra global da
     T002 já cobre (FR-042a, SC-016).
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
+
+**Registro de execução da Camada 3 — T014 a T019, 2026-09-28.** Cinco portões verdes, rodados
+separadamente. Réguas de SC-004 vazias, escopo congelado limpo.
+
+**A fronteira cliente/servidor bateu com o contrato, medida e não afirmada.**
+`grep -rln '^"use client"' src/components/` devolve exatamente sete arquivos: os **cinco** `C` já
+entregues (`SearchTrigger`, `ReadingProgress`, `CodeBlock/CopyButton`, `Toc`, `CopyLinkButton`),
+mais `DisqusComments` e `SearchBox`, que `contracts/components.md` exclui da conta — o primeiro por
+já ser cliente e não ser tocado (SC-013), o segundo por estar aposentado. Falta só a
+`CommandPalette` (T044) para fechar os seis.
+
+**Duas diretivas RECUSADAS de propósito**, e as duas por não haver nenhum dos quatro gatilhos do
+Princípio III: `MobileTabBar` (ativo por prop em vez de `usePathname()`) e `SideRail`. Recusa
+registrada é diferente de esquecimento — por isso está escrita no cabeçalho de cada arquivo.
+
+**Divergências e decisões desta camada**
+
+| # | Onde | Medido / pedido | O que a entrega faz | Por quê |
+|---|---|---|---|---|
+| D-A | `MobileTabBar` | barra 74px, aba 62px | a aba **preenche** os 74px (`h-18.5`) | não é conflito de fontes: são medidas de coisas diferentes. FR-034 exige alvo de 74px **por aba** |
+| D-Q | `SideRail`, `MobileTabBar` | rótulo 10px, peso 700 | `text-micro-cap` (11px) | 10px não é escala declarada; a mais próxima é micro-cap |
+| D-R | `Pagination` | versão anterior devolvia `null` com uma página | **renderiza inerte** | EC-05 exige os dois extremos desabilitados **e presentes**. `null` fazia a navegação desaparecer |
+| D-S | `SideRail` | `/series` no artboard | mantido, com aviso no código | a rota de índice **não existe** hoje (só `/series/[series]`). Não quebra nada porque a `SideRail` não é montada por rota nenhuma; a feature das rotas MUST criar a rota antes de montá-la |
+
+**Três estados provados por asserção, não por inspeção**
+- `Header`: faixa medida em navegador real — **68px** em 1280px e **64px** em 390px (FR-038a);
+- `ReadingProgress`: sem `value` a fração **reflete a rolagem de verdade** — o teste move
+  `scrollY` e dispara `scroll`, e assere 0 → 100. Também cobre página que não rola, onde a divisão
+  por zero daria `NaN` no atributo;
+- `Pagination`: EC-05 assere que os dois extremos ficam `aria-disabled` **e no DOM**, e que o
+  tracejado está lá — porque o reflexo é esconder, e esconder muda o layout debaixo do leitor.
+
+**O ativo nunca é distinguido só por cor.** `Header` dá superfície `paper` + borda ao item ativo,
+`SideRail` dá caixa com sombra dura, `MobileTabBar` dá marca sobre o ícone. Há teste em cada um
+asserindo que o inativo **não** tem o portador de forma — cor sozinha seria o único portador da
+informação.
+
+**Armadilha de régua encontrada duas vezes, nas duas por comentário.** O teste de SC-016 reprovou
+`ReadingProgress` porque o comentário citava o nome da consulta de movimento reduzido, e um grep de
+auditoria acusou `MobileTabBar` porque o comentário citava a diretiva de cliente entre aspas. Nos
+dois casos o código estava certo e o **texto** reprovava. As réguas desta feature são greps, então
+comentário que cita o proibido reprova igual — vale para hex, para a consulta de movimento e para a
+diretiva.
 
 - [ ] T020 [US4] Portão 6 da Camada 3 — execução limpa nas onze rotas, em `dev` e em produção
   - Procedimento: `GATES.md` §6. **Camada de risco alto**: o `Header` muda de Client Component
