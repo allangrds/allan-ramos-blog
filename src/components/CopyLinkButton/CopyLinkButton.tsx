@@ -1,5 +1,6 @@
 "use client";
 
+import { Check, Link2 } from "lucide-react";
 import { useState } from "react";
 
 export type CopyLinkButtonProps = {
@@ -10,7 +11,13 @@ export default function CopyLinkButton({ url }: CopyLinkButtonProps) {
   const [copied, setCopied] = useState(false);
 
   async function handleCopy() {
-    await navigator.clipboard.writeText(url);
+    // EC-08: cópia negada pelo navegador não entra em "copiado" e não lança erro ao leitor.
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      return;
+    }
+
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }
@@ -19,23 +26,10 @@ export default function CopyLinkButton({ url }: CopyLinkButtonProps) {
     <button
       type="button"
       onClick={handleCopy}
-      className="shrink-0 flex items-center gap-2 rounded-pill border border-hairline px-3 py-1 text-caption text-ink-mute hover:border-primary hover:text-primary"
+      className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-pill border-2 border-ink bg-paper px-4 font-mono text-micro-cap text-ink"
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={2}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="size-4"
-        aria-hidden="true"
-      >
-        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-      </svg>
-      {copied ? "Copiado!" : "Copiar link"}
+      {copied ? <Check size={16} aria-hidden="true" /> : <Link2 size={16} aria-hidden="true" />}
+      {copied ? "Copiado!" : "Compartilhar o link"}
     </button>
   );
 }
