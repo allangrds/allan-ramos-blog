@@ -534,7 +534,7 @@ quem cria o handler. Sem diretiva eles servem aos dois lados da fronteira.
     **T046** ou a uma emenda que reabra a T002.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T006 [P] [US3] `IconButton` — `src/components/IconButton/IconButton.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T006 [P] [US3] `IconButton` — `src/components/IconButton/IconButton.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `01 · BASE`, card **`IconButton`** (grupo
     `NEUTRO · ACENTO · MARCA`) · `ComponentesMobile.dc.html` → `BASE`, card **`IconButton`**.
   - **Adiciona `lucide-react@^1.48.0`** ao `package.json` — primeiro consumidor de ícone da
@@ -548,7 +548,7 @@ quem cria o handler. Sem diretiva eles servem aos dois lados da fronteira.
   - **Teste**: `label` produz nome acessível; alvo ≥44px; `href` → `<a>`, `onClick` → `<button>`.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T007 [P] [US3] `Avatar` — `src/components/Avatar/Avatar.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T007 [P] [US3] `Avatar` — `src/components/Avatar/Avatar.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `01 · BASE`, card **`Avatar`** (rótulo
     `LG 108 · MD 44 · SM 32`) · `ComponentesMobile.dc.html` → `BASE`, card **`Avatar`** ·
     `MobileSobre.dc.html` para o `lg` de 78px em contexto.
@@ -563,7 +563,7 @@ quem cria o handler. Sem diretiva eles servem aos dois lados da fronteira.
     três tamanhos resolvem para as dimensões certas.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T008 [P] [US3] `CategoryBadge` — `src/components/CategoryBadge/CategoryBadge.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T008 [P] [US3] `CategoryBadge` — `src/components/CategoryBadge/CategoryBadge.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `01 · BASE`, card **`CategoryBadge`**. **Sem card no
     `ComponentesMobile`** — a apresentação de 390px sai de `MobileTag.dc.html` e
     `MobileCategoria.dc.html`, onde o selo aparece em contexto (ex.: `BACK-END`, `FERRAMENTAS`).
@@ -581,7 +581,7 @@ quem cria o handler. Sem diretiva eles servem aos dois lados da fronteira.
     1024px e **em nenhum outro ponto** (FR-038a).
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T009 [P] [US3] `TagPill` — `src/components/TagPill/TagPill.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T009 [P] [US3] `TagPill` — `src/components/TagPill/TagPill.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `01 · BASE`, card **`TagPill`**. Sem card no
     `ComponentesMobile`; 390px sai de `MobileTag.dc.html` (seção `TAGS VIZINHAS`) e
     `MobileExplorar.dc.html` (seção `TAGS`).
@@ -597,7 +597,7 @@ quem cria o handler. Sem diretiva eles servem aos dois lados da fronteira.
     sempre; `count` ausente não deixa lacuna; alvo ≥44px.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T010 [P] [US3] `Kbd` — `src/components/Kbd/Kbd.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T010 [P] [US3] `Kbd` — `src/components/Kbd/Kbd.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: **não tem card próprio**. Medido: aparece como elemento `<kbd>` dentro dos cards
     **`TopBar`** (`02 · NAVEGAÇÃO`) e **`CommandPalette`** (`05 · BUSCA, VAZIO E RODAPÉ`) de
     `Componentes.dc.html` — mono 11px, peso 700, raio 6px, fundo `sand`. A spec o entrega como
@@ -611,7 +611,7 @@ quem cria o handler. Sem diretiva eles servem aos dois lados da fronteira.
   - **Teste**: renderiza o elemento semântico `<kbd>`; o conteúdo recebido aparece intacto.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T011 [P] [US3] `InlineCode` — `src/components/InlineCode/InlineCode.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T011 [P] [US3] `InlineCode` — `src/components/InlineCode/InlineCode.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `01 · BASE`, card **`InlineCode / link`** (card
     combinado: código inline **e** link inline). 390px em `MobilePost.dc.html`, no corpo do post.
   - **Estados**: código inline no corpo do texto; família monoespaçada, fundo `sand`.
@@ -619,7 +619,7 @@ quem cria o handler. Sem diretiva eles servem aos dois lados da fronteira.
   - **Teste**: renderiza o elemento semântico `<code>`; o conteúdo recebido aparece intacto.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T012 [P] [US3] `Container` (re-estilização) — `src/components/Container/Container.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T012 [P] [US3] `Container` (re-estilização) — `src/components/Container/Container.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: **nenhum card**. É primitivo de layout: a re-estilização deriva dos tokens de
     `Sistema.dc.html` → `03 · FORMA` e da medida de leitura `--measure-prose` (FR-012).
   - **Estados**: largura padrão; largura de leitura (`--measure-prose`, FR-012); com
@@ -632,12 +632,58 @@ quem cria o handler. Sem diretiva eles servem aos dois lados da fronteira.
   - **Teste**: `className` recebido é aplicado e **não substitui** as classes próprias.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T013 [US3] Portão 6 da Camada 2 — execução limpa nas onze rotas, em `dev` e em produção
+**Registro de execução da Camada 2 — T006 a T012, 2026-09-28.** Cinco portões verdes, rodados
+separadamente. As duas réguas de SC-004 devolvem vazio e o escopo congelado está limpo.
+
+`lucide-react@^1.48.0` entrou como dependência nova, exatamente a versão que a T006 previa.
+
+**Divergências de artboard resolvidas nesta camada** — todas pelo mesmo critério das anteriores: o
+token prevalece sobre o desenho, e a constituição prevalece sobre o mock.
+
+| # | Onde | Medido no artboard | O que a entrega faz | Por quê |
+|---|---|---|---|---|
+| D-H | `TagPill` | pílula compacta, ~20px de altura | `min-h-11` (44px) | a pílula é **link real**, e FR-037 é incondicional. Mesmo critério que subiu o `Button` `md` de 40 a 44 |
+| D-I | `TagPill`, `Kbd` | mono **12px** | `text-micro-cap` (11px) + `font-mono` | 12px não é escala declarada; as cinco de FR-003 são exaustivas. A família vem de FR-004 |
+| D-J | `Kbd`, `InlineCode` | raio **5–6px** | `rounded-sm` (12px) | `DESIGN.md` §5 já atribui `--radius-sm` a "selo, pílula pequena, `Kbd`" — o sistema decidiu antes |
+| D-K | `InlineCode` | **14,5px** | **nenhuma** escala declarada; herda o parágrafo | fixar uma das cinco daria salto visível no meio da frase. Herdar mantém o tamanho vindo de token — o do contexto. Há teste que reprova se alguém acrescentar `text-*` |
+| D-L | `CategoryBadge` | borda `ink` em todas | borda **`paper`** em `Programação` | o fundo dessa é `ink`; borda `ink` sobre fundo `ink` é borda invisível. O artboard desenha essa inversão |
+| D-M | `Avatar` | fundos variados por swatch | `bg-mint` único | os fundos do card são ilustração do tamanho, não variante de prop. `mint` exige texto `ink`, que é o que o componente usa |
+| D-N | `TagPill` | padrão **sem** contorno | segue sem `border-2` | FR-007a manda dar borda de 2px onde o desenho **prevê** borda, e não onde ele não prevê |
+
+**Três asserções que medem o renderizado, não a classe** — porque utilitário inexistente é
+silencioso: a classe fica no HTML e o layout cai no tamanho do conteúdo, sem erro nenhum.
+- `Avatar` `lg`: **108px** medido em 1280px e **78px** em 390px, provando FR-020 e que
+  `size-19.5`/`size-27` de fato derivam de `--spacing`;
+- `Container` `prose`: largura menor que 1280px, provando que `--measure-prose` chega ao componente;
+- as onze entradas `Mobile` da camada: `scrollWidth <= 390`.
+
+**Contratos congelados preservados** (FR-016): `TagPill { tag, href }` e `Container { className }`
+intactos. `active`, `count` e `prose` entraram **opcionais com valor padrão**, então nenhum call
+site de `src/app/**` mudou — verificado, o escopo congelado devolve vazio.
+
+**O que esta camada NÃO prova**: `IconButton`, `Avatar`, `CategoryBadge`, `Kbd` e `InlineCode` não
+são alcançados por rota nenhuma enquanto `src/app/**` está congelado. Para eles a verificação de
+execução é o **Portão 4**, não o 6 — é o que a T013 registra.
+
+- [X] T013 [US3] Portão 6 da Camada 2 — execução limpa nas onze rotas, em `dev` e em produção
   - Procedimento: `GATES.md` §6. **O que esta camada de fato exercita**: `Button`, `TagPill` e
     `Container` re-estilizados, compostos pelas rotas atuais. `IconButton`, `Avatar`,
     `CategoryBadge`, `Kbd` e `InlineCode` **não são alcançados por rota nenhuma** — `src/app/**`
     está congelado. Para eles a verificação de execução é o **Portão 4**, não este.
   - Registrar evidência no corpo do commit.
+  - ✅ **Executado em 2026-09-28, os dois canais, nos dois modos. ZERO regressão.**
+    **Terminal** — `dev`: um aviso (lockfile órfão, §4). Produção: dois (lockfile e `static
+    directory deprecated`). Idênticos à base da T004, **por identidade**.
+    **Console, em Chromium de perfil limpo** — `dev` e produção deram resultado **idêntico entre
+    si e idêntico à base**: nove rotas limpas, e os mesmos **dois** achados de linha de base (CORS
+    de terceiro do Disqus em `/posts/<slug>`; 404 esperado na rota inexistente). Zero achado novo,
+    zero hydration mismatch.
+    **O que isto prova**: re-estilizar `Button`, `TagPill` e `Container` — os três desta camada que
+    as rotas de fato compõem — não quebrou nenhuma das onze rotas. `TagPill` é o caso de maior
+    risco, porque perdeu `bg-canvas-cream`, `text-caption` e o `border` nu de uma vez.
+    **O que isto NÃO prova**: `IconButton`, `Avatar`, `CategoryBadge`, `Kbd` e `InlineCode` não são
+    alcançados por rota nenhuma enquanto `src/app/**` está congelado. Para eles a verificação de
+    execução é o **Portão 4** (story em navegador real), não este.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
 **Checkpoint**: kit de primitivos utilizável. US3 é testável sozinha.
