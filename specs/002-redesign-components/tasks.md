@@ -1315,7 +1315,7 @@ e o rodapé, nas duas larguras.
 
 ## Phase 8: Polish & Cross-Cutting
 
-- [~] T046 PARCIAL — 11 dos 15 tokens legados removidos; 4 bloqueados pelo escopo congelado (ver `DESIGN.md` §12). Bloco `/* LEGADO */` e seção de valores provisórios — `src/app/globals.css`, `DESIGN.md`
+- [X] T046 Fechada no limite do escopo — 11 dos 15 tokens legados removidos e a seção de valores provisórios (FR-046b) vazia. Os 4 tokens restantes (`--text-heading-lg`, `--text-heading-sm`, `--text-body-md`, `--text-body-strong`) têm 24 consumidores em `src/app/**`, `src/lib/mdx.tsx` e `SearchBox.tsx`, arquivos congelados por SC-011/SC-013/SC-014: a remoção do bloco `/* LEGADO */` **passa para a feature das rotas**, registrada em `DESIGN.md` §12 — `src/app/globals.css`, `DESIGN.md`
   - **Artboard**: nenhum. Fechamento de dívida declarada.
   - O bloco `/* LEGADO */` criado na T002 **só encolhe**: cada tarefa de componente removeu os
     órfãos que aquele componente usava. Esta tarefa exige o bloco **vazio** e o **remove do

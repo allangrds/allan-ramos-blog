@@ -60,69 +60,69 @@ o item continua válido como pergunta, não como medição.
 - [x] CHK001 **Dezesseis dos trinta e seis** componentes não têm requisito próprio enumerando seus estados e variantes: `Header`, `Footer`, `Hero`, `PostContent`, `PostsListing`, `Container`, `CopyLinkButton`, `Breadcrumb`, `ReadingProgress`, `CategoryCard`, `SeriesShelf`, `YearArchive`, `AuthorCard`, `PrevNext`, `Kbd` e `InlineCode`. A ausência é deliberada ou lacuna? [Completeness, Spec §FR-017…FR-036]
 - [x] CHK002 FR-036 ("todo estado desenhado nos artboards MUST estar no catálogo, mesmo quando não enumerado acima") é o único requisito que cobre esses dezesseis. Ele é verificável sem que alguém releia os três artboards e julgue caso a caso? [Measurability, Spec §FR-036]
 - [x] CHK003 SC-003 afirma que "100% dos estados e variantes **enumerados nos requisitos**" aparecem no catálogo. Como dezesseis componentes não enumeram nenhum, eles satisfazem SC-003 **trivialmente**, com zero estado. O critério mede o que pretende medir? [Conflict, Spec §SC-003, §FR-036]
-- [ ] CHK004 Existe requisito que defina o **mínimo de estados** que qualquer componente precisa cobrir na story (ao menos o caso feliz e ao menos um caso de borda), independentemente de ter FR próprio? [Gap, Spec §FR-043]
-- [ ] CHK005 Os casos de borda listados na spec (título longo, resumo ausente, post sem categoria/tag/série, sumário com um título ou nenhum, série de um item, ano único) estão **atribuídos a componentes nomeados**, ou ficam como lista solta que cada tarefa interpreta? [Traceability, Spec §Edge Cases]
+- [x] CHK004 Existe requisito que defina o **mínimo de estados** que qualquer componente precisa cobrir na story (ao menos o caso feliz e ao menos um caso de borda), independentemente de ter FR próprio? [Gap, Spec §FR-043]
+- [x] CHK005 Os casos de borda listados na spec (título longo, resumo ausente, post sem categoria/tag/série, sumário com um título ou nenhum, série de um item, ano único) estão **atribuídos a componentes nomeados**, ou ficam como lista solta que cada tarefa interpreta? [Traceability, Spec §Edge Cases]
 - [x] CHK006 `SearchTrigger` aparece **zero vezes na spec** e quinze vezes em `tasks.md`, com duas tarefas dedicadas (T017, T044). Um componente entregável sem requisito que o autorize está previsto em algum lugar além do Complexity Tracking do plano? [Gap, Plan §Complexity Tracking, Spec §FR-014]
 - [x] CHK007 O inventário da spec tem 36 componentes, mas a entrega tem **38 artefatos** (`SearchTrigger` e `CodeBlock/CopyButton` à parte). SC-001 conta 36. Os dois sub-componentes precisam dos três artefatos, e SC-001 os conta? [Consistency, Spec §SC-001, Contracts §Resumo]
 
 ## Story e teste como requisito por componente
 
-- [ ] CHK008 FR-043 exige os três artefatos para todo componente, na mesma tarefa. A exigência é **universal e sem exceção** escrita, de modo que nenhum componente possa fechar sem teste? [Completeness, Spec §FR-043, Constitution §II]
-- [ ] CHK009 O **terceiro nível de teste — interação** — aparece **zero vezes na spec** e nove vezes em `contracts/components.md`. Quem decide que `Toc` precisa de teste de interação e `Callout` não, se nenhum requisito estabelece o critério? [Gap, Spec §FR-043, Contracts §Legenda]
-- [ ] CHK010 Existe requisito definindo **o que o teste de comportamento precisa provar** além de renderizar, ou "teste de comportamento separado da story" fica a critério de quem escreve? [Clarity, Spec §FR-043]
-- [ ] CHK011 FR-043a fixa a **colocação** (`src/components/<Nome>/<Nome>.test.tsx`) de forma inequívoca e verificável por caminho de arquivo? [Measurability, Spec §FR-043a]
-- [ ] CHK012 Existe requisito para o caso em que um componente é **alterado** (não criado) — a constituição exige atualizar story e teste junto, mas nenhum FR repete isso para os 15 re-estilizados? [Gap, Constitution §II, Spec §FR-013]
-- [ ] CHK013 FR-042 exige que as checagens de a11y rodem sobre as stories e passem. Existe requisito sobre **o que fazer quando uma regra reprovar por decisão de desenho** — exceção registrada, ou proibição absoluta? [Gap, Spec §FR-042, §SC-006]
+- [x] CHK008 FR-043 exige os três artefatos para todo componente, na mesma tarefa. A exigência é **universal e sem exceção** escrita, de modo que nenhum componente possa fechar sem teste? [Completeness, Spec §FR-043, Constitution §II]
+- [x] CHK009 O **terceiro nível de teste — interação** — aparece **zero vezes na spec** e nove vezes em `contracts/components.md`. Quem decide que `Toc` precisa de teste de interação e `Callout` não, se nenhum requisito estabelece o critério? [Gap, Spec §FR-043, Contracts §Legenda]
+- [x] CHK010 Existe requisito definindo **o que o teste de comportamento precisa provar** além de renderizar, ou "teste de comportamento separado da story" fica a critério de quem escreve? [Clarity, Spec §FR-043]
+- [x] CHK011 FR-043a fixa a **colocação** (`src/components/<Nome>/<Nome>.test.tsx`) de forma inequívoca e verificável por caminho de arquivo? [Measurability, Spec §FR-043a]
+- [x] CHK012 Existe requisito para o caso em que um componente é **alterado** (não criado) — a constituição exige atualizar story e teste junto, mas nenhum FR repete isso para os 15 re-estilizados? [Gap, Constitution §II, Spec §FR-013]
+- [x] CHK013 FR-042 exige que as checagens de a11y rodem sobre as stories e passem. Existe requisito sobre **o que fazer quando uma regra reprovar por decisão de desenho** — exceção registrada, ou proibição absoluta? [Gap, Spec §FR-042, §SC-006]
 
 ## Apresentação móvel e responsividade
 
-- [ ] CHK014 **Apenas cinco** componentes têm comportamento móvel definido por requisito — `Toc` (FR-027), `CodeBlock` (FR-026), `MobileTabBar` (FR-034), `Avatar` (FR-020) e `CommandPalette` (FR-031). Os outros 31 têm só FR-038, que fala do **catálogo**, não de comportamento. A diferença é deliberada? [Coverage, Spec §FR-038]
+- [x] CHK014 **Apenas cinco** componentes têm comportamento móvel definido por requisito — `Toc` (FR-027), `CodeBlock` (FR-026), `MobileTabBar` (FR-034), `Avatar` (FR-020) e `CommandPalette` (FR-031). Os outros 31 têm só FR-038, que fala do **catálogo**, não de comportamento. A diferença é deliberada? [Coverage, Spec §FR-038]
 - [x] CHK015 `Header` (68px no desktop, 64px no celular) e `CategoryBadge` (11px contra 9px) têm o comportamento responsivo definido **apenas em Assumptions**, não em requisito. Assumption é fonte normativa suficiente para uma tarefa fechar? [Traceability, Spec §Assumptions, §FR-021]
-- [ ] CHK016 FR-038a fixa o corte único em 1024px e FR-038 as duas larguras de catálogo (390px e 1280px). Todo requisito que hoje diz "desktop" ou "em 390px" foi alinhado a esses números, sem redação antiga sobrando? [Consistency, Spec §FR-038, §FR-038a]
-- [ ] CHK017 FR-039 exige coluna única, botão isolado em largura cheia e zero rolagem horizontal em 390px. "Botão isolado" e "par de ações irmãs" (US3/AS-5) estão definidos de forma que se saiba qual caso vale num layout qualquer? [Ambiguity, Spec §FR-039, §US3]
-- [ ] CHK018 Existe requisito para o comportamento **entre** as duas apresentações — larguras entre 390px e 1024px que o catálogo não cobre, mas que leitores reais usam? [Gap, Edge Case, Spec §FR-038]
+- [x] CHK016 FR-038a fixa o corte único em 1024px e FR-038 as duas larguras de catálogo (390px e 1280px). Todo requisito que hoje diz "desktop" ou "em 390px" foi alinhado a esses números, sem redação antiga sobrando? [Consistency, Spec §FR-038, §FR-038a]
+- [x] CHK017 FR-039 exige coluna única, botão isolado em largura cheia e zero rolagem horizontal em 390px. "Botão isolado" e "par de ações irmãs" (US3/AS-5) estão definidos de forma que se saiba qual caso vale num layout qualquer? [Ambiguity, Spec §FR-039, §US3]
+- [x] CHK018 Existe requisito para o comportamento **entre** as duas apresentações — larguras entre 390px e 1024px que o catálogo não cobre, mas que leitores reais usam? [Gap, Edge Case, Spec §FR-038]
 - [x] CHK019 O caso de borda "texto ampliado a 200% sem perder conteúdo nem criar rolagem horizontal" está atribuído a componentes nomeados ou fica sem dono? [Coverage, Spec §Edge Cases, §FR-039]
 
 ## Fronteira servidor/cliente
 
-- [ ] CHK020 A expressão "Server Component" aparece **zero vezes na spec**. A fronteira por componente vive só em `contracts/components.md` e no `plan.md`. Uma decisão que o Princípio III torna obrigatória deveria ser requisito? [Gap, Spec, Constitution §III]
-- [ ] CHK021 Para cada um dos 38 artefatos, `contracts/components.md` declara S ou C **com justificativa escrita**. A justificativa é verificável contra o Princípio III (estado, efeito, handler ou API de browser), ou algumas são afirmação? [Measurability, Contracts §Camadas 2–6, Constitution §III]
-- [ ] CHK022 As três recusas deliberadas de diretiva (`MobileTabBar`, `ShareButtons`, `LikeCommentBar`) estão justificadas por ausência dos quatro gatilhos, e não por conveniência? [Consistency, Contracts §Resumo, Constitution §III]
-- [ ] CHK023 `Header` passa de Client a Server Component, o que é mudança de comportamento (perde o menu mobile com `useState`). Existe requisito que autorize a **remoção** dessa funcionalidade, ou só o plano a descreve? [Gap, Plan §Camada 3, Spec §FR-013]
-- [ ] CHK024 FR-031a proíbe o `CommandPalette` de importar `src/lib/search-index.ts` e permite `src/lib/search.ts`. A regra geral por trás disso — nenhum Client Component importa módulo que leia o sistema de arquivos — está escrita como requisito para os **outros seis** clientes, ou só para este? [Coverage, Spec §FR-031a, §SC-015]
-- [ ] CHK025 O Gate 6 (FR-046) lista "Client Component async" e "`use client` faltando" como falha. Existe critério para detectá-los **antes** de subir o Next.js, ou a fronteira só é verificada por execução? [Measurability, Spec §FR-046]
+- [x] CHK020 A expressão "Server Component" aparece **zero vezes na spec**. A fronteira por componente vive só em `contracts/components.md` e no `plan.md`. Uma decisão que o Princípio III torna obrigatória deveria ser requisito? [Gap, Spec, Constitution §III]
+- [x] CHK021 Para cada um dos 38 artefatos, `contracts/components.md` declara S ou C **com justificativa escrita**. A justificativa é verificável contra o Princípio III (estado, efeito, handler ou API de browser), ou algumas são afirmação? [Measurability, Contracts §Camadas 2–6, Constitution §III]
+- [x] CHK022 As três recusas deliberadas de diretiva (`MobileTabBar`, `ShareButtons`, `LikeCommentBar`) estão justificadas por ausência dos quatro gatilhos, e não por conveniência? [Consistency, Contracts §Resumo, Constitution §III]
+- [x] CHK023 `Header` passa de Client a Server Component, o que é mudança de comportamento (perde o menu mobile com `useState`). Existe requisito que autorize a **remoção** dessa funcionalidade, ou só o plano a descreve? [Gap, Plan §Camada 3, Spec §FR-013]
+- [x] CHK024 FR-031a proíbe o `CommandPalette` de importar `src/lib/search-index.ts` e permite `src/lib/search.ts`. A regra geral por trás disso — nenhum Client Component importa módulo que leia o sistema de arquivos — está escrita como requisito para os **outros seis** clientes, ou só para este? [Coverage, Spec §FR-031a, §SC-015]
+- [x] CHK025 O Gate 6 (FR-046) lista "Client Component async" e "`use client` faltando" como falha. Existe critério para detectá-los **antes** de subir o Next.js, ou a fronteira só é verificada por execução? [Measurability, Spec §FR-046]
 
 ## Foco, alvo de toque e semântica
 
 - [x] CHK026 FR-018 define o foco visível **apenas para `Button`**. Os outros ~24 componentes interativos (`IconButton`, `TagPill`, `SideRail`, `MobileTabBar`, `Breadcrumb`, `Pagination`, `CommandPalette`, `ShareButtons`, `PrevNext`, `SeriesShelf`…) não têm requisito de foco. É lacuna? [Coverage, Spec §FR-018]
 - [x] CHK027 O anel de foco especificado é `ink-blue` 3px com afastamento 3px. Existe requisito de **contraste do próprio indicador** contra a superfície em que ele aparece? (Medido: `ink-blue` dá 2,08 sobre `flame` e 2,84 sobre `mint`, abaixo de 3:1.) [Gap, Spec §FR-018, §FR-041]
-- [ ] CHK028 FR-037 fixa alvo de toque ≥44px na menor dimensão, de forma global e mensurável. Existe requisito sobre **espaçamento entre alvos** adjacentes, que é o outro lado do mesmo problema em 390px? [Gap, Spec §FR-037]
-- [ ] CHK029 FR-034 exige 74px por aba no `MobileTabBar` contra os 44px gerais de FR-037. A relação entre os dois (74 é mínimo próprio, não teto) está escrita sem ambiguidade? [Clarity, Spec §FR-034, §FR-037]
-- [ ] CHK030 FR-040 proíbe elemento genérico com manipulador de clique e exige botão, link com destino ou campo com rótulo. O critério é objetivamente verificável por inspeção do DOM? [Measurability, Spec §FR-040]
-- [ ] CHK031 FR-036a exige nome acessível em todo controle cujo ícone carrega o único significado, e esconder ícone decorativo. Existe requisito equivalente de **nome acessível para região** (`nav`, `header`, `footer`), que se repetem no `SideRail`, `MobileTabBar`, `Breadcrumb` e `Pagination`? [Gap, Spec §FR-036a, §FR-040]
-- [ ] CHK032 Existe requisito de **ordem de foco e navegação por teclado** para os componentes com mais de um controle — `CommandPalette`, `Pagination`, `ShareButtons`, `MobileTabBar`? [Gap, Coverage, Constitution §IV]
+- [x] CHK028 FR-037 fixa alvo de toque ≥44px na menor dimensão, de forma global e mensurável. Existe requisito sobre **espaçamento entre alvos** adjacentes, que é o outro lado do mesmo problema em 390px? [Gap, Spec §FR-037]
+- [x] CHK029 FR-034 exige 74px por aba no `MobileTabBar` contra os 44px gerais de FR-037. A relação entre os dois (74 é mínimo próprio, não teto) está escrita sem ambiguidade? [Clarity, Spec §FR-034, §FR-037]
+- [x] CHK030 FR-040 proíbe elemento genérico com manipulador de clique e exige botão, link com destino ou campo com rótulo. O critério é objetivamente verificável por inspeção do DOM? [Measurability, Spec §FR-040]
+- [x] CHK031 FR-036a exige nome acessível em todo controle cujo ícone carrega o único significado, e esconder ícone decorativo. Existe requisito equivalente de **nome acessível para região** (`nav`, `header`, `footer`), que se repetem no `SideRail`, `MobileTabBar`, `Breadcrumb` e `Pagination`? [Gap, Spec §FR-036a, §FR-040]
+- [x] CHK032 Existe requisito de **ordem de foco e navegação por teclado** para os componentes com mais de um controle — `CommandPalette`, `Pagination`, `ShareButtons`, `MobileTabBar`? [Gap, Coverage, Constitution §IV]
 - [x] CHK033 O caso de borda "leitor com preferência de movimento reduzido ativa" está atribuído a componentes nomeados, ou fica sem dono? Só `ReadingProgress` e `Toc` têm movimento. [Coverage, Spec §Edge Cases]
 
 ## API pública dos componentes existentes
 
 - [x] CHK034 **Conflito ativo**: `contracts/components.md` marca **`Pagination` como 🔒 CONGELADO**, mas FR-016 não o lista entre os onze, e `plan.md` afirma explicitamente que a API dele é **livre** porque nenhuma rota o chama. Três artefatos, duas posições. [Conflict, Spec §FR-016, Plan §Como a re-estilização, Contracts §Camada 3]
-- [ ] CHK035 A lista de FR-016 tem onze assinaturas. Ela foi derivada de uma varredura dos call sites em `src/app/**`, e existe critério para conferir que nenhuma prop consumida ficou de fora? [Measurability, Spec §FR-016, §SC-014]
-- [ ] CHK036 FR-016 exige que prop nova entre "opcional e com valor padrão". Existe requisito sobre o que fazer quando o **valor padrão** muda o visual de um call site existente — o que é exatamente o caso de `PostCard({ surface })`? [Gap, Spec §FR-016, §FR-023]
-- [ ] CHK037 FR-016 diz que toda mudança de API fora do contrato mínimo "MUST ser registrada e justificada". **Onde** esse registro vive está definido? Nenhum artefato nomeia o destino. [Gap, Spec §FR-016]
-- [ ] CHK038 `contracts/components.md` descreve três assinaturas apenas como "assinatura atual preservada" (`FeaturedPostCard`, `CodeBlock`, `Pagination`). Isso é especificação suficiente para alguém que não vai abrir o código? [Clarity, Contracts §Camadas 3–5]
-- [ ] CHK039 FR-015 e SC-013 exigem `SearchBox` e `DisqusComments` com zero linha alterada. O critério é verificável por diff e está escrito como tal? [Measurability, Spec §FR-015, §SC-013]
+- [x] CHK035 A lista de FR-016 tem onze assinaturas. Ela foi derivada de uma varredura dos call sites em `src/app/**`, e existe critério para conferir que nenhuma prop consumida ficou de fora? [Measurability, Spec §FR-016, §SC-014]
+- [x] CHK036 FR-016 exige que prop nova entre "opcional e com valor padrão". Existe requisito sobre o que fazer quando o **valor padrão** muda o visual de um call site existente — o que é exatamente o caso de `PostCard({ surface })`? [Gap, Spec §FR-016, §FR-023]
+- [x] CHK037 FR-016 diz que toda mudança de API fora do contrato mínimo "MUST ser registrada e justificada". **Onde** esse registro vive está definido? Nenhum artefato nomeia o destino. [Gap, Spec §FR-016]
+- [x] CHK038 `contracts/components.md` descreve três assinaturas apenas como "assinatura atual preservada" (`FeaturedPostCard`, `CodeBlock`, `Pagination`). Isso é especificação suficiente para alguém que não vai abrir o código? [Clarity, Contracts §Camadas 3–5]
+- [x] CHK039 FR-015 e SC-013 exigem `SearchBox` e `DisqusComments` com zero linha alterada. O critério é verificável por diff e está escrito como tal? [Measurability, Spec §FR-015, §SC-013]
 
 ## Estados de interação não especificados
 
 - [x] CHK040 **`hover` e `active` aparecem zero vezes** em spec, plan e contracts, para 25+ componentes interativos — e a paleta antiga tinha `--color-link-hover`, que a nova não substitui. Os estados de passagem e pressão são exclusão deliberada ou lacuna? [Gap, Spec §FR-017…FR-036, §FR-001]
-- [ ] CHK041 Existe requisito de **estado visitado** para links de post, ou de estado `aria-current` para navegação, além da distinção ativo/inativo de FR-033 e FR-034? [Gap, Spec §FR-033, §FR-034]
-- [ ] CHK042 Nenhum requisito define **estado de carregamento** para componente algum. Como todo dado chega por propriedade (SC-015), a ausência é correta — mas está declarada em algum lugar, ou é silêncio? [Coverage, Spec §SC-015]
+- [x] CHK041 Existe requisito de **estado visitado** para links de post, ou de estado `aria-current` para navegação, além da distinção ativo/inativo de FR-033 e FR-034? [Gap, Spec §FR-033, §FR-034]
+- [x] CHK042 Nenhum requisito define **estado de carregamento** para componente algum. Como todo dado chega por propriedade (SC-015), a ausência é correta — mas está declarada em algum lugar, ou é silêncio? [Coverage, Spec §SC-015]
 
 ## Consistência entre spec, plan, contracts e tasks
 
-- [ ] CHK043 As camadas do plano (2 a 6) e as fases de `tasks.md` (3 a 7) mapeiam para as user stories US3 a US7 sem componente órfão nem duplicado entre duas camadas? [Consistency, Plan §Ordem de implementação, Tasks §Fases 3–7]
-- [ ] CHK044 O nível de teste que `contracts/components.md` atribui a cada componente ("story" contra "story+interação") bate com o que a tarefa correspondente em `tasks.md` exige? [Consistency, Contracts, Tasks §T003–T045]
-- [ ] CHK045 As dependências de composição declaradas em `tasks.md` (`PostListRow`→`CategoryBadge`+`TagPill`, `Toc`→`IconButton`, `CommandPalette`→`Kbd`+`EmptyState`, `PostsListing`→quatro) estão respaldadas por algum requisito, ou foram inferidas na geração das tarefas? [Traceability, Tasks §Dependências, Spec §FR-013, §FR-014]
+- [x] CHK043 As camadas do plano (2 a 6) e as fases de `tasks.md` (3 a 7) mapeiam para as user stories US3 a US7 sem componente órfão nem duplicado entre duas camadas? [Consistency, Plan §Ordem de implementação, Tasks §Fases 3–7]
+- [x] CHK044 O nível de teste que `contracts/components.md` atribui a cada componente ("story" contra "story+interação") bate com o que a tarefa correspondente em `tasks.md` exige? [Consistency, Contracts, Tasks §T003–T045]
+- [x] CHK045 As dependências de composição declaradas em `tasks.md` (`PostListRow`→`CategoryBadge`+`TagPill`, `Toc`→`IconButton`, `CommandPalette`→`Kbd`+`EmptyState`, `PostsListing`→quatro) estão respaldadas por algum requisito, ou foram inferidas na geração das tarefas? [Traceability, Tasks §Dependências, Spec §FR-013, §FR-014]
 
 ## Notes
 

@@ -67,20 +67,20 @@ o item continua válido como pergunta, não como medição.
 
 ## Completude do inventário de tokens
 
-- [ ] CHK001 Todo token citado em algum requisito tem **nome** e **valor** definidos no mesmo corpo de requisitos, ou o nome só aparece no `data-model.md`? Os nomes `--radius-sm/md/lg/xl/pill`, `--shadow-hard` e `--shadow-frame` não aparecem em FR-005 nem em FR-006 — só valores. [Completeness, Spec §FR-005, §FR-006, Data-model §1.3]
+- [x] CHK001 Todo token citado em algum requisito tem **nome** e **valor** definidos no mesmo corpo de requisitos, ou o nome só aparece no `data-model.md`? Os nomes `--radius-sm/md/lg/xl/pill`, `--shadow-hard` e `--shadow-frame` não aparecem em FR-005 nem em FR-006 — só valores. [Completeness, Spec §FR-005, §FR-006, Data-model §1.3]
 - [x] CHK002 O hex `#0A66C2` (LinkedIn) é usado como valor visual em FR-008 e FR-028, mas **não está entre as doze cores de FR-001**. Os requisitos definem se ele é token nomeado ou exceção declarada ao "zero hex literal"? [Conflict, Spec §FR-001, §FR-028, §SC-004]
 - [x] CHK003 "Texto branco" é permitido por FR-008 sobre quatro superfícies, mas **branco não é um dos doze tokens de cor**. Os requisitos definem qual token nomeado carrega o branco? [Gap, Spec §FR-001, §FR-008]
 - [x] CHK004 FR-007 exige "borda de 2px sólida na cor ink" e proíbe hardcodar valor visual, mas **nenhum token de espessura de borda** é definido em FR-005 ou FR-006. O requisito é internamente consistente? [Conflict, Spec §FR-007, §SC-004]
 - [x] CHK005 O Princípio I da constituição inclui **espaçamento** entre os valores que MUST ser token; FR-001 a FR-010 **não definem nenhum token de espaçamento**. A ausência é exclusão deliberada ou lacuna? [Gap, Constitution §I, Spec §FR-001…FR-010]
 - [x] CHK006 Os requisitos definem token para a **medida de leitura** de 65–72 caracteres (FR-012), ou o valor fica solto no componente contra SC-004? [Gap, Spec §FR-012, §SC-004]
-- [ ] CHK007 Está definido o requisito de **o que fazer quando um componente precisa de um valor que ainda não tem token**? A regra "o token MUST ser criado primeiro" vive só na constituição, não nos FRs da feature. [Traceability, Constitution §I, Spec §FR-007]
+- [x] CHK007 Está definido o requisito de **o que fazer quando um componente precisa de um valor que ainda não tem token**? A regra "o token MUST ser criado primeiro" vive só na constituição, não nos FRs da feature. [Traceability, Constitution §I, Spec §FR-007]
 
 ## Clareza e quantificação dos valores
 
 - [x] CHK008 FR-006 diz "deslocamento de 4px e de 8px" sem dizer **em quais eixos**. O `data-model` resolve como `4px 4px 0`, mas o requisito sozinho admite mais de uma leitura. É inequívoco? [Ambiguity, Spec §FR-006, Data-model §1.3]
-- [ ] CHK009 FR-007 aplica a borda de 2px "**onde o desenho prevê borda**". Esse critério é objetivamente verificável, ou depende de julgamento caso a caso sobre o artboard? [Measurability, Spec §FR-007]
+- [x] CHK009 FR-007 aplica a borda de 2px "**onde o desenho prevê borda**". Esse critério é objetivamente verificável, ou depende de julgamento caso a caso sobre o artboard? [Measurability, Spec §FR-007]
 - [x] CHK010 FR-003 fixa entrelinha (1,72) **apenas** para `body-lg`. Os requisitos definem entrelinha para `display-xxl`, `display-md`, `heading-md` e `micro-cap`, ou ficam indefinidos? [Completeness, Spec §FR-003]
-- [ ] CHK011 O token `--radius-md` 16px é declarado **sem consumidor inicial**. Essa exceção ao Princípio V está registrada como requisito ou apenas como Assumption? [Consistency, Spec §Assumptions, Constitution §V]
+- [x] CHK011 O token `--radius-md` 16px é declarado **sem consumidor inicial**. Essa exceção ao Princípio V está registrada como requisito ou apenas como Assumption? [Consistency, Spec §Assumptions, Constitution §V]
 - [x] CHK012 A Assumption fixa o rótulo do `CategoryBadge` em **9px em 390px contra 11px no desktop**, mas `--text-micro-cap` só define 11px. Existe requisito de token para o valor de 9px, ou ele viola SC-004 por construção? [Conflict, Spec §Assumptions, §FR-003, §SC-004]
 - [x] CHK013 FR-038 exige apresentação "em desktop e em 390px", mas **"desktop" não é quantificado** com uma largura. O requisito é executável sem que cada pessoa escolha um número diferente? [Clarity, Spec §FR-038]
 - [x] CHK014 Os requisitos definem **em que largura** os valores responsivos trocam — `Avatar lg` 78↔108px, `CategoryBadge` 9↔11px, `Header` 64↔68px? Nenhum breakpoint é nomeado ou tokenizado. [Gap, Spec §FR-020, §Assumptions, Research §R8]
@@ -88,53 +88,53 @@ o item continua válido como pergunta, não como medição.
 ## Regra de contraste como critério verificável
 
 - [x] CHK015 A regra de FR-008 está escrita como **critério binário** ("sobre flame, sun e mint o texto é SEMPRE ink; branco SOMENTE sobre ink, ink-blue, code-bg e #0A66C2") e não como conselho? [Measurability, Spec §FR-008]
-- [ ] CHK016 FR-041 aceita 3:1 "apenas acima de 24px", mas **não define se o critério é tamanho apenas ou tamanho-e-peso**. `--text-heading-md` é 21px em peso 700 — cai ou não cai na faixa relaxada? [Ambiguity, Spec §FR-041, Data-model §1.2]
-- [ ] CHK017 Existe requisito que fixe **o método de cálculo** do contraste (luminância relativa WCAG 2.x, e contra qual cor de fundo exata), ou os números de R3 são resultado sem procedimento declarado? [Measurability, Research §R3, Spec §FR-041]
-- [ ] CHK018 `--color-ink-soft` `#3B352A` é declarado como "texto secundário", mas **seu contraste não é medido em lugar nenhum** — nem em R3, nem no plano, nem no `data-model`. O requisito de 4,5:1 é verificável para ele? [Gap, Data-model §1.1, Spec §FR-041]
-- [ ] CHK019 `--color-hairline` é "divisor pontilhado", um elemento não-textual. Existe requisito de contraste para **componente de interface e borda** (3:1), ou FR-041 cobre só texto? [Gap, Spec §FR-041, Data-model §1.1]
+- [x] CHK016 FR-041 aceita 3:1 "apenas acima de 24px", mas **não define se o critério é tamanho apenas ou tamanho-e-peso**. `--text-heading-md` é 21px em peso 700 — cai ou não cai na faixa relaxada? [Ambiguity, Spec §FR-041, Data-model §1.2]
+- [x] CHK017 Existe requisito que fixe **o método de cálculo** do contraste (luminância relativa WCAG 2.x, e contra qual cor de fundo exata), ou os números de R3 são resultado sem procedimento declarado? [Measurability, Research §R3, Spec §FR-041]
+- [x] CHK018 `--color-ink-soft` `#3B352A` é declarado como "texto secundário", mas **seu contraste não é medido em lugar nenhum** — nem em R3, nem no plano, nem no `data-model`. O requisito de 4,5:1 é verificável para ele? [Gap, Data-model §1.1, Spec §FR-041]
+- [x] CHK019 `--color-hairline` é "divisor pontilhado", um elemento não-textual. Existe requisito de contraste para **componente de interface e borda** (3:1), ou FR-041 cobre só texto? [Gap, Spec §FR-041, Data-model §1.1]
 - [x] CHK020 FR-018 especifica o foco como "contorno de 3px ink-blue com afastamento de 3px", mas **não exige contraste do indicador de foco** contra as superfícies adjacentes. É lacuna ou exclusão deliberada? [Gap, Spec §FR-018, §FR-041]
-- [ ] CHK021 O `quickstart` manda "**inspecionar**" duas das três regras de contraste e reserva o comando automatizado só para a terceira. "Inspecionar" é critério de aceitação objetivo? [Measurability, Quickstart §4, Spec §FR-042]
+- [x] CHK021 O `quickstart` manda "**inspecionar**" duas das três regras de contraste e reserva o comando automatizado só para a terceira. "Inspecionar" é critério de aceitação objetivo? [Measurability, Quickstart §4, Spec §FR-042]
 - [x] CHK022 O plano ainda descreve a regra operante como "**mais estrita que FR-008**", mas a spec já foi corrigida para exatamente essa régua. As três redações (FR-008, plan, data-model §1.4) dizem a mesma coisa hoje? [Consistency, Spec §FR-008, Plan §Verificação de contraste, Data-model §1.4]
 
 ## Cor por categoria
 
-- [ ] CHK023 Cada uma das cinco categorias tem **uma** cor e **só uma**, sem categoria sem cor nem cor disputada por duas categorias? [Consistency, Spec §FR-009, Data-model §1.5]
-- [ ] CHK024 Os **nomes literais** das cinco categorias estão fixados como valores de dado ("Front-end", "Back-end", "Ferramentas", "Design", "Programação"), de modo que a resolução cor↔categoria não dependa de normalização não especificada? [Clarity, Spec §FR-009, Data-model §2.1]
-- [ ] CHK025 Existe requisito para uma **categoria fora das cinco** — conteúdo em `src/content/**` (congelado) cuja categoria não esteja mapeada? A spec prevê "post sem categoria", mas não categoria desconhecida. [Gap, Edge Case, Spec §Edge Cases, §FR-009]
-- [ ] CHK026 As cinco cores de categoria **também** carregam outros papéis (`flame` destaque, `sun` faixa do topo, `mint` séries, `ink-blue` link inline, `ink` texto e borda). Existe requisito de que a categoria não seja comunicada **apenas por cor**? [Gap, Data-model §1.1, §1.5, Constitution §IV]
+- [x] CHK023 Cada uma das cinco categorias tem **uma** cor e **só uma**, sem categoria sem cor nem cor disputada por duas categorias? [Consistency, Spec §FR-009, Data-model §1.5]
+- [x] CHK024 Os **nomes literais** das cinco categorias estão fixados como valores de dado ("Front-end", "Back-end", "Ferramentas", "Design", "Programação"), de modo que a resolução cor↔categoria não dependa de normalização não especificada? [Clarity, Spec §FR-009, Data-model §2.1]
+- [x] CHK025 Existe requisito para uma **categoria fora das cinco** — conteúdo em `src/content/**` (congelado) cuja categoria não esteja mapeada? A spec prevê "post sem categoria", mas não categoria desconhecida. [Gap, Edge Case, Spec §Edge Cases, §FR-009]
+- [x] CHK026 As cinco cores de categoria **também** carregam outros papéis (`flame` destaque, `sun` faixa do topo, `mint` séries, `ink-blue` link inline, `ink` texto e borda). Existe requisito de que a categoria não seja comunicada **apenas por cor**? [Gap, Data-model §1.1, §1.5, Constitution §IV]
 
 ## Tipografia e comportamento de peso de fonte
 
-- [ ] CHK027 FR-004a define o comportamento quando o peso pedido não existe na família, **para Archivo Black**: só 400, proibido pedir 700/800, o navegador não pode sintetizar negrito. O requisito é explícito e completo para essa família? [Completeness, Spec §FR-004a]
-- [ ] CHK028 A mesma regra está definida para **Space Grotesk** (400/500/600/700) e **JetBrains Mono** (400/500/700)? Não há requisito sobre o que acontece se um componente pedir mono 600 ou Grotesk 300. [Gap, Spec §FR-004a]
-- [ ] CHK029 "O navegador MUST NOT ser levado a sintetizar negrito" é um **resultado**. Existe critério verificável ou mecanismo exigido (p. ex. `font-synthesis`) que permita reprovar objetivamente? [Measurability, Spec §FR-004a]
-- [ ] CHK030 Existe requisito para o **carregamento falho ou lento** das três famílias — pilha de fonte alternativa, comportamento de troca, deslocamento de layout? [Gap, Spec §FR-004, §FR-004a]
-- [ ] CHK031 O mapeamento **papel → família** de FR-004 é exaustivo e sem sobreposição? `--text-micro-cap` é ligado a Archivo Black apenas no `data-model`; FR-003 não declara família para ele. [Traceability, Spec §FR-003, §FR-004, Data-model §1.2]
-- [ ] CHK032 FR-004a exige que "os tokens de display declarem `font-weight: 400`", mas **nenhum token de peso** consta do inventário de tipografia. O peso vive dentro do token de texto? Está especificado? [Ambiguity, Spec §FR-004a, Data-model §1.2]
+- [x] CHK027 FR-004a define o comportamento quando o peso pedido não existe na família, **para Archivo Black**: só 400, proibido pedir 700/800, o navegador não pode sintetizar negrito. O requisito é explícito e completo para essa família? [Completeness, Spec §FR-004a]
+- [x] CHK028 A mesma regra está definida para **Space Grotesk** (400/500/600/700) e **JetBrains Mono** (400/500/700)? Não há requisito sobre o que acontece se um componente pedir mono 600 ou Grotesk 300. [Gap, Spec §FR-004a]
+- [x] CHK029 "O navegador MUST NOT ser levado a sintetizar negrito" é um **resultado**. Existe critério verificável ou mecanismo exigido (p. ex. `font-synthesis`) que permita reprovar objetivamente? [Measurability, Spec §FR-004a]
+- [x] CHK030 Existe requisito para o **carregamento falho ou lento** das três famílias — pilha de fonte alternativa, comportamento de troca, deslocamento de layout? [Gap, Spec §FR-004, §FR-004a]
+- [x] CHK031 O mapeamento **papel → família** de FR-004 é exaustivo e sem sobreposição? `--text-micro-cap` é ligado a Archivo Black apenas no `data-model`; FR-003 não declara família para ele. [Traceability, Spec §FR-003, §FR-004, Data-model §1.2]
+- [x] CHK032 FR-004a exige que "os tokens de display declarem `font-weight: 400`", mas **nenhum token de peso** consta do inventário de tipografia. O peso vive dentro do token de texto? Está especificado? [Ambiguity, Spec §FR-004a, Data-model §1.2]
 - [x] CHK033 FR-004 exige a remoção de `--font-jakarta`, mas **SC-005 mede só os "vinte tokens aubergine"**. Está definido se `--font-jakarta` está entre eles e, portanto, se sua remoção é mensurável por SC-005? [Gap, Spec §FR-004, §SC-005]
 
 ## Exclusão de modo escuro e superfícies escuras
 
 - [x] CHK034 A exclusão de FR-010 enumera os três mecanismos proibidos (token de tema escuro, seletor por classe/atributo/`prefers-color-scheme`, alternador). A enumeração cobre **todos** os tokens, ou só os de cor? [Coverage, Spec §FR-010]
-- [ ] CHK035 `code-bg` sobrevive como "superfície de bloco de código e de variante escura de card dentro do tema claro". Os requisitos deixam **inequívoco** que uma superfície escura não constitui tema, e quais tokens podem pousar sobre ela? [Clarity, Spec §FR-010, §FR-023, Data-model §1.1]
-- [ ] CHK036 Existe requisito definindo **a cor do texto sobre as superfícies escuras** (`ink`, `code-bg`) por token nomeado? FR-041 exige 4,5:1 nelas, mas nenhum token de texto claro é declarado. [Gap, Spec §FR-041, §FR-023, §FR-001]
-- [ ] CHK037 Existe requisito sobre o **comportamento quando o sistema operacional está em modo escuro** — declaração de `color-scheme`, controles de formulário e barras de rolagem que o navegador pode escurecer sozinho? [Gap, Edge Case, Spec §FR-010]
+- [x] CHK035 `code-bg` sobrevive como "superfície de bloco de código e de variante escura de card dentro do tema claro". Os requisitos deixam **inequívoco** que uma superfície escura não constitui tema, e quais tokens podem pousar sobre ela? [Clarity, Spec §FR-010, §FR-023, Data-model §1.1]
+- [x] CHK036 Existe requisito definindo **a cor do texto sobre as superfícies escuras** (`ink`, `code-bg`) por token nomeado? FR-041 exige 4,5:1 nelas, mas nenhum token de texto claro é declarado. [Gap, Spec §FR-041, §FR-023, §FR-001]
+- [x] CHK037 Existe requisito sobre o **comportamento quando o sistema operacional está em modo escuro** — declaração de `color-scheme`, controles de formulário e barras de rolagem que o navegador pode escurecer sozinho? [Gap, Edge Case, Spec §FR-010]
 - [x] CHK038 A decisão de ignorar a seção "05 · MODO ESCURO" do artboard `Sistema` está registrada como **requisito** ou apenas em Assumptions e em `research.md` R9? [Traceability, Spec §Assumptions, Research §R9]
 
 ## Documentação do design system (DESIGN.md)
 
-- [ ] CHK039 FR-011a exige criar `DESIGN.md` "com as entradas dos tokens de FR-001 a FR-010", mas **não define o que uma entrada precisa conter** (nome, valor, uso, contraste?). O requisito é executável sem inventar um formato? [Clarity, Spec §FR-011a, Constitution §I]
-- [ ] CHK040 A constituição exige correspondência **bidirecional** (token sem entrada é violação; entrada sem token também). Existe critério verificável dessa bidirecionalidade, ou ela depende de leitura manual? [Measurability, Constitution §I, Spec §FR-011]
+- [x] CHK039 FR-011a exige criar `DESIGN.md` "com as entradas dos tokens de FR-001 a FR-010", mas **não define o que uma entrada precisa conter** (nome, valor, uso, contraste?). O requisito é executável sem inventar um formato? [Clarity, Spec §FR-011a, Constitution §I]
+- [x] CHK040 A constituição exige correspondência **bidirecional** (token sem entrada é violação; entrada sem token também). Existe critério verificável dessa bidirecionalidade, ou ela depende de leitura manual? [Measurability, Constitution §I, Spec §FR-011]
 - [x] CHK041 **Conflito aparente**: FR-011a diz que `DESIGN.md` é "onde a ausência da paleta aubergine é registrada", e SC-005 exige "**zero menção** [à paleta anterior] em `DESIGN.md`". Registrar a ausência sem nomear os tokens é possível? Os dois requisitos são compatíveis como estão escritos? [Conflict, Spec §FR-011a, §SC-005]
-- [ ] CHK042 FR-011 exige atualizar a documentação "no mesmo commit" em que um token muda. Existe critério objetivo para reprovar um commit que não o faça, ou é regra sem instrumento? [Measurability, Spec §FR-011]
+- [x] CHK042 FR-011 exige atualizar a documentação "no mesmo commit" em que um token muda. Existe critério objetivo para reprovar um commit que não o faça, ou é regra sem instrumento? [Measurability, Spec §FR-011]
 
 ## Consistência entre spec, plan, data-model e contracts
 
 - [x] CHK043 A **contagem de tokens** bate entre os artefatos? O plano diz "12 de cor + **6 de tipografia** + 7 de forma"; `data-model` §1.2 lista **oito** linhas de tipografia (cinco escalas + três famílias). [Consistency, Plan §Technical Context, Data-model §1.2]
 - [x] CHK044 FR-002 e SC-005 falam em "**vinte** tokens aubergine", mas SC-005 nomeia só três e fecha com "e os demais". A lista completa está enumerada em algum lugar, de modo que "nenhum permanece" seja objetivamente verificável? [Measurability, Spec §FR-002, §SC-005]
-- [ ] CHK045 SC-005 proíbe token "apenas renomeado mantendo o valor". Existe critério que distinga **renomeio disfarçado** de coincidência legítima de valor entre a paleta velha e a nova? [Clarity, Spec §SC-005]
-- [ ] CHK046 SC-004 cobre "toda cor, tamanho de texto, raio e sombra", enquanto a constituição proíbe "**nenhum `px` avulso**". Dimensões como 44px de alvo, 74px da aba, 68/64px do header e 48/40px do botão ficam fora de SC-004 — a divergência de escopo é deliberada e está registrada? [Consistency, Spec §SC-004, Constitution §I]
-- [ ] CHK047 `contracts/components.md` §Camada 1 descreve a entrega de tokens como "estrutura `:root` + `@theme inline` **preservada**, só os valores trocam". Esse é um requisito da spec ou uma restrição introduzida só no contrato? [Traceability, Contracts §Camada 1, Spec §FR-001]
+- [x] CHK045 SC-005 proíbe token "apenas renomeado mantendo o valor". Existe critério que distinga **renomeio disfarçado** de coincidência legítima de valor entre a paleta velha e a nova? [Clarity, Spec §SC-005]
+- [x] CHK046 SC-004 cobre "toda cor, tamanho de texto, raio e sombra", enquanto a constituição proíbe "**nenhum `px` avulso**". Dimensões como 44px de alvo, 74px da aba, 68/64px do header e 48/40px do botão ficam fora de SC-004 — a divergência de escopo é deliberada e está registrada? [Consistency, Spec §SC-004, Constitution §I]
+- [x] CHK047 `contracts/components.md` §Camada 1 descreve a entrega de tokens como "estrutura `:root` + `@theme inline` **preservada**, só os valores trocam". Esse é um requisito da spec ou uma restrição introduzida só no contrato? [Traceability, Contracts §Camada 1, Spec §FR-001]
 
 ## Notes
 
