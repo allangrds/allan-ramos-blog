@@ -262,16 +262,36 @@ claro**, não temas.
 
 ## 12 · Bloco `/* LEGADO */` — só encolhe (FR-002a, FR-002b)
 
-Quinze tokens do sistema anterior **sem sucessor** na identidade nova sobrevivem num bloco marcado
-`/* LEGADO */` em `globals.css`, para que os componentes ainda não re-estilizados compilem:
+Quinze tokens do sistema anterior **sem sucessor** na identidade nova sobreviveram num bloco
+marcado `/* LEGADO */` em `globals.css`, para que os componentes ainda não re-estilizados
+compilassem. **Onze já saíram** na T046, por terem ficado órfãos:
 
-`--text-display-xl` · `--text-display-lg` · `--text-heading-lg` · `--text-heading-sm` ·
-`--text-body-md` · `--text-body-strong` · `--text-button-lg` · `--text-button-md` ·
-`--text-button-cap` · `--text-caption` · `--radius-xs` · `--radius-xxl` · `--shadow-sm` ·
-`--shadow-md` · `--shadow-lg`
+~~`--text-display-xl`~~ · ~~`--text-display-lg`~~ · ~~`--text-button-lg`~~ ·
+~~`--text-button-md`~~ · ~~`--text-button-cap`~~ · ~~`--text-caption`~~ · ~~`--radius-xs`~~ ·
+~~`--radius-xxl`~~ · ~~`--shadow-sm`~~ · ~~`--shadow-md`~~ · ~~`--shadow-lg`~~
+
+**Quatro permanecem, e o bloco NÃO pôde ser removido do arquivo:**
+
+`--text-heading-lg` · `--text-heading-sm` · `--text-body-md` · `--text-body-strong`
+
+Os únicos consumidores que restam estão todos em arquivo que esta feature é **proibida** de
+alterar — 24 usos, medidos em 2026-09-29:
+
+| Consumidor | Usos | Congelado por |
+|---|---|---|
+| `src/app/**` (8 rotas + `not-found`) | 16 | SC-011/SC-014 |
+| `src/lib/mdx.tsx` | 7 | SC-011/SC-014 |
+| `src/components/SearchBox/SearchBox.tsx` | 4 | SC-013 (zero linha) |
+
+Removê-los faria as onze rotas perderem a escala tipográfica, caindo no padrão do navegador — e
+esse é o **único** ponto em que FR-002b (bloco vazio e removido) colide de frente com SC-011,
+SC-013 e SC-014. O escopo prevaleceu, como §13 já decidiu para o caso análogo do `SearchBox`.
+**A feature das rotas fecha esta dívida**: ao re-estilizar `src/app/**` e `src/lib/mdx.tsx` e
+remover o `SearchBox`, os quatro ficam órfãos e o bloco sai do arquivo.
 
 **Regras do bloco:** só encolhe; cada tarefa de componente remove os que aquele componente deixou de
-usar; **token novo MUST NOT ser adicionado**; e a T046 exige o bloco **vazio** e o remove do arquivo.
+usar; **token novo MUST NOT ser adicionado**; e a T046 exigia o bloco **vazio** e a remoção do
+arquivo — cumprida na parte que o escopo permitia, com os quatro restantes registrados acima.
 Enquanto o bloco existe, token legado **em uso** não conta como violação de FR-007 nem de SC-004 —
 token legado **sem** uso conta, e sai pela tarefa que o órfãou.
 

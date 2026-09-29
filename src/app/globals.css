@@ -87,14 +87,6 @@
      cada tarefa de componente remove os que aquele componente deixou de usar,
      e a T046 exige o bloco vazio e o remove do arquivo (FR-002b, SC-005a).
      Token novo MUST NOT ser adicionado aqui.                              */
-  --text-display-xl: 58px;
-  --text-display-xl--line-height: 1.25;
-  --text-display-xl--letter-spacing: -0.464px;
-  --text-display-xl--font-weight: 600;
-  --text-display-lg: 50px;
-  --text-display-lg--line-height: 1.12;
-  --text-display-lg--letter-spacing: -0.6px;
-  --text-display-lg--font-weight: 700;
   --text-heading-lg: 24px;
   --text-heading-lg--line-height: 1.33;
   --text-heading-lg--letter-spacing: -0.096px;
@@ -109,25 +101,6 @@
   --text-body-strong--line-height: 1.5;
   --text-body-strong--letter-spacing: 0.16px;
   --text-body-strong--font-weight: 700;
-  --text-button-lg: 18px;
-  --text-button-lg--line-height: 1;
-  --text-button-lg--font-weight: 700;
-  --text-button-md: 16px;
-  --text-button-md--line-height: 1.38;
-  --text-button-md--letter-spacing: 0.2px;
-  --text-button-md--font-weight: 700;
-  --text-button-cap: 14.4px;
-  --text-button-cap--line-height: 1;
-  --text-button-cap--letter-spacing: 0.144px;
-  --text-button-cap--font-weight: 700;
-  --text-caption: 14px;
-  --text-caption--line-height: 1.43;
-  --text-caption--letter-spacing: 0.1px;
-  --radius-xs: 2px;
-  --radius-xxl: 48px;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
   /* ── fim LEGADO ───────────────────────────────────────────────────────── */
 }
 

@@ -1315,7 +1315,7 @@ e o rodapé, nas duas larguras.
 
 ## Phase 8: Polish & Cross-Cutting
 
-- [ ] T046 Esvaziar e remover o bloco `/* LEGADO */` e a seção de valores provisórios — `src/app/globals.css`, `DESIGN.md`
+- [~] T046 PARCIAL — 11 dos 15 tokens legados removidos; 4 bloqueados pelo escopo congelado (ver `DESIGN.md` §12). Bloco `/* LEGADO */` e seção de valores provisórios — `src/app/globals.css`, `DESIGN.md`
   - **Artboard**: nenhum. Fechamento de dívida declarada.
   - O bloco `/* LEGADO */` criado na T002 **só encolhe**: cada tarefa de componente removeu os
     órfãos que aquele componente usava. Esta tarefa exige o bloco **vazio** e o **remove do
