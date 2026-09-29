@@ -1300,7 +1300,7 @@ e o rodapé, nas duas larguras.
     resultado **e** vazia; EC-11 com índice vazio.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T045 [US7] Portão 6 da Camada 6 — execução limpa nas onze rotas, em `dev` e em produção
+- [X] T045 [US7] Portão 6 da Camada 6 — execução limpa nas onze rotas, em `dev` e em produção
   - Procedimento: `GATES.md` §6. **O que esta camada exercita**: `Footer`, composto por **todas**
     as rotas. `CommandPalette` e `EmptyState` **não são alcançados por rota nenhuma**.
   - **Verificação específica**: `/search` continua funcionando com o `SearchBox` **antigo** e
