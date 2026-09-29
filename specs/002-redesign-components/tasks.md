@@ -1216,7 +1216,7 @@ dado (SC-015). Formas de dado em [data-model.md](./data-model.md) §2.
   - **Teste**: ausência de vizinho omite o lado correspondente sem deixar lacuna; links reais.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T040 [P] [US6] `LikeCommentBar` — `src/components/LikeCommentBar/LikeCommentBar.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T040 [P] [US6] `LikeCommentBar` — `src/components/LikeCommentBar/LikeCommentBar.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `04 · DENTRO DO POST`, card **`LikeCommentBar`**. Sem
     card no `ComponentesMobile`; 390px em `MobilePost.dc.html`.
   - **Estados**: contagens zeradas; contagens com valor.
