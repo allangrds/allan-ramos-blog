@@ -1348,7 +1348,7 @@ e o rodapé, nas duas larguras.
     "Removidos" que SC-005 autoriza e a de "Cores de marca e de sistema".
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T048 Portão 6 final da feature — as onze rotas, em `dev` e em `build && start`
+- [X] T048 Portão 6 final da feature — as onze rotas, em `dev` e em `build && start`
   - **Artboard**: nenhum. É o portão exigido "uma vez mais ao fim da feature" (§Cadência).
   - **Subir em desenvolvimento** e abrir as onze rotas, nesta ordem:
 
