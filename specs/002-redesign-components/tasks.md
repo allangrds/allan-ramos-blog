@@ -1274,7 +1274,7 @@ e o rodapé, nas duas larguras.
   - **Teste**: links reais; alvo ≥44px em cada um.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T044 [US7] `CommandPalette` e a ligação com o `SearchTrigger` — `src/components/CommandPalette/CommandPalette.tsx`, `.stories.tsx`, `.test.tsx`, `src/components/Header/SearchTrigger.tsx`
+- [X] T044 [US7] `CommandPalette` e a ligação com o `SearchTrigger` — `src/components/CommandPalette/CommandPalette.tsx`, `.stories.tsx`, `.test.tsx`, `src/components/Header/SearchTrigger.tsx`
   - **Artboard**: `Componentes.dc.html` → `05 · BUSCA, VAZIO E RODAPÉ`, card **`CommandPalette`**
     (com o `<kbd>⌘K</kbd>`) · `ComponentesMobile.dc.html` → `BUSCA, VAZIO E RODAPÉ`, card
     **`CommandPalette`** · contexto em `MobileExplorar.dc.html`, seção `BUSCA`.
