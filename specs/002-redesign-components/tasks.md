@@ -1228,7 +1228,7 @@ dado (SC-015). Formas de dado em [data-model.md](./data-model.md) §2.
   - **Teste**: as contagens exibidas são exatamente as recebidas; nenhuma escrita, nenhuma rede.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T041 [US6] Portão 6 da Camada 5 — execução limpa nas onze rotas, em `dev` e em produção
+- [X] T041 [US6] Portão 6 da Camada 5 — execução limpa nas onze rotas, em `dev` e em produção
   - Procedimento: `GATES.md` §6. **`/posts/<slug>` é a rota mais densa em Client Components** da
     feature: `Toc`, `CodeBlock`, `CopyButton`, `CopyLinkButton`, `ShareButtons` e `PostContent`
     estão todos nela. Procurar ativamente hydration mismatch, `"use client"` faltando, import de
