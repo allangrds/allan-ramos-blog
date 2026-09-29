@@ -1327,7 +1327,7 @@ e o rodapé, nas duas larguras.
     não contava como violação de FR-007 nem de SC-004.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T047 Auditoria por grep dos critérios verificáveis por comando — sem arquivo de produção
+- [X] T047 Auditoria por grep dos critérios verificáveis por comando — sem arquivo de produção
   - **Artboard**: nenhum.
   - **SC-004 régua 1**: `grep -rnE '#[0-9a-fA-F]{3,8}' src/components/` → **vazio**, sem exceção.
     `brand-linkedin` é token, o branco é `--color-white`, e os SVG de marca são caminhos sem cor.
