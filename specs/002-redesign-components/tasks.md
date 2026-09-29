@@ -1166,7 +1166,7 @@ dado (SC-015). Formas de dado em [data-model.md](./data-model.md) §2.
   - **Teste de interação**: clique → "copiado"; EC-08 pelo dublê.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T036 [US6] `ShareButtons` — `src/components/ShareButtons/ShareButtons.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T036 [US6] `ShareButtons` — `src/components/ShareButtons/ShareButtons.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `04 · DENTRO DO POST`, card **`ShareButtons`** ·
     `ComponentesMobile.dc.html` → `DENTRO DO POST`, card **`ShareButtons`**.
   - 🔒 **Contrato congelado**: `{ url, title }`.
