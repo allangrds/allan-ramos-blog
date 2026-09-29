@@ -1196,7 +1196,7 @@ dado (SC-015). Formas de dado em [data-model.md](./data-model.md) §2.
   - **Teste**: os três tipos produzem marcação semântica distinta (`<blockquote>` para citação).
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T038 [P] [US6] `AuthorCard` — `src/components/AuthorCard/AuthorCard.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T038 [P] [US6] `AuthorCard` — `src/components/AuthorCard/AuthorCard.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `04 · DENTRO DO POST`, card **`AuthorCard`**. Sem card
     no `ComponentesMobile`; 390px em `MobilePost.dc.html`.
   - **Estados**: com e sem contagem de palavras.
