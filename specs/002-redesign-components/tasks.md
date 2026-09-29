@@ -1187,7 +1187,7 @@ dado (SC-015). Formas de dado em [data-model.md](./data-model.md) §2.
     primeiros são `<a href>`; alvo ≥44px.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T037 [P] [US6] `Callout` — `src/components/Callout/Callout.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T037 [P] [US6] `Callout` — `src/components/Callout/Callout.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `04 · DENTRO DO POST`, card **`Callout`**. Sem card no
     `ComponentesMobile`; 390px sai de `MobilePost.dc.html`.
   - **Estados**: os **três** tipos — **nota do autor**, **citação**, **item de checklist**
