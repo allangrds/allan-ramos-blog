@@ -1254,7 +1254,7 @@ e o rodapé, nas duas larguras.
 **Todos são Server Components, exceto o nomeado** (`contracts/components.md`): `CommandPalette` é
 **C** por estado do campo de busca e escuta de teclado.
 
-- [ ] T042 [P] [US7] `EmptyState` — `src/components/EmptyState/EmptyState.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T042 [P] [US7] `EmptyState` — `src/components/EmptyState/EmptyState.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `05 · BUSCA, VAZIO E RODAPÉ`, card **`EmptyState`** ·
     `ComponentesMobile.dc.html` → `BUSCA, VAZIO E RODAPÉ`, card **`EmptyState`** · contexto em
     `MobileSerie.dc.html`, seção `PRÓXIMA SÉRIE` ("o card vazio é um convite").
