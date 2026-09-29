@@ -1207,7 +1207,7 @@ dado (SC-015). Formas de dado em [data-model.md](./data-model.md) §2.
     contagem são exibidos como recebidos, nunca calculados (SC-015); compõe `Avatar`.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T039 [P] [US6] `PrevNext` — `src/components/PrevNext/PrevNext.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T039 [P] [US6] `PrevNext` — `src/components/PrevNext/PrevNext.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `04 · DENTRO DO POST`, card **`PrevNext`**. Sem card no
     `ComponentesMobile`; 390px em `MobilePost.dc.html`.
   - **Estados**: com os dois vizinhos; só anterior; só próximo (primeiro e último post da lista).
