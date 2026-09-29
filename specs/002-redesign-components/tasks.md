@@ -1265,7 +1265,7 @@ e o rodapé, nas duas larguras.
   - **Teste**: o DOM **não contém** "0 resultados" nem equivalente, em nenhum estado.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T043 [P] [US7] `Footer` (re-estilização) — `src/components/Footer/Footer.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T043 [P] [US7] `Footer` (re-estilização) — `src/components/Footer/Footer.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `05 · BUSCA, VAZIO E RODAPÉ`, card **`Footer`** ·
     `ComponentesMobile.dc.html` → `BUSCA, VAZIO E RODAPÉ`, card **`Footer`**.
   - 🔒 **Contrato congelado**: `Footer()` — sem props.
