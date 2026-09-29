@@ -1137,7 +1137,7 @@ dado (SC-015). Formas de dado em [data-model.md](./data-model.md) §2.
   - **Teste de interação**: clique → estado "copiado" com retorno visível; EC-08 pelo dublê.
   - **Portões**: `npm run lint && npm run typecheck && npm run test && npx vitest run --project storybook && npm run build`
 
-- [ ] T034 [P] [US6] `Toc` — `src/components/Toc/Toc.tsx`, `.stories.tsx`, `.test.tsx`
+- [X] T034 [P] [US6] `Toc` — `src/components/Toc/Toc.tsx`, `.stories.tsx`, `.test.tsx`
   - **Artboard**: `Componentes.dc.html` → `04 · DENTRO DO POST`, card **`Toc`** ·
     `ComponentesMobile.dc.html` → `DENTRO DO POST`, card **`Toc`** · contexto em
     `MobilePost.dc.html`, seção **`SUMÁRIO`**.
